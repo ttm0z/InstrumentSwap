@@ -1,0 +1,37 @@
+/* CategoryCard.css */
+
+.category-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    flex-shrink: 0; /* Prevent the card from shrinking */
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.category-card h2 {
+    margin-top: 0;
+}
+
+.category-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.category-card li {
+    margin: 8px 0;
+}
+
+.category-card-image {
+    width: 100px; /* Set width to 50px */
+    height: 100px; /* Set height to 50px */
+    border-radius: 8px;
+    margin-bottom: 16px;
+}

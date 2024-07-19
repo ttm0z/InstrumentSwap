@@ -16,6 +16,12 @@ const NavBar = () => {
                 <li>
                     <Link to="/user">Profile</Link>
                 </li>
+                <li>
+                <Link to="/frontpage_prototype">frontpage prototype</Link>        
+                </li>
+
+                
+
             </ul>
         </nav>
     );
