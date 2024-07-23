@@ -1,11 +1,22 @@
+
+// authService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+// Optionally set a base URL if Django is on a different port
+const api = axios.create({
+    baseURL: 'http://localhost:8000'
+});
 
 export const register = (username, email, password) => {
-    return axios.post(`${API_URL}/register/`, {username, email, password});
-}
+    return api.post('/api/register/', {
+        username,
+        email,
+        password
+    });
+};
 
 export const login = (username, password) => {
-    return axios.post(`${API_URL}/login/`, {username, password});
-}
+    return api.post('/api/login/', {
+        username, password
+    });
+};

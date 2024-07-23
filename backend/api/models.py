@@ -50,7 +50,7 @@ class Listing(models.Model):
     condition = models.CharField(max_length=50, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     swap = models.BooleanField(default=False)
-    images = models.ImageField(upload_to='listing_pictures/', blank=True, null=True)
+    images = models.ImageField(upload_to='listing_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=100, blank=True)
