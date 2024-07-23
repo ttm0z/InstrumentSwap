@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {login} from '../services/authService';
+import React, { useState } from 'react';
+import { login } from '../services/authService';
+import './Auth.css'; // Import the CSS file
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -16,11 +17,22 @@ const Login = () => {
             });
     };
 
-    return(
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit">Log In</button>
+    return (
+        <form className="auth-form" onSubmit={handleSubmit}>
+            <h3 className="auth-header">Log In</h3>
+            <input 
+                type="text" 
+                placeholder="Username" 
+                className="auth-input" 
+                onChange={(e) => setUsername(e.target.value)} 
+            />
+            <input 
+                type="password" 
+                placeholder="Password" 
+                className="auth-input" 
+                onChange={(e) => setPassword(e.target.value)} 
+            />
+            <button type="submit" className="auth-button">Log In</button>
         </form>
     );
 };

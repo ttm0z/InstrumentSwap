@@ -1,0 +1,362 @@
+[
+    {
+        "model": "api.listing",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "title": "Vintage Fender Stratocaster",
+            "description": "A 1965 Fender Stratocaster in excellent condition. Comes with original case.",
+            "category": "guitar",
+            "condition": "excellent",
+            "price": 2500.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/stratocaster1.jpg"],
+            "created_at": "2024-07-01T12:00:00Z",
+            "updated_at": "2024-07-01T12:00:00Z",
+            "location": "Boston, MA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "title": "Roland TD-17 Electronic Drum Kit",
+            "description": "An almost new Roland TD-17 electronic drum kit with extra drum pads.",
+            "category": "drums",
+            "condition": "new",
+            "price": 1200.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/roland_td17.jpg"],
+            "created_at": "2024-07-02T12:00:00Z",
+            "updated_at": "2024-07-02T12:00:00Z",
+            "location": "Los Angeles, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "title": "Gibson Les Paul Standard",
+            "description": "Gibson Les Paul Standard with a custom finish. Slightly used.",
+            "category": "guitar",
+            "condition": "used",
+            "price": 1800.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/les_paul.jpg"],
+            "created_at": "2024-07-03T12:00:00Z",
+            "updated_at": "2024-07-03T12:00:00Z",
+            "location": "San Francisco, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "title": "Behringer Xenyx Mixer",
+            "description": "Behringer Xenyx mixer with 12 channels. In good condition.",
+            "category": "mixer",
+            "condition": "good",
+            "price": 150.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/xenyx_mixer.jpg"],
+            "created_at": "2024-07-04T12:00:00Z",
+            "updated_at": "2024-07-04T12:00:00Z",
+            "location": "Chicago, IL, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "title": "Yamaha P-125 Digital Piano",
+            "description": "Yamaha P-125 digital piano with stand and pedals. Lightly used.",
+            "category": "piano",
+            "condition": "used",
+            "price": 500.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/yamaha_p125.jpg"],
+            "created_at": "2024-07-05T12:00:00Z",
+            "updated_at": "2024-07-05T12:00:00Z",
+            "location": "Houston, TX, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "title": "Korg Volca Keys Synthesizer",
+            "description": "Compact Korg Volca Keys synthesizer with original box.",
+            "category": "synthesizer",
+            "condition": "new",
+            "price": 150.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/korg_volca_keys.jpg"],
+            "created_at": "2024-07-06T12:00:00Z",
+            "updated_at": "2024-07-06T12:00:00Z",
+            "location": "Miami, FL, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 7,
+        "fields": {
+            "user": 7,
+            "title": "Fender American Professional II Jazz Bass",
+            "description": "American Professional II Jazz Bass with upgraded pickups.",
+            "category": "bass",
+            "condition": "excellent",
+            "price": 1600.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/jazz_bass.jpg"],
+            "created_at": "2024-07-07T12:00:00Z",
+            "updated_at": "2024-07-07T12:00:00Z",
+            "location": "Seattle, WA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 8,
+        "fields": {
+            "user": 1,
+            "title": "Marshall JCM800 Guitar Amp",
+            "description": "Marshall JCM800 guitar amp head with footswitch.",
+            "category": "amp",
+            "condition": "used",
+            "price": 800.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/marshall_jcm800.jpg"],
+            "created_at": "2024-07-08T12:00:00Z",
+            "updated_at": "2024-07-08T12:00:00Z",
+            "location": "Boston, MA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 9,
+        "fields": {
+            "user": 2,
+            "title": "Ibanez RG550 Electric Guitar",
+            "description": "Ibanez RG550 with DiMarzio pickups. Excellent playability.",
+            "category": "guitar",
+            "condition": "excellent",
+            "price": 900.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/ibanez_rg550.jpg"],
+            "created_at": "2024-07-09T12:00:00Z",
+            "updated_at": "2024-07-09T12:00:00Z",
+            "location": "Los Angeles, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 10,
+        "fields": {
+            "user": 3,
+            "title": "Zoom H6 Handy Recorder",
+            "description": "Zoom H6 handy recorder with accessories. Perfect for field recording.",
+            "category": "accessory",
+            "condition": "new",
+            "price": 300.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/zoom_h6.jpg"],
+            "created_at": "2024-07-10T12:00:00Z",
+            "updated_at": "2024-07-10T12:00:00Z",
+            "location": "San Francisco, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 11,
+        "fields": {
+            "user": 4,
+            "title": "Gator Cases Bass Guitar Case",
+            "description": "Gator Cases bass guitar case. Heavy-duty and protective.",
+            "category": "accessory",
+            "condition": "good",
+            "price": 120.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/gator_case.jpg"],
+            "created_at": "2024-07-11T12:00:00Z",
+            "updated_at": "2024-07-11T12:00:00Z",
+            "location": "Chicago, IL, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 12,
+        "fields": {
+            "user": 5,
+            "title": "Akai MPK Mini Mk3 Controller",
+            "description": "Akai MPK Mini Mk3 MIDI controller. Great for home studios.",
+            "category": "accessory",
+            "condition": "new",
+            "price": 100.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/akai_mpk_mini.jpg"],
+            "created_at": "2024-07-12T12:00:00Z",
+            "updated_at": "2024-07-12T12:00:00Z",
+            "location": "Houston, TX, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 13,
+        "fields": {
+            "user": 6,
+            "title": "Moog Sub 37 Analog Synthesizer",
+            "description": "Moog Sub 37 analog synthesizer with original box.",
+            "category": "synthesizer",
+            "condition": "used",
+            "price": 800.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/moog_sub37.jpg"],
+            "created_at": "2024-07-13T12:00:00Z",
+            "updated_at": "2024-07-13T12:00:00Z",
+            "location": "Miami, FL, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 14,
+        "fields": {
+            "user": 7,
+            "title": "Epiphone Dot Semi-Hollow",
+            "description": "Epiphone Dot semi-hollow guitar in sunburst finish. Includes hard case.",
+            "category": "guitar",
+            "condition": "good",
+            "price": 500.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/epiphone_dot.jpg"],
+            "created_at": "2024-07-14T12:00:00Z",
+            "updated_at": "2024-07-14T12:00:00Z",
+            "location": "Seattle, WA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 15,
+        "fields": {
+            "user": 1,
+            "title": "Audio-Technica AT2020 Microphone",
+            "description": "Audio-Technica AT2020 studio microphone, lightly used.",
+            "category": "accessory",
+            "condition": "used",
+            "price": 80.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/at2020.jpg"],
+            "created_at": "2024-07-15T12:00:00Z",
+            "updated_at": "2024-07-15T12:00:00Z",
+            "location": "Boston, MA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 16,
+        "fields": {
+            "user": 2,
+            "title": "TC Electronic Hall of Fame Reverb",
+            "description": "TC Electronic Hall of Fame reverb pedal in great condition.",
+            "category": "effect",
+            "condition": "good",
+            "price": 120.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/hall_of_fame.jpg"],
+            "created_at": "2024-07-16T12:00:00Z",
+            "updated_at": "2024-07-16T12:00:00Z",
+            "location": "Los Angeles, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 17,
+        "fields": {
+            "user": 3,
+            "title": "Mackie CR3 Studio Monitors",
+            "description": "Mackie CR3 studio monitors with stands. Excellent sound quality.",
+            "category": "accessory",
+            "condition": "new",
+            "price": 150.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/mackie_cr3.jpg"],
+            "created_at": "2024-07-17T12:00:00Z",
+            "updated_at": "2024-07-17T12:00:00Z",
+            "location": "San Francisco, CA, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 18,
+        "fields": {
+            "user": 4,
+            "title": "Line 6 Helix Guitar Processor",
+            "description": "Line 6 Helix guitar processor with custom presets.",
+            "category": "effect",
+            "condition": "excellent",
+            "price": 600.00,
+            "swap": true,
+            "images": ["http://example.com/listing_images/line6_helix.jpg"],
+            "created_at": "2024-07-18T12:00:00Z",
+            "updated_at": "2024-07-18T12:00:00Z",
+            "location": "Chicago, IL, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 19,
+        "fields": {
+            "user": 5,
+            "title": "Arturia MiniLab MkII Controller",
+            "description": "Arturia MiniLab MkII MIDI controller. Excellent condition.",
+            "category": "accessory",
+            "condition": "new",
+            "price": 90.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/arturia_minilab.jpg"],
+            "created_at": "2024-07-19T12:00:00Z",
+            "updated_at": "2024-07-19T12:00:00Z",
+            "location": "Houston, TX, USA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 20,
+        "fields": {
+            "user": 6,
+            "title": "Fender Telecaster Deluxe",
+            "description": "Fender Telecaster Deluxe with custom pickups. Very good condition.",
+            "category": "guitar",
+            "condition": "used",
+            "price": 1400.00,
+            "swap": false,
+            "images": ["http://example.com/listing_images/telecaster_deluxe.jpg"],
+            "created_at": "2024-07-20T12:00:00Z",
+            "updated_at": "2024-07-20T12:00:00Z",
+            "location": "Miami, FL, USA",
+            "status": "active"
+        }
+    }
+]

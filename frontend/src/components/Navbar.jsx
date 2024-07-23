@@ -19,6 +19,12 @@ const NavBar = () => {
                 <li>
                 <Link to="/frontpage_prototype">frontpage prototype</Link>        
                 </li>
+                <li>
+                <Link to="/listings">Listings</Link>        
+                </li>
+                <li>
+                <Link to="/logintest">Login</Link>        
+                </li>
 
                 
 

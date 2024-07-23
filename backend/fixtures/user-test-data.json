@@ -1,0 +1,107 @@
+[
+    {
+        "model": "api.user",
+        "pk": 1,
+        "fields": {
+            "username": "chris_evans",
+            "email": "chris.evans@example.com",
+            "password_hash": "hashed_password8",
+            "first_name": "Chris",
+            "last_name": "Evans",
+            "location": "Boston, MA, USA",
+            "profile_picture": "http://example.com/profile_pictures/chris.jpg",
+            "created_at": "2024-07-01T12:00:00Z",
+            "updated_at": "2024-07-01T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 2,
+        "fields": {
+            "username": "scarlett_johansson",
+            "email": "scarlett.j@example.com",
+            "password_hash": "hashed_password9",
+            "first_name": "Scarlett",
+            "last_name": "Johansson",
+            "location": "Los Angeles, CA, USA",
+            "profile_picture": "http://example.com/profile_pictures/scarlett.jpg",
+            "created_at": "2024-07-02T12:00:00Z",
+            "updated_at": "2024-07-02T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 3,
+        "fields": {
+            "username": "alice_wong",
+            "email": "alice@example.com",
+            "password_hash": "hashed_password3",
+            "first_name": "Alice",
+            "last_name": "Wong",
+            "location": "San Francisco, CA, USA",
+            "profile_picture": "http://example.com/profile_pictures/alice.jpg",
+            "created_at": "2024-07-03T12:00:00Z",
+            "updated_at": "2024-07-03T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 4,
+        "fields": {
+            "username": "mike_jones",
+            "email": "mike@example.com",
+            "password_hash": "hashed_password4",
+            "first_name": "Mike",
+            "last_name": "Jones",
+            "location": "Chicago, IL, USA",
+            "profile_picture": "http://example.com/profile_pictures/mike.jpg",
+            "created_at": "2024-07-04T12:00:00Z",
+            "updated_at": "2024-07-04T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 5,
+        "fields": {
+            "username": "emma_brown",
+            "email": "emma@example.com",
+            "password_hash": "hashed_password5",
+            "first_name": "Emma",
+            "last_name": "Brown",
+            "location": "Houston, TX, USA",
+            "profile_picture": "http://example.com/profile_pictures/emma.jpg",
+            "created_at": "2024-07-05T12:00:00Z",
+            "updated_at": "2024-07-05T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 6,
+        "fields": {
+            "username": "david_clark",
+            "email": "david@example.com",
+            "password_hash": "hashed_password6",
+            "first_name": "David",
+            "last_name": "Clark",
+            "location": "Miami, FL, USA",
+            "profile_picture": "http://example.com/profile_pictures/david.jpg",
+            "created_at": "2024-07-06T12:00:00Z",
+            "updated_at": "2024-07-06T12:00:00Z"
+        }
+    },
+    {
+        "model": "api.user",
+        "pk": 7,
+        "fields": {
+            "username": "susan_lee",
+            "email": "susan@example.com",
+            "password_hash": "hashed_password7",
+            "first_name": "Susan",
+            "last_name": "Lee",
+            "location": "Seattle, WA, USA",
+            "profile_picture": "http://example.com/profile_pictures/susan.jpg",
+            "created_at": "2024-07-07T12:00:00Z",
+            "updated_at": "2024-07-07T12:00:00Z"
+        }
+    }
+]
