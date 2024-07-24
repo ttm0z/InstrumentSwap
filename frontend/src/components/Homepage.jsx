@@ -18,15 +18,15 @@ const Homepage = () => {
                 <li>Listing preview card</li>
                 <li>Provide service to fetch photos</li>
                 <li>Properly align frontpage</li>
-                <li>User Profile</li>
+                <li>User Profile (Dynamic)</li>
                 <li>Real time messaging feature</li>
             
             </ul>
             
             <ul>
-                <li>Resolve Django authentication issues</li>
                 <li>Develop API Endpoints</li>
                 <li>Update database schema design</li>
+                <li>Provide dynamic appearance based on authentication status</li>
             
             </ul>
             </div>

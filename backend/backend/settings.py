@@ -64,6 +64,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+]
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -118,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'api.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

@@ -7,6 +7,7 @@ const api = axios.create({
     baseURL: 'http://localhost:8000'
 });
 
+
 export const register = (username, email, password) => {
     return api.post('/api/register/', {
         username,

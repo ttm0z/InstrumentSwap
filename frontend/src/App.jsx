@@ -6,10 +6,12 @@ import Frontpage from './components/Frontpage';
 import Navbar from './components/Navbar';
 import ListingsPage from './components/ListingsPage';
 import AuthTest from './components/AuthTest';
+//import AuthProvider from './services/authService';
 import './App.css'; // Import the CSS file
 
 function App() {
     return (
+  //      <AuthProvider>
         <Router>
             <Navbar />
             <div className="app-container">
@@ -24,6 +26,7 @@ function App() {
                 </div>
             </div>
         </Router>
+    //    </AuthProvider>
     );
 }
 

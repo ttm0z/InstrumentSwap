@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, username, password, **extra_fields)
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
@@ -35,12 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     sell_history = models.ManyToManyField('Transaction', related_name='sell_history')
     listings = models.ManyToManyField('Listing', related_name='listings')
     
-    objects = UserManager()
 
-    USERNAME_FIELD = 'username'
-
-    def __str__(self):
-        return self.username
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)

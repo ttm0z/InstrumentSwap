@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+//import {AuthContext} from '../services/authContext'
 const NavBar = () => {
+    
+  //  const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
+    
     return (
         <nav className="navbar">
             <div className='top_bar'>
@@ -21,7 +24,10 @@ const NavBar = () => {
                         ></input>
                 </div>
                 <li>
+    
                     <Link to="/logintest">Login</Link>
+                    
+                    
                 </li>
             </ul>
             </div>
