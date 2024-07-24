@@ -1,7 +1,10 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import User, Listing, Transaction, Message, SearchHistory, Appraisal
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -37,7 +40,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['username', 'email', 'password']
 
     def create(self, validated_data):
         user = User.objects.create_user(

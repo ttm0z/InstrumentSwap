@@ -12,9 +12,11 @@ const Signup = () => {
         register(username, email, password)
             .then(response => {
                 console.log('Signup successful', response.data);
+                alert("Signup Successful");
             })
             .catch(error => {
                 console.error('Signup error', error);
+                alert("Signup Error");
             });
     };
 

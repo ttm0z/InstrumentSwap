@@ -11,9 +11,11 @@ const Login = () => {
         login(username, password)
             .then(response => {
                 console.log('Login successful', response.data);
+                alert("Login Successful");
             })
             .catch(error => {
                 console.error('Login error', error);
+                alert("Login Error");
             });
     };
 

@@ -5,30 +5,46 @@ import './Navbar.css';
 const NavBar = () => {
     return (
         <nav className="navbar">
-            <h1>InstrumentSwap</h1>
+            <div className='top_bar'>
             <ul>
+                <li><h1>I S</h1></li>
+                <div className='search'>
+                    <input
+                        type="search"
+                        name="form1"
+                        className="search_input"
+                        placeholder='Search'
+                        onChange={(e) => {
+                            //search;
+                            ;
+                        }}
+                        ></input>
+                </div>
                 <li>
-                    <Link to="/">Homepage</Link>
+                    <Link to="/logintest">Login</Link>
                 </li>
-                <li>
-                    <Link to="/dashboard">Dashboard</Link>
-                </li>
-                <li>
-                    <Link to="/user">Profile</Link>
-                </li>
-                <li>
-                <Link to="/frontpage_prototype">frontpage prototype</Link>        
-                </li>
-                <li>
-                <Link to="/listings">Listings</Link>        
-                </li>
-                <li>
-                <Link to="/logintest">Login</Link>        
-                </li>
-
-                
-
             </ul>
+            </div>
+
+            <ul className='bottom_bar'>
+                
+                <li>
+                    <Link to="/">Dashboard</Link>
+                </li>
+                
+                <li>
+                    <Link to="/frontpage_prototype">Frontpage</Link>        
+                </li>
+                
+                <li>
+                    <Link to="/listings">Listings</Link>        
+                </li>
+                
+                <li>
+                    <Link to="/logintest">Login</Link>        
+                </li>
+            </ul>
+
         </nav>
     );
 };

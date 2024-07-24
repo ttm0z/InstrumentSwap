@@ -3,12 +3,13 @@ from django.db import models
 # Create your models here.
 # api/models.py
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils.translation import gettext_lazy as _
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         if not email:
-            raise ValueError('The Email field must be set')
+            raise ValueError(_('The Email field must be set'))
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
@@ -18,14 +19,12 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
         return self.create_user(email, username, password, **extra_fields)
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
-    password_hash = models.CharField(max_length=255)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     location = models.CharField(max_length=100, blank=True)
@@ -35,11 +34,13 @@ class User(AbstractBaseUser):
     buy_history = models.ManyToManyField('Transaction', related_name='buy_history')
     sell_history = models.ManyToManyField('Transaction', related_name='sell_history')
     listings = models.ManyToManyField('Listing', related_name='listings')
-
+    
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+
+    def __str__(self):
+        return self.username
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)

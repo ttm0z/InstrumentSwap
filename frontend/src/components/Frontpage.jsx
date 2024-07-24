@@ -4,7 +4,7 @@ import './Frontpage.css'
 
 const Frontpage = () => {
     return (
-        <div>
+        <div className="container">
             
             <div>
                 <h3>Featured Items</h3>

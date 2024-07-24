@@ -4,6 +4,7 @@
     border: 1px solid #ddd;
     padding: 16px;
     margin: 16px;
+    background-color: rgb(225, 235, 243);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;

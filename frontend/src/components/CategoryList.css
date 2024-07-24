@@ -2,11 +2,10 @@
 
 .category-list-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     overflow: hidden; /* Ensure overflow is hidden */
-    width: 100%;
-    padding: 20px;
+    width: 100vw; /* Limit width to viewport width */
 }
 
 .category-list {
@@ -15,15 +14,16 @@
 }
 
 .category-card {
-    min-width: 200px;
-    margin-right: 20px;
-    flex-shrink: 0;
+    width: 200px; /* Fixed width for consistent card size */
+    height: 200px; /* Fixed height for consistent card shape */
+
+    
 }
 
 .carousel-arrow {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-33%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
@@ -34,9 +34,9 @@
 }
 
 .carousel-arrow.left {
-    left: 0;
+    left: 10px; /* Adjust positioning as needed */
 }
 
 .carousel-arrow.right {
-    right: 0;
+    right: 10px; /* Adjust positioning as needed */
 }

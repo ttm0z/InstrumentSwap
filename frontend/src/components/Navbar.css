@@ -1,20 +1,44 @@
 /* Navigation Bar Container */
 .navbar {
-    position: fixed; /* Fixed position to keep it at the top of the viewport */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
     top: 0;
     left: 0;
+}
+
+.top_bar {
     width: 100%;
-    background-color: #fff; /* Background color of the navbar */
-    color: #333; /* Text color */
-    padding: 10px 20px; /* Adjust padding for better spacing */
+    background-color: #faefef; /* Background color of the navbar */
+    color: #000000; /* Text color */
+    padding: 10px 10px 10px 20px; /* Adjust padding for better spacing */
+    box-shadow: 0 4px 2px -2px gray;
+    z-index: 1000;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    height: 8vh; 
+}
+
+ul{
+    border-color: aliceblue;
+}
+
+.bottom_bar {
+    width: 100%;
+    background-color: #faefef; /* Background color of the navbar */
+    color: #000000; /* Text color */
+    padding: 10px 20px; /* Adjust padding for better spacing */
     box-shadow: 0 4px 2px -2px gray;
     z-index: 1000;
     box-sizing: border-box; /* Include padding in total width/height */
     /* Set a fixed height to ensure consistent spacing */
-    height: 60px; 
+    height: 5vh; 
+    display: flex;
+    align-items: center;
 }
 
 /* Navigation Links */
@@ -22,8 +46,8 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    align-items: baseline;
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
 .navbar li {
@@ -31,48 +55,27 @@
 }
 
 .navbar a {
-    color: #fff; /* Change link color to match text color */
+    color: #000000; /* Change link color to match text color */
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s ease, text-decoration 0.3s ease; /* Add transition for hover effects */
 }
 
 .navbar a:hover {
-    color: #555; /* Slightly darker color on hover */
+    color: #860000; /* Slightly darker color on hover */
     text-decoration: underline;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px; /* Reduce padding on smaller screens */
-        flex-direction: column; /* Stack items vertically */
-        align-items: flex-start; /* Align items to the start */
-    }
-
-    .navbar ul {
-        flex-direction: column; /* Stack links vertically */
-        width: 100%; /* Take full width */
-    }
-
-    .navbar li {
-        margin: 10px 0; /* Add vertical margin */
-    }
-
-    .navbar a {
-        font-size: 16px; /* Reduce font size */
-    }
+.search {
+    box-shadow: #ac5656;
+    padding: 0px 5px 5px 5px;
+    width: 50%;
 }
 
-@media (max-width: 480px) {
-    .navbar a {
-        font-size: 14px; /* Further reduce font size */
-    }
-
-    .navbar li {
-        margin: 5px 0; /* Adjust vertical margin */
-    }
+.search_input{
+    width: 100%
 }
+
 
 /* Adjust content margin to prevent overlap */
 .app-container {

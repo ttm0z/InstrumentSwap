@@ -1,5 +1,14 @@
 /* FrontPage.css */
-.Frontpage {
-    padding-top: 80px; /* Adjust this value based on the height of your navbar */
-    /* Add other styles as needed */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: auto;
 }
+
+h3{
+    left:0%
+}
+
