@@ -1,23 +1,31 @@
 import React, { useContext, useState } from 'react';
 import { login } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 import './Auth.css'; // Import the CSS file
-//import {AuthContext} from '../services/authContext.jsx';
+import axios from 'axios';
+import {AuthContext} from '../services/authContext';
 
 const Login = () => {
-    //const {setIsAuthenticated, setAuthStatus} = useContext(AuthContext)
     
+    
+    const { setIsAuthenticated } = useContext(AuthContext);
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         login(username, password)
             .then(response => {
                 console.log('Login successful', response.data);
                 alert("Login Successful");
-                //setIsAuthenticated(true);
-                //setUsername(username);
+                localStorage.setItem('authToken', response.data.token);
+                axios.defaults.headers.common['Authorization'] = `Token ${response.token}`;
+                setIsAuthenticated(true);
                 //redirect to the user home page
+                navigate(`/profile/${username}`);
             })
             .catch(error => {
                 console.error('Login error', error);

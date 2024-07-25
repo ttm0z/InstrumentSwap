@@ -4,10 +4,11 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, ListingViewSet, TransactionViewSet, MessageViewSet, SearchHistoryViewSet, AppraisalViewSet, LoginView
 from .views import register_view, logout_view, check_auth_view
+from .views import fetch_all_listings, fetch_listings_by_category
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'listings', ListingViewSet)
+router.register(r'listings', ListingViewSet, basename='listing')
 router.register(r'transactions', TransactionViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'search-history', SearchHistoryViewSet)

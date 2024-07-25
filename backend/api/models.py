@@ -5,7 +5,7 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.models import User as AuthUser
 class UserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         if not email:
@@ -37,6 +37,9 @@ class User(models.Model):
     
 
 
+from django.conf import settings
+from django.core.files.storage import default_storage
+
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_listings')
@@ -51,6 +54,23 @@ class Listing(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=50, default='active')
+
+    def to_dict(self):
+        return {
+            'listing_id': self.listing_id,
+            'user': self.user.username,  # Assuming the User model has a 'username' field
+            'title': self.title,
+            'description': self.description,
+            'category': self.category,
+            'condition': self.condition,
+            'price': str(self.price) if self.price else None,  # Convert Decimal to string
+            'swap': self.swap,
+            'images': self.images.url if self.images else None,  # Get image URL
+            'created_at': self.created_at.isoformat(),  # Convert datetime to ISO format
+            'updated_at': self.updated_at.isoformat(),
+            'location': self.location,
+            'status': self.status,
+        }
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)

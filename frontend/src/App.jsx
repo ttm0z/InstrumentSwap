@@ -6,12 +6,13 @@ import Frontpage from './components/Frontpage';
 import Navbar from './components/Navbar';
 import ListingsPage from './components/ListingsPage';
 import AuthTest from './components/AuthTest';
-//import AuthProvider from './services/authService';
+import Profile from './components/Profile';
+import AuthProvider from './services/authContext';
 import './App.css'; // Import the CSS file
 
 function App() {
     return (
-  //      <AuthProvider>
+      <AuthProvider>
         <Router>
             <Navbar />
             <div className="app-container">
@@ -22,11 +23,12 @@ function App() {
                         <Route path="/frontpage_prototype" element={<Frontpage />} />
                         <Route path="/listings" element={<ListingsPage />} />
                         <Route path="/logintest" element={<AuthTest />} />
+                        <Route path="/profile/:username" element={<Profile/>}/>
                     </Routes>
                 </div>
             </div>
         </Router>
-    //    </AuthProvider>
+        </AuthProvider>
     );
 }
 

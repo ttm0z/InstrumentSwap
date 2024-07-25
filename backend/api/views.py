@@ -3,42 +3,47 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, generics
 from rest_framework import status
+from django.views.decorators.http import require_GET
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
 from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer
 from .models import Listing, Transaction, Message, SearchHistory, Appraisal
-from django.contrib.auth.models import User
+from .models import User as ApiUser
+from django.contrib.auth.models import User as AuthUser
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
+from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound
 import json
 
 @csrf_exempt
 def register_view(request):
     if request.method == 'POST':
+        
         data = json.loads(request.body)
+        
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
 
-        print(data)
         if not username or not password or not email:
-            print("missing data")
             return JsonResponse({'error': 'Missing required fields'}, status=400)
 
         try:
-            user = User.objects.create_user(username=username, password=password, email=email)
-            user.save()
-            print(user)
-            #login(request, user)  # Automatically log in the user after signup
+            user = AuthUser.objects.create_user(username=username, password=password, email=email)
+            print("Auth user created")
+            
+            ApiUser.objects.create_user(user = user)
+            print("API user created")
+            
             return JsonResponse({'message': 'User created successfully'}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
-
 
 @csrf_exempt
 def logout_view(request):
@@ -77,13 +82,60 @@ class LoginView(generics.GenericAPIView):
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
+#listing views
+
+@require_GET
+def fetch_all_listings(request):
+    try:
+        listings = Listing.objects.all()
+        listings_data = [listing.to_dict() for listing in listings]
+        return JsonResponse(listings_data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@require_GET
+def fetch_listings_by_category(request, category):
+    try:
+        listings = Listing.objects.filter(category=category)
+        listings_data = [listing.to_dict() for listing in listings]
+        return JsonResponse(listings_data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    pass
+
+
+# view sets
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = ApiUser.objects.all()
     serializer_class = UserSerializer
+
+    @action(detail=False, methods=['get'], url_path='by-username/(?P<username>[^/.]+)')
+    def get_by_username(self, request, username=None):
+        try:
+            user = ApiUser.objects.get(username=username)
+            print(user)
+            serializer = self.get_serializer(user)
+            return Response(serializer.data)
+        except ApiUser.DoesNotExist:
+            raise NotFound(detail="User not found")
 
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    
+    @action(detail=False, methods=['get'], url_path='getAll')
+    def get_all(self, request, *args, **kwargs):
+        listings = self.get_queryset()
+        serializer = self.get_serializer(listings, many=True)
+        return Response(serializer.data)
+
+    
+    @action(detail=False, methods=['get'], url_path='getByCategory/(?P<category>[^/.]+)')
+    def get_by_category(self, request, category=None, *args, **kwargs):
+        listings = self.get_queryset().filter(category=category)
+        serializer = self.get_serializer(listings, many=True)
+        return Response(serializer.data)
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
