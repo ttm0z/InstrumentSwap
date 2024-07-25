@@ -22,7 +22,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/frontpage_prototype" element={<Frontpage />} />
                         <Route path="/listings" element={<ListingsPage />} />
-                        <Route path="/logintest" element={<AuthTest />} />
+                        <Route path="/login" element={<AuthTest />} />
                         <Route path="/profile/:username" element={<Profile/>}/>
                     </Routes>
                 </div>

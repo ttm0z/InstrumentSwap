@@ -1,12 +1,13 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Listing, Transaction, Message, SearchHistory, Appraisal, User
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal, ApiUser
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = ApiUser
         fields = '__all__'
 
 class ListingSerializer(serializers.ModelSerializer):
@@ -42,7 +43,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password']
 
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = User.objects.create(
             username = validated_data['username'],
             email = validated_data['email'],
             password = validated_data['password']

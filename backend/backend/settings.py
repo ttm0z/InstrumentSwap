@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instrument_swap_db',
+        'NAME': 'instrument_swap',
         'USER': 'postgres',         
         'PASSWORD': '9969424', # Replace with your database password
         'HOST': 'localhost',

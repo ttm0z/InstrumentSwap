@@ -9,12 +9,14 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         if (token) {
+            setUsername(localStorage.getItem('username'));
             setIsAuthenticated(true);
         }
     }, []);
 
     const logout = () => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
         axios.defaults.headers.common['Authorization'] = '';
         setIsAuthenticated(false);
     };

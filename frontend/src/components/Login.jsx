@@ -8,7 +8,7 @@ import {AuthContext} from '../services/authContext';
 const Login = () => {
     
     
-    const { setIsAuthenticated } = useContext(AuthContext);
+    const { setIsAuthenticated} = useContext(AuthContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -23,6 +23,7 @@ const Login = () => {
                 alert("Login Successful");
                 localStorage.setItem('authToken', response.data.token);
                 axios.defaults.headers.common['Authorization'] = `Token ${response.token}`;
+                localStorage.setItem('username', username);
                 setIsAuthenticated(true);
                 //redirect to the user home page
                 navigate(`/profile/${username}`);

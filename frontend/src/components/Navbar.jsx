@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
-//import {AuthContext} from '../services/authContext'
+import {AuthContext} from '../services/authContext'
 const NavBar = () => {
-    
+    const authToken = localStorage.getItem('authToken');
+    const{ isAuthenticated, setIsAuthenticated, logout} = useContext(AuthContext);
+    const username = localStorage.getItem('username')
     const handleAuthStatus = () => {
         const authToken = localStorage.getItem('authToken');
         console.log(authToken ? `Authenticated: ${authToken}` : 'Not authenticated');
@@ -64,9 +66,23 @@ const NavBar = () => {
                 </li>
                 
                 <li>
-                    <Link to="/logintest">Login</Link>        
+                {isAuthenticated ? (
+                        <Link to={`/profile/${username}`}>Profile</Link>
+                    ) : (
+                        <Link to="/login">Login</Link>
+                    )}
                 </li>
-                <button onClick={handleAuthStatus}>Auth</button>
+                
+                <li>
+                    <button onClick={handleAuthStatus}>Auth</button>
+                </li>
+                <li>
+                    <button onClick={logout}>Logout</button>
+                </li>
+                
+                
+            
+            
             </ul>
             </div>
 

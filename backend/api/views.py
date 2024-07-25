@@ -10,8 +10,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
 from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer
 from .models import Listing, Transaction, Message, SearchHistory, Appraisal
-from .models import User as ApiUser
-from django.contrib.auth.models import User as AuthUser
+from .models import ApiUser
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
@@ -20,7 +20,7 @@ from rest_framework.exceptions import NotFound
 import json
 
 @csrf_exempt
-def register_view(request):
+def register_user(request):
     if request.method == 'POST':
         
         data = json.loads(request.body)
@@ -28,16 +28,16 @@ def register_view(request):
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
-
+        print("username: ", username)
+        print("password: ", password)
+        print("email: ", email)
         if not username or not password or not email:
             return JsonResponse({'error': 'Missing required fields'}, status=400)
 
         try:
-            user = AuthUser.objects.create_user(username=username, password=password, email=email)
+            print("Creating auth user")
+            user = User.objects.create_user(username=username, password=password, email=email)
             print("Auth user created")
-            
-            ApiUser.objects.create_user(user = user)
-            print("API user created")
             
             return JsonResponse({'message': 'User created successfully'}, status=201)
         except Exception as e:
@@ -113,12 +113,15 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='by-username/(?P<username>[^/.]+)')
     def get_by_username(self, request, username=None):
         try:
+            print("get")
             user = ApiUser.objects.get(username=username)
             print(user)
             serializer = self.get_serializer(user)
             return Response(serializer.data)
         except ApiUser.DoesNotExist:
             raise NotFound(detail="User not found")
+
+
 
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()

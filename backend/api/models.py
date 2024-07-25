@@ -1,107 +1,108 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-# Create your models here.
-# api/models.py
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User as AuthUser
-class UserManager(BaseUserManager):
-    def create_user(self, email, username, password=None, **extra_fields):
+class ApiUserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
         if not email:
-            raise ValueError(_('The Email field must be set'))
+            raise ValueError('The Email field must be set')
+        if not username:
+            raise ValueError('The Username field must be set')
+        
         email = self.normalize_email(email)
-        user = self.model(email=email, username=username, **extra_fields)
+        user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password=None, **extra_fields):
+    def create_superuser(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        return self.create_user(email, username, password, **extra_fields)
 
-class User(models.Model):
+        return self.create_user(username, email, password, **extra_fields)
+
+class ApiUser(AbstractBaseUser):
+    
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(unique=True, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    profile_picture = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     buy_history = models.ManyToManyField('Transaction', related_name='buy_history')
     sell_history = models.ManyToManyField('Transaction', related_name='sell_history')
     listings = models.ManyToManyField('Listing', related_name='listings')
-    
 
 
-from django.conf import settings
-from django.core.files.storage import default_storage
+    objects = ApiUserManager()
+
+    USERNAME_FIELD = 'username'
+
+    def __str__(self):
+        return self.username
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_listings')
+    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    category = models.CharField(max_length=50, blank=True)
-    condition = models.CharField(max_length=50, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    description = models.TextField()
+    category = models.CharField(max_length=50)
+    condition = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     swap = models.BooleanField(default=False)
-    images = models.ImageField(upload_to='listing_images/', blank=True, null=True)
+    images = models.JSONField()  # Using JSONField to store list of URLs
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100)
     status = models.CharField(max_length=50, default='active')
 
-    def to_dict(self):
-        return {
-            'listing_id': self.listing_id,
-            'user': self.user.username,  # Assuming the User model has a 'username' field
-            'title': self.title,
-            'description': self.description,
-            'category': self.category,
-            'condition': self.condition,
-            'price': str(self.price) if self.price else None,  # Convert Decimal to string
-            'swap': self.swap,
-            'images': self.images.url if self.images else None,  # Get image URL
-            'created_at': self.created_at.isoformat(),  # Convert datetime to ISO format
-            'updated_at': self.updated_at.isoformat(),
-            'location': self.location,
-            'status': self.status,
-        }
+    def __str__(self):
+        return self.title
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='buyer_transactions')
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller_transactions')
+    buyer = models.ForeignKey(ApiUser, related_name='buyer', on_delete=models.CASCADE)
+    seller = models.ForeignKey(ApiUser, related_name='seller', on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    transaction_type = models.CharField(max_length=50, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    transaction_type = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=50, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Transaction {self.transaction_id}"
+
 class Message(models.Model):
     message_id = models.AutoField(primary_key=True)
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    sender = models.ForeignKey(ApiUser, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(ApiUser, related_name='received_messages', on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, blank=True, null=True)
+    listing = models.ForeignKey(Listing, null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f"Message from {self.sender} to {self.receiver}"
 
 class SearchHistory(models.Model):
     search_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
     search_query = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     results_count = models.IntegerField()
 
+    def __str__(self):
+        return f"Search by {self.user} on {self.timestamp}"
+
 class Appraisal(models.Model):
     appraisal_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item_details = models.TextField(blank=True)
-    images = models.JSONField(blank=True, default=list)
-    estimated_value = models.CharField(max_length=50, blank=True)
+    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
+    item_details = models.TextField()
+    images = models.JSONField()  # Using JSONField to store list of URLs
+    estimated_value = models.CharField(max_length=50)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Appraisal for {self.user}"
