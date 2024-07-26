@@ -8,5 +8,5 @@ from .models import ApiUser
 def create_api_user(sender, instance, created, **kwargs):
     print("signal called")
     if created:
-        print("instance:",instance)
+        print("instance:", instance)
         ApiUser.objects.create(username=instance)
