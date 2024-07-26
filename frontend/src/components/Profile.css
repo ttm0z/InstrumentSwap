@@ -1,6 +1,5 @@
 .profile-card {
     width: 50vw; 
-    height: 100vh; 
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -16,6 +15,20 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
+}
+.listings-header {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.item-list {
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
 }
 
 .profile-info {

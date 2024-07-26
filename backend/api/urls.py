@@ -7,12 +7,12 @@ from .views import register_user, logout_view, check_auth_view
 from .views import fetch_all_listings, fetch_listings_by_category
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'listings', ListingViewSet, basename='listing')
+router.register(r'users', UserViewSet, basename='users')
+router.register(r'listings', ListingViewSet, basename='listings')
 router.register(r'transactions', TransactionViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'search-history', SearchHistoryViewSet)
-router.register(r'appraisals', AppraisalViewSet),
+router.register(r'appraisals', AppraisalViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -20,7 +20,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('check-auth/', check_auth_view, name='check_auth'),
     path('login/', LoginView.as_view(), name='login'),
-    path('users/<str:username>', UserViewSet.as_view({'get':'get_by_username'}), name='get-user-by-username')
 ]
 
 if settings.DEBUG:

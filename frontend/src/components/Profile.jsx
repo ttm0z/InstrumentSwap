@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Profile.css'; // Ensure you have the necessary CSS
 
@@ -27,6 +28,7 @@ const Profile = () => {
     if (error) return <div>Error fetching user data: {error.message}</div>;
 
     return (
+        <>
         <div className="profile-card">
             <div className="profile-photo">
                 <img src={userData.profilePhotoUrl || 'default-photo-url.jpg'} alt={`${username}'s profile`} />
@@ -45,6 +47,19 @@ const Profile = () => {
             </div>
             <button className="info-button">Update Info</button>
         </div>
+        <div className="listings">
+            <div className="listings-header">
+                <h3>Listings</h3>
+                <Link to="/create-listing">
+                    <button className="create-listing">Create New</button>
+                </Link> 
+            </div>
+            <div className="item-list">
+                    You dont have any listings right now
+            </div>
+            
+        </div>
+        </>
     );
 };
 

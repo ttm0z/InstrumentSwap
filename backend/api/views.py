@@ -110,12 +110,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = ApiUser.objects.all()
     serializer_class = UserSerializer
 
-    @action(detail=False, methods=['get'], url_path='by-username/(?P<username>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='(?P<username>[^/.]+)')
     def get_by_username(self, request, username=None):
         try:
-            print("get")
+            print("get attempt")
             user = ApiUser.objects.get(username=username)
-            print(user)
             serializer = self.get_serializer(user)
             return Response(serializer.data)
         except ApiUser.DoesNotExist:
@@ -133,13 +132,21 @@ class ListingViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['post'], url_path='create_listing')
+    def create_listing(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = ListingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @action(detail=False, methods=['get'], url_path='getByCategory/(?P<category>[^/.]+)')
     def get_by_category(self, request, category=None, *args, **kwargs):
         listings = self.get_queryset().filter(category=category)
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
-
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer

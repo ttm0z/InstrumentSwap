@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import ListingsPage from './components/ListingsPage';
 import AuthTest from './components/AuthTest';
 import Profile from './components/Profile';
+import CreateListing from './components/CreateListing';
 import AuthProvider from './services/authContext';
 import './App.css'; // Import the CSS file
 
@@ -23,6 +24,7 @@ function App() {
                         <Route path="/frontpage_prototype" element={<Frontpage />} />
                         <Route path="/listings" element={<ListingsPage />} />
                         <Route path="/login" element={<AuthTest />} />
+                        <Route path="/create-listing" element={<CreateListing />} />
                         <Route path="/profile/:username" element={<Profile/>}/>
                     </Routes>
                 </div>
