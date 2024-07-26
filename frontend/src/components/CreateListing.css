@@ -1,0 +1,74 @@
+/* CreateListing.css */
+
+/* Container for the entire form to control layout and scrolling */
+.create-listing-container {
+    width: 100vw; /* Full viewport width */
+    display: flex;
+    justify-content:flex-start;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Card style for the form */
+.create-listing-card {
+    width: 100%; 
+    max-width: 1000px; 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box; 
+    grid-template-columns: repeat(2, 1fr); /* Two columns layout */
+    gap: 20px; /* Space between columns */
+}
+
+/* Title styling spanning both columns */
+.create-listing-card h2 {
+    grid-column: span 2; /* Make the title span both columns */
+    margin: 0 0 20px 0;
+    font-size: 24px;
+}
+
+/* Styling for form groups */
+.create-listing-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label styling */
+.create-listing-card label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Input, textarea, and select styling */
+.create-listing-card input,
+.create-listing-card textarea,
+.create-listing-card select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Specific styling for textarea */
+.create-listing-card textarea {
+    height: 100px; /* Fixed height for textarea */
+}
+
+/* Button styling spanning both columns */
+.create-listing-card button {
+    grid-column: span 2; /* Make the button span both columns */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-listing-card button:hover {
+    background-color: #0056b3;
+}

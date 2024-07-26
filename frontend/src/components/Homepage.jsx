@@ -1,5 +1,7 @@
 import React from "react";
 import "./Homepage.css"
+import ImageUpload from './ImageUpload'
+import ImageFetcher from './ImageFetcher';
 const Homepage = () => {
     const listStyle = {
         display:'flex',
@@ -10,27 +12,10 @@ const Homepage = () => {
         <div>
             
             <h1>InstrumentSwap Prototype</h1>
-            <h3>To Do</h3>
-
-            <div style={listStyle}>        
-            <ul>
-                <li>Search feature</li>
-                <li>Listing preview card</li>
-                <li>Provide service to fetch photos</li>
-                <li>Properly align frontpage</li>
-                <li>User Profile (Dynamic)</li>
-                <li>Real time messaging feature</li>
-            
-            </ul>
-            
-            <ul>
-                <li>Develop API Endpoints</li>
-                <li>Update database schema design</li>
-                <li>Provide dynamic appearance based on authentication status</li>
-            
-            </ul>
-            </div>
+            <ImageUpload />
+            <img src={`http://localhost:8000/api/instrument_swap_media/images/stratocaster_test_image.jpg/`} />
         </div>
+        
     );
 };
 

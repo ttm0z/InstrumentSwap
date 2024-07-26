@@ -1,38 +1,53 @@
-/* CategoryCard.css */
-
 .listing-card {
+    position: relative;
+    width: 300px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+    overflow: hidden;
     border: 1px solid #ddd;
-    padding: 16px;
-    margin: 16px;
-    background-color: rgb(225, 235, 243);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.listing-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.listing-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     text-align: center;
-    flex-shrink: 0; /* Prevent the card from shrinking */
 }
 
-.listing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.listing-card:hover .listing-card-overlay {
+    opacity: 1;
 }
 
-.category-card h2 {
-    margin-top: 0;
+.listing-card-overlay h3 {
+    margin: 0;
+    font-size: 18px;
 }
 
-.category-card ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.category-card li {
-    margin: 8px 0;
-}
-
-.category-card-image {
-    width: 100px; /* Set width to 50px */
-    height: 100px; /* Set height to 50px */
-    border-radius: 8px;
-    margin-bottom: 16px;
+.listing-card-overlay p {
+    margin: 5px 0 0;
+    font-size: 16px;
 }

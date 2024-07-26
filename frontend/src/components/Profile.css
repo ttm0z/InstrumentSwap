@@ -1,65 +1,125 @@
-.profile-card {
-    width: 50vw; 
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #fff;
+/* Profile.css */
+
+/* Ensure body does not cause horizontal scroll */
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
+
+/* Full-width container to avoid overflow and control horizontal scrolling */
+.profile-container {
+    width: 100vw; /* Full viewport width */
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.profile-card {
+    width: 100%; /* Full width of the parent container */
+    max-width: 1200px; /* Max width for large screens */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.profile-photo {
+    margin-right: 20px;
+}
+
 .profile-photo img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 15px;
 }
-.listings-header {
-    background-color: #fff;
+
+.profile-header-info {
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    
-}
-.item-list {
-    align-items: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
+    justify-content: space-between;
 }
 
-.profile-info {
-    text-align: center;
+.profile-header-info h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-.profile-info h1 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-.profile-info p {
-    margin: 5px 0;
-}
-
-.profile-actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-}
-
-.contact-button, .message-button {
+.info-button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
 }
 
-.contact-button:hover, .message-button:hover {
-    background-color: #0056b3;
+.profile-card-subheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.profile-card-subheader .username {
+    font-weight: bold;
+}
+
+.profile-card-subheader .location {
+    color: #6c757d;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-actions {
+    margin-bottom: 20px;
+}
+
+.contact-button,
+.message-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.create-listing {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.item-list {
+    margin-top: 20px;
+}
+
+.listings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
 }

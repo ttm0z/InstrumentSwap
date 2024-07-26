@@ -1,10 +1,14 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Listing, Transaction, Message, SearchHistory, Appraisal, ApiUser
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal, ApiUser, ImageUpload
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
-
+class ImageUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageUpload
+        fields = ['id', 'title', 'image', 'uploaded_at']
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApiUser
