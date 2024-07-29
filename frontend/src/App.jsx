@@ -23,15 +23,28 @@ function App() {
             <div className="app-container">
                 <div className="content">
                     <Routes>
+                        
+                        {/* Frontpage, dashboard */}
                         <Route path="/" element={<Homepage />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/frontpage_prototype" element={<Frontpage />} />
-                        <Route path="/listings" element={<ListingsPage />} />
-                        <Route path="/login" element={<AuthTest />} />
+
+                        {/* Auth */}
+                        <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/update-profile" element={<ProfileUpdater />} />
+                        
+                        {/* Listing */}
+                        <Route path="/listings" element={<ListingsPage />} />
+                        <Route path="/listing/:listingid" element = {<Listing />} />
                         <Route path="/create-listing" element={<CreateListing />} />
+
+                        {/* Profile */}
                         <Route path="/profile/:username" element={<Profile/>}/>
+                        <Route path="/update-profile" element={<ProfileUpdater />} />
+
+                        {/* Categories */}
+                        <Route path="/categories" element={<CategoryPage/>}/>
+                        <Route path="/categories/:category" element={<CateoryProfile />} />
+                        
                     </Routes>
                 </div>
             </div>
