@@ -74,6 +74,14 @@ const NavBar = () => {
                 </li>
                 
                 <li>
+                {isAuthenticated ? (
+                    <button onClick={logout}>Logout</button>
+                ) : (
+                        <Link to="/signup">SignUp</Link>
+                    )}
+                </li>
+                
+                <li>
                     <button onClick={handleAuthStatus}>Auth</button>
                 </li>
                 <li>

@@ -9,7 +9,11 @@ import AuthTest from './components/AuthTest';
 import Profile from './components/Profile';
 import CreateListing from './components/CreateListing';
 import AuthProvider from './services/authContext';
+import ProfileUpdater from './components/ProfileUpdater';
+
 import './App.css'; // Import the CSS file
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
     return (
@@ -24,6 +28,8 @@ function App() {
                         <Route path="/frontpage_prototype" element={<Frontpage />} />
                         <Route path="/listings" element={<ListingsPage />} />
                         <Route path="/login" element={<AuthTest />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/update-profile" element={<ProfileUpdater />} />
                         <Route path="/create-listing" element={<CreateListing />} />
                         <Route path="/profile/:username" element={<Profile/>}/>
                     </Routes>

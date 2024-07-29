@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import AbstractUser
 
-class ApiUserManager(BaseUserManager):
+
+class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
@@ -18,7 +20,7 @@ class ApiUserManager(BaseUserManager):
 
         return self.create_user(username, email, **extra_fields)
 
-class ApiUser(models.Model):
+class User(AbstractUser):
     
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True)
@@ -34,7 +36,7 @@ class ApiUser(models.Model):
     listings = models.ManyToManyField('Listing', related_name='listings')
 
 
-    objects = ApiUserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'username'
 
@@ -43,7 +45,7 @@ class ApiUser(models.Model):
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     category = models.CharField(max_length=50)
@@ -69,8 +71,8 @@ class ImageUpload(models.Model):
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
-    buyer = models.ForeignKey(ApiUser, related_name='buyer', on_delete=models.CASCADE)
-    seller = models.ForeignKey(ApiUser, related_name='seller', on_delete=models.CASCADE)
+    buyer = models.ForeignKey(User, related_name='buyer', on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, related_name='seller', on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     transaction_type = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -83,8 +85,8 @@ class Transaction(models.Model):
 
 class Message(models.Model):
     message_id = models.AutoField(primary_key=True)
-    sender = models.ForeignKey(ApiUser, related_name='sent_messages', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(ApiUser, related_name='received_messages', on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     listing = models.ForeignKey(Listing, null=True, blank=True, on_delete=models.SET_NULL)
@@ -94,7 +96,7 @@ class Message(models.Model):
 
 class SearchHistory(models.Model):
     search_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     search_query = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     results_count = models.IntegerField()
@@ -104,7 +106,7 @@ class SearchHistory(models.Model):
 
 class Appraisal(models.Model):
     appraisal_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(ApiUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_details = models.TextField()
     images = models.JSONField()  # Using JSONField to store list of URLs
     estimated_value = models.CharField(max_length=50)

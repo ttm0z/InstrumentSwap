@@ -1,8 +1,7 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Listing, Transaction, Message, SearchHistory, Appraisal, ApiUser, ImageUpload
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal, User, ImageUpload, User
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 
 class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +10,7 @@ class ImageUploadSerializer(serializers.ModelSerializer):
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ApiUser
+        model = User
         fields = '__all__'
 
 class ListingSerializer(serializers.ModelSerializer):

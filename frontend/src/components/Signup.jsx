@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { register } from '../services/authService';
 import './Auth.css'; // Import the CSS file
-
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
+
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,6 +16,7 @@ const Signup = () => {
             .then(response => {
                 console.log('Signup successful', response.data);
                 alert("Signup Successful");
+                navigate(`/update-profile`);
             })
             .catch(error => {
                 console.error('Signup error', error);

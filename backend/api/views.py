@@ -10,9 +10,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
 from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer, ImageUploadSerializer
 from .models import Listing, Transaction, Message, SearchHistory, Appraisal
-from .models import ApiUser
+from .models import User
 from rest_framework.parsers import MultiPartParser, FormParser
-from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -55,7 +54,10 @@ def register_user(request):
 
         try:
             print("Creating auth user")
-            user = User.objects.create_user(username=username, password=password, email=email)
+            User = get_user_model()
+            user = User(username=username)
+            user.set_password(password)
+            user.save()
             print("Auth user created")
             
             return JsonResponse({'message': 'User created successfully'}, status=201)
@@ -86,8 +88,8 @@ class LoginView(generics.GenericAPIView):
         username = request.data.get('username')
         password = request.data.get('password')
     
-        print(username)
-        print(password)
+        print("username:", username)
+        print("password: ", password)
         
         user = authenticate(username=username, password=password)
         
@@ -128,20 +130,20 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ValidationError
-from .models import ApiUser
+from .models import User
 from .serializers import UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = ApiUser.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     @action(detail=False, methods=['get'], url_path='(?P<username>[^/.]+)')
     def get_by_username(self, request, username=None):
         try:
-            user = ApiUser.objects.get(username=username)
+            user = User.objects.get(username=username)
             serializer = self.get_serializer(user)
             return Response(serializer.data)
-        except ApiUser.DoesNotExist:
+        except User.DoesNotExist:
             raise NotFound(detail="User not found")
     
     @action(detail=False, methods=['post'], url_path='(?P<username>[^/.]+)/update')
@@ -149,8 +151,8 @@ class UserViewSet(viewsets.ModelViewSet):
         
         print(request.data)
         try:
-            user = ApiUser.objects.get(username=username)
-        except ApiUser.DoesNotExist:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
             raise NotFound(detail="User not found")
         
         serializer = self.get_serializer(user, data=request.data, partial=True)
@@ -163,9 +165,9 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='username/(?P<username>[^/.]+)')
     def get_user_id_by_username(self, request, username=None):
         try:
-            user = ApiUser.objects.get(username=username)
+            user = User.objects.get(username=username)
             return Response({'user_id' : user.user_id})
-        except ApiUser.DoesNotExist:
+        except User.DoesNotExist:
             raise NotFound(detail="User not found")
 
 class ListingViewSet(viewsets.ModelViewSet):
