@@ -84,9 +84,7 @@ const NavBar = () => {
                 <li>
                     <button onClick={handleAuthStatus}>Auth</button>
                 </li>
-                <li>
-                    <button onClick={logout}>Logout</button>
-                </li>
+
                 
                 
             
