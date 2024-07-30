@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Profile.css'; // Ensure you have the necessary CSS
 import UpdateUserForm from './UpdateUserForm'; // Import the form component
+import ItemList from "./ItemList";
 
 const Profile = () => {
     const { username } = useParams();
@@ -18,6 +19,7 @@ const Profile = () => {
                 const response = await axios.get(`http://localhost:8000/api/users/${username}/`);
                 setUserData(response.data);
                 setLoading(false);
+                console.log(response.data)
             } catch (err) {
                 setError(err);
                 setLoading(false);
@@ -73,9 +75,16 @@ const Profile = () => {
                         <Link to="/create-listing">
                             <button className="create-listing">Create New</button>
                         </Link> 
+                        
+                        
+                        {/* add utility to manage listings. same page */}
+                        <button className="create-listing"> Manage </button>
+
+
                     </div>
                     <div className="item-list">
-                        You don't have any listings right now
+                        {/* Retrieve and display listings */}
+                        <ItemList user_id={userData.user_id} />
                     </div>
                 </div>
             </div>

@@ -1,0 +1,10 @@
+
+button:hover{
+    background-color: bisque;
+}
+
+.image-upload{
+    border: 1px solid black;
+    display:flex;
+    flex-direction: row;
+}

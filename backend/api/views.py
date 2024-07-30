@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, generics
@@ -19,6 +18,7 @@ from django.views import View
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ValidationError
 import json
+from .serializers import UserSerializer
 
 
 class ImageUploadView(APIView):
@@ -104,35 +104,6 @@ class LoginView(generics.GenericAPIView):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-#listing views
-
-@require_GET
-def fetch_all_listings(request):
-    try:
-        listings = Listing.objects.all()
-        listings_data = [listing.to_dict() for listing in listings]
-        return JsonResponse(listings_data, safe=False)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-@require_GET
-def fetch_listings_by_category(request, category):
-    try:
-        listings = Listing.objects.filter(category=category)
-        listings_data = [listing.to_dict() for listing in listings]
-        return JsonResponse(listings_data, safe=False)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-    pass
-
-
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.exceptions import NotFound, ValidationError
-from .models import User
-from .serializers import UserSerializer
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -179,6 +150,19 @@ class ListingViewSet(viewsets.ModelViewSet):
         listings = self.get_queryset()
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
+    
+    
+    @action(detail=False, methods=['get'], url_path='getById/(?P<id>[^/.]+)')
+    def get_by_id(self, request, id=None, *args, **kwargs):
+        try:
+            listings = self.get_queryset().filter(user_id=id)
+            if not listings.exists():
+                return Response({"detail": "No listings found for this user ID."}, status=status.HTTP_404_NOT_FOUND)
+        except Listing.DoesNotExist:
+            return Response({"detail": "No listings found for this user ID."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(listings, many=True)
+        return Response(serializer.data)
 
     @action(detail=False, methods=['post'], url_path='create_listing')
     def create_listing(self, request, *args, **kwargs):
@@ -195,6 +179,20 @@ class ListingViewSet(viewsets.ModelViewSet):
         listings = self.get_queryset().filter(category=category)
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
+    
+class ListingDetailView(generics.RetrieveAPIView):
+    queryset = Listing.objects.all()
+    serializer_class = ListingSerializer
+
+    def get(self, request, *args, **kwargs):
+        listing_id = kwargs.get('pk')
+        try:
+            listing = Listing.objects.get(pk=listing_id)
+            serializer = self.get_serializer(listing)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Listing.DoesNotExist:
+            return Response({'error': 'Listing not found'}, status=status.HTTP_404_NOT_FOUND)
+
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer

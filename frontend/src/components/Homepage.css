@@ -4,3 +4,18 @@ ul {
     margin: 5px; 
     list-style-type: none; 
 }
+
+.api-test{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: auto;
+    box-sizing: border-box;
+}
+
+.api-test-textbox{
+    border: 1px solid black; 
+    min-width: 5vw;
+    min-height: 5vw;
+
+}

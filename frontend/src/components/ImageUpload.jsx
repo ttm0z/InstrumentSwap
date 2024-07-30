@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ImageUpload.css'
 
 function ImageUpload() {
   const [title, setTitle] = useState('');
@@ -32,8 +33,7 @@ function ImageUpload() {
   };
 
   return (
-    <div>
-      <h1>Upload Image</h1>
+    <div className="image-upload">
       <form onSubmit={handleSubmit}>
         <input
           type="text"

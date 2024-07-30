@@ -4,7 +4,8 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, ListingViewSet, TransactionViewSet, MessageViewSet, SearchHistoryViewSet, AppraisalViewSet, LoginView, ImageUploadView
 from .views import register_user, logout_view, check_auth_view
-from .views import fetch_all_listings, fetch_listings_by_category, get_image_url
+from .views import get_image_url
+from .views import ListingDetailView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
@@ -22,6 +23,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('upload/', ImageUploadView.as_view(), name='upload_image'),
     path('api/image/<str:filename>/', get_image_url, name='get_image_url'),
+    path('listings/<int:pk>/', ListingDetailView.as_view(), name='listing-detail'),
 ]
 
 if settings.DEBUG:

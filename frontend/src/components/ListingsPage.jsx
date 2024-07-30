@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Listing from './Listing';
+import Listing from './ListingDetail';
 
 const ListingsPage = () => {
     const [listings, setListings] = useState([]);

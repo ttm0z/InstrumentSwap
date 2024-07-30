@@ -1,19 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './components/Homepage';
-import Dashboard from './components/Dashboard';
 import Frontpage from './components/Frontpage';
 import Navbar from './components/Navbar';
+
 import ListingsPage from './components/ListingsPage';
-import AuthTest from './components/AuthTest';
-import Profile from './components/Profile';
+import ListingDetail from './components/ListingDetail';
 import CreateListing from './components/CreateListing';
-import AuthProvider from './services/authContext';
+
+import CategoryPage from './components/CategoryPage';
+import CategoryProfile from './components/CategoryProfile';
+
+import Profile from './components/Profile';
 import ProfileUpdater from './components/ProfileUpdater';
 
-import './App.css'; // Import the CSS file
+import AuthProvider from './services/authContext';
 import Login from './components/Login';
 import Signup from './components/Signup';
+
+import './App.css';
+
+
 
 function App() {
     return (
@@ -34,7 +41,7 @@ function App() {
                         
                         {/* Listing */}
                         <Route path="/listings" element={<ListingsPage />} />
-                        <Route path="/listing/:listingid" element = {<Listing />} />
+                        <Route path="/listings/:listingid" element = {<ListingDetail />} />
                         <Route path="/create-listing" element={<CreateListing />} />
 
                         {/* Profile */}
@@ -43,7 +50,7 @@ function App() {
 
                         {/* Categories */}
                         <Route path="/categories" element={<CategoryPage/>}/>
-                        <Route path="/categories/:category" element={<CateoryProfile />} />
+                        <Route path="/categories/:category" element={<CategoryProfile />} />
                         
                     </Routes>
                 </div>

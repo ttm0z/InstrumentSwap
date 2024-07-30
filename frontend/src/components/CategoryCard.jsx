@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './CategoryCard.css';
 
+import { Link } from 'react-router-dom';
+
 const CategoryCard = ({ category, subcategories, imageSrc }) => {
+    
+    
     return (
+        <Link to={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}>
         <div className="category-card">
             <div className="category-card-image">
                 {imageSrc && <img src={imageSrc} alt={`${category} image`} />}
@@ -19,6 +24,8 @@ const CategoryCard = ({ category, subcategories, imageSrc }) => {
                 </div>
             </div>
         </div>
+        </Link>
+        
     );
 };
 

@@ -14,9 +14,15 @@ const NavBar = () => {
   
       const dropdownItems = {
         instruments: [
-            { name: 'Guitars', link: '/guitars' },
-            { name: 'Keyboards', link: '/keyboards' },
-            { name: 'Drums', link: '/drums' }
+            { name: 'Guitars', link: '/categories/guitars' },
+            { name: 'Bass Guitars', link: '/categories/bass-guitar' },
+            { name: 'Keyboards', link: '/categories/keyboards' },
+            { name: 'Pianos', link: '/categories/piano' },
+            { name: 'Synthesizers', link: '/categories/guitars' },
+            { name: 'Drums', link: '/categories/percussion' },
+            { name: 'Woodwind', link: '/categories/guitars' },
+            { name: 'Brass', link: '/categories/keyboards' },
+            { name: 'Orchestral', link: '/categories/drums' }
         ],
         equipment: [
             { name: 'Microphones', link: '/microphones' },

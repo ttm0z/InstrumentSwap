@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ListingCard from './ListingCard';
-import { fetchAllListings } from '../services/listingService';
+import { fetchAllListings, fetchListingsById, fetchListingsByCategory } from '../services/listingService';
 import './ItemList.css'; // Import CSS for styling
 
-const ItemList = () => {
+const ItemList = ({ category = null, user_id = null }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleCards = 3; // Number of cards to show at a time
     const [listings, setListings] = useState([]);
@@ -11,14 +11,21 @@ const ItemList = () => {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const response = await fetchAllListings();
+                let response;
+                if (category) {
+                    response = await fetchListingsByCategory(category);
+                } else if (user_id) {
+                    response = await fetchListingsById(user_id);
+                } else {
+                    response = await fetchAllListings();
+                }
                 setListings(response.data);
             } catch (error) {
                 console.error("Error fetching the listings:", error);
             }
         };
         fetchListings();
-    }, []);
+    }, [category, user_id]);
 
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
@@ -36,12 +43,10 @@ const ItemList = () => {
             <div className="item-list" style={{ transform: `translateX(-${currentIndex * (200 + 20)}px)` }}>
                 {listings.length > 0 ? (
                     listings.map((listing) => (
-                        
                         <ListingCard
                             key={listing.listing_id}
                             listingData={listing} // Ensure this matches with ListingCard's expected prop
                         />
-                        
                     ))
                 ) : (
                     <p>No listings available</p>
