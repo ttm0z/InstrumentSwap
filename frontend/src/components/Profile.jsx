@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import './Profile.css'; // Ensure you have the necessary CSS
-import UpdateUserForm from './UpdateUserForm'; // Import the form component
+
+import UpdateUserForm from './UpdateUserForm'; 
+import ManageListings from "./ManageListings";
 import ItemList from "./ItemList";
+
+import './Profile.css'; 
 
 const Profile = () => {
     const { username } = useParams();
@@ -12,7 +15,8 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
-
+    const [showManageListings, setShowManageListings] = useState(false);
+    
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -40,15 +44,16 @@ const Profile = () => {
     if (loading) return <div>Loading ...</div>;
     if (error) return <div>Error fetching user data: {error.message}</div>;
 
-    const imageUrl = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;
+    const defaultProfilePicture = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;
 
     return (
         <>
+
         <div className="profile-container">
             <div className="profile-card">
                 <div className="profile-card-header">
                     <div className="profile-photo">
-                        <img src={imageUrl} alt={`Profile of ${username}`} />
+                        <img src={defaultProfilePicture} alt={`Profile of ${username}`} />
                     </div>
                     <div className="profile-header-info">
                         <h1>{userData.first_name} {userData.last_name}</h1>
@@ -60,26 +65,29 @@ const Profile = () => {
                     <span className="location">{userData.location}</span>
                 </div>
                 
-                <div className="profile-info">
-                    <h3>{userData.first_name}'s Bio</h3>
-                    <p>Insert bio here. oh say can you dolom by the ipsem re doo when the </p>
-                </div>
-                <div className="profile-actions">
-                    <button className="contact-button">Contact</button>
-                    <button className="message-button">Message</button>
-                </div>
-            
-                <div className="listings">
+                
+                {(!showUpdateForm && !showManageListings) && (
+                    <>
+                    <div className="profile-info">
+                        <h3>{userData.first_name}'s Bio</h3>
+                        <p>Insert bio here. oh say can you dolom by the ipsem re doo when the </p>
+                    </div>
+                    <div className="profile-actions">
+                        <button className="contact-button">Contact</button>
+                        <button className="message-button">Message</button>
+                    </div>
+                    <div className="listings">
                     <div className="listings-header">
+                        
                         <h3>{userData.first_name}'s Listings</h3>
-                        <Link to="/create-listing">
+                        
+                        <Link to={`/create-listing/${username}`}>
                             <button className="create-listing">Create New</button>
                         </Link> 
                         
                         
                         {/* add utility to manage listings. same page */}
-                        <button className="create-listing"> Manage </button>
-
+                        <button className="manage-listing" onClick={() => setShowManageListings(true)}>Manage Listings</button>
 
                     </div>
                     <div className="item-list">
@@ -87,6 +95,14 @@ const Profile = () => {
                         <ItemList user_id={userData.user_id} />
                     </div>
                 </div>
+
+
+                </>
+                    
+                )}
+
+            
+
             </div>
         </div>
 
@@ -97,6 +113,15 @@ const Profile = () => {
                 onUpdate={handleUpdate}
             />
         )}
+
+        {showManageListings && (
+            <ManageListings 
+                user_id={userData.user_id}
+                onClose={() => setShowManageListings(false)}
+                onUpdate={handleUpdate}
+            />
+        )}
+        
         </>
     );
 };

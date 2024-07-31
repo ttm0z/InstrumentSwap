@@ -42,7 +42,7 @@ function App() {
                         {/* Listing */}
                         <Route path="/listings" element={<ListingsPage />} />
                         <Route path="/listings/:listingid" element = {<ListingDetail />} />
-                        <Route path="/create-listing" element={<CreateListing />} />
+                        <Route path="/create-listing/:username" element={<CreateListing />} />
 
                         {/* Profile */}
                         <Route path="/profile/:username" element={<Profile/>}/>

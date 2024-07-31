@@ -1,4 +1,25 @@
-.listing-container{
+.listing-container {
     display: flex;
     flex-direction: column;
+}
+
+.listing-header {
+    display: flex;
+    width: 90vw;
+    justify-content: flex-end;
+}
+
+.listing-header button {
+    width: 50px;
+    height: 50px;
+    margin-left: auto; 
+}
+
+.listing-photo{
+    justify-content: flex-start;
+    display: flex;
+    margin-right: auto; 
+}
+.listing-info{
+    position:relative;
 }

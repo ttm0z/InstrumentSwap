@@ -1,38 +1,30 @@
-/* CreateListing.css */
+.create-listing-header {
+    width: 80vw;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+}
 
-/* Container for the entire form to control layout and scrolling */
 .create-listing-container {
-    width: 100vw; /* Full viewport width */
+    width: 100vw;
     display: flex;
-    justify-content:flex-start;
-    padding: 20px;
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-/* Card style for the form */
-.create-listing-card {
-    width: 100%; 
-    max-width: 1000px; 
+    flex-direction: row;
+    justify-content: space-around; /* Center the content with even spacing */
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
     padding: 20px;
-    box-sizing: border-box; 
-    grid-template-columns: repeat(2, 1fr); /* Two columns layout */
-    gap: 20px; /* Space between columns */
 }
 
-/* Title styling spanning both columns */
-.create-listing-card h2 {
-    grid-column: span 2; /* Make the title span both columns */
-    margin: 0 0 20px 0;
-    font-size: 24px;
+.create-listing-column1,
+.create-listing-column2 {
+    width: 45%;
 }
 
 /* Styling for form groups */
 .create-listing-card div {
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px; /* Add spacing between form groups */
 }
 
 /* Label styling */
@@ -45,30 +37,29 @@
 .create-listing-card input,
 .create-listing-card textarea,
 .create-listing-card select {
-    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Include padding in width calculation */
 }
 
-/* Specific styling for textarea */
-.create-listing-card textarea {
-    height: 100px; /* Fixed height for textarea */
+.create-listing-footer {
+    display: flex;
+    background-color: #fff;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-/* Button styling spanning both columns */
-.create-listing-card button {
-    grid-column: span 2; /* Make the button span both columns */
+.create-listing-footer button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin: 0 10px;
 }
 
-.create-listing-card button:hover {
+.create-listing-footer button:hover {
     background-color: #0056b3;
 }

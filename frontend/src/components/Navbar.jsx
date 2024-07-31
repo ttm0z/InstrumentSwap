@@ -73,7 +73,7 @@ const NavBar = () => {
                 
                 <li>
                 {isAuthenticated ? (
-                        <Link to={`/profile/${username}`}>Profile</Link>
+                        <Link to={`/profile/${username}`}>{username}</Link>
                     ) : (
                         <Link to="/login">Login</Link>
                     )}
