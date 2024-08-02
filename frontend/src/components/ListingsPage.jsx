@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Listing from './ListingDetail';
+import { fetchAllListings } from '../services/listingService';
 
 const ListingsPage = () => {
     const [listings, setListings] = useState([]);
@@ -8,7 +9,7 @@ const ListingsPage = () => {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/listings/');
+                const response = fetchAllListings();
                 console.log('API response:', response.data); // Log the response data
                 if (Array.isArray(response.data)) {
                     setListings(response.data);

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchListingsById } from "../services/listingService";
+import './ManageListings.css'
+import { deleteListing } from "../services/listingService";
 /** Manage Listings
  * - Display all listings belonging to user
  * - Provide interface to update or remove listings
@@ -21,7 +23,6 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
                 console.log(user_id);
                 const response = await fetchListingsById(user_id);
                 setListings(response.data)
-                console.log(response.data)
                 setLoading(false)
             }
             catch(error){
@@ -41,11 +42,11 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
             <div className="listings">
                 {listings.length > 0 ? (
                     listings.map((listing) => (
+                        
                         <div className='listing'>
                             <h4>{listing.title}</h4>
-                            <p>{listing.description}</p>
-                            <p>{listing.price}</p>
-                            <p>{listing.location}</p>
+                            <button onClick={() => {deleteListing(listing.listing_id)}}>Delete Listing</button>
+                            <button>Update listing details</button>
                         </div>
                     ))
                 ) : (

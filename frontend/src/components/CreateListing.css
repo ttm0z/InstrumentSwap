@@ -1,15 +1,12 @@
+
+
 .create-listing-header {
-    width: 80vw;
     margin: 0 auto;
     background-color: #fff;
     text-align: center;
 }
 
 .create-listing-container {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around; /* Center the content with even spacing */
     background: #fff;
     box-sizing: border-box;
     padding: 20px;
@@ -17,30 +14,9 @@
 
 .create-listing-column1,
 .create-listing-column2 {
-    width: 45%;
+    
 }
 
-/* Styling for form groups */
-.create-listing-card div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px; /* Add spacing between form groups */
-}
-
-/* Label styling */
-.create-listing-card label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-/* Input, textarea, and select styling */
-.create-listing-card input,
-.create-listing-card textarea,
-.create-listing-card select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
 
 .create-listing-footer {
     display: flex;

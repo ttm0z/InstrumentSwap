@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './ImageUpload.css';
 
 function ImageUpload({ onUpload }) {
@@ -7,38 +6,16 @@ function ImageUpload({ onUpload }) {
 
     const handleImageChange = (e) => {
         const newImages = Array.from(e.target.files);
-        setImages([...images, ...newImages]);
-        onUpload(newImages);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        images.forEach((image, index) => {
-            formData.append(`image${index}`, image);
-        });
-
-        try {
-            const response = await axios.post('http://localhost:8000/api/upload/', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error uploading image:', error);
-        }
+        const updatedImages = [...images, ...newImages];
+        setImages(updatedImages);
+        onUpload(updatedImages);
     };
 
     return (
         <div className="image-upload">
-            <form onSubmit={handleSubmit}>
+            <form>
+                Upload Photos
                 <div className="image-upload-container">
-                    {images.map((image, index) => (
-                        <div key={index} className="image-preview-container">
-                            <img src={URL.createObjectURL(image)} alt={`Preview ${index}`} className="image-preview" />
-                        </div>
-                    ))}
                     <label htmlFor="image-upload-input" className="image-upload-label">
                         <div className="upload-placeholder">
                             <span className="plus-sign">+</span>
@@ -52,8 +29,12 @@ function ImageUpload({ onUpload }) {
                         style={{ display: 'none' }}
                     />
                 </div>
-                <button type="submit" style={{ display: 'none' }}>Upload</button>
             </form>
+            <div className='image-preview-container'>
+                {images.map((image, index) => (
+                    <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index}`} className="image-preview" />
+                ))}
+            </div>
         </div>
     );
 }

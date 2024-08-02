@@ -12,7 +12,6 @@ import CategoryPage from './components/CategoryPage';
 import CategoryProfile from './components/CategoryProfile';
 
 import Profile from './components/Profile';
-import ProfileUpdater from './components/ProfileUpdater';
 
 import AuthProvider from './services/authContext';
 import Login from './components/Login';
@@ -46,8 +45,7 @@ function App() {
 
                         {/* Profile */}
                         <Route path="/profile/:username" element={<Profile/>}/>
-                        <Route path="/update-profile" element={<ProfileUpdater />} />
-
+                    
                         {/* Categories */}
                         <Route path="/categories" element={<CategoryPage/>}/>
                         <Route path="/categories/:category" element={<CategoryProfile />} />

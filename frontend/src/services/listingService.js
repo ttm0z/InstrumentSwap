@@ -24,7 +24,7 @@ export const fetchListingsByCategory = (category) => {
     return api.get(`/api/listings/getByCategory/${category}/`);
 }
 
-/**Fetch listings by category
+/**Fetch listings by id
  * 
  * @param {*} category 
  * @returns 
@@ -32,4 +32,14 @@ export const fetchListingsByCategory = (category) => {
 export const fetchListingsById = (user_id) => {
     console.log("Fetching listings of userid", user_id);
     return api.get(`/api/listings/getById/${user_id}/`);
+}
+
+/**Fetch listings by id
+ * 
+ * @param {*} category 
+ * @returns 
+ */
+export const deleteListing = (listing_id) => {
+    console.log("deleting listing", listing_id);
+    return api.delete(`/api/listings/${listing_id}/`);
 }

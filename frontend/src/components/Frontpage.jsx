@@ -8,15 +8,15 @@ const Frontpage = () => {
         <div className="container">
             
             <div>
-                <h3>Featured Items</h3>
+                <h2>Featured Items</h2>
                 <ItemList/>
             </div>
             <div>
-                <h3>Browse By Category</h3>
+                <h2>Browse By Category</h2>
                 <CategoryList />
             </div>
             <div>
-                <h3>Recently Viewed</h3>
+                <h2>Recently Viewed</h2>
             </div>
         </div>
     );

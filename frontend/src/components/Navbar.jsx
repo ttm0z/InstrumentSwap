@@ -47,7 +47,7 @@ const NavBar = () => {
             <ul>
                 <li>
                     <Link to="/">
-                        <h1>I S</h1>
+                        <h1>IS</h1>
                     </Link>    
                 </li>
                 <div className='search'>

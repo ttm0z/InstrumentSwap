@@ -4,6 +4,10 @@ from rest_framework import viewsets, generics
 from rest_framework import status
 from django.views.decorators.http import require_GET
 from rest_framework.response import Response
+import uuid
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import os
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
@@ -22,14 +26,35 @@ from .serializers import UserSerializer
 
 
 class ImageUploadView(APIView):
+    
+    
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, *args, **kwargs):
-        print("__Request: ", request.data)
-        serializer = ImageUploadSerializer(data = request.data)
+                
+        data = request.data.copy()
+        files = request.FILES
+        
+        print("Data:" ,data )
+        print("Files:", files)
+
+        image_files = {key: files[key] for key in files}
+
+        print(data.get('type'))
+        print()
+        print(image_files)
+        print()
+        
+
+        #generate object to send to serializer
+
+        #generate url
+        serializer = ImageUploadSerializer(data = image_files)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -164,14 +189,60 @@ class ListingViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
 
+
+
     @action(detail=False, methods=['post'], url_path='create_listing')
     def create_listing(self, request, *args, **kwargs):
-        print(request.data)
-        serializer = ListingSerializer(data=request.data)
+
+        """
+        Generate new urls for each of the images. 
+        Send the images to the media folder with new names
+        Send a JSON list of urls titled 'images'
+        to the serializer along with the rest of the
+        data
+        input format: {user, title, description, category, condition, price, swap, location, status}
+        """
+        
+        data = request.data.copy()
+        files = request.FILES.getlist('images')
+        
+        image_urls = []
+        
+        user_id = data.get('user')
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        data['location'] = user.location
+
+        for file in files:
+            filename = f"{user_id}_listing_{uuid.uuid4()}{os.path.splitext(file.name)[1]}"
+            relative_filepath = os.path.join('images', filename)  # Ensure it is saved in 'images/' subdirectory
+            default_storage.save(relative_filepath, file)
+            file_url = default_storage.url(relative_filepath)
+            print("relative_filepath:", relative_filepath, "\n")
+            print("file_url:", file_url, "\n")
+            image_urls.append(filename)
+
+
+        print("image urls: ", image_urls)
+
+        # Convert image URLs to JSON format
+        image_urls_json = json.dumps(image_urls)
+
+        data['images'] = image_urls_json
+
+        # Ensure price is a decimal and swap is a boolean
+        data['price'] = float(data['price'])
+        data['swap'] = data['swap'].lower() == 'true'
+
+        serializer = ListingSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(serializer.errors)  # Print the serializer errors for debugging
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @action(detail=False, methods=['get'], url_path='getByCategory/(?P<category>[^/.]+)')

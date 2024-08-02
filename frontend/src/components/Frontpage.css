@@ -2,16 +2,17 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start; /* This aligns items (h2 elements) to the start of the container */
     height: auto;
 }
 
-body{
+body {
     width: 100vw;
-
 }
-h3{
-    left:0%
+
+h2 {
+    margin: 0; /* Ensures there is no default margin interfering */
+    align-self: flex-start; /* This makes sure each h2 aligns to the start of its container */
+    
 }
 

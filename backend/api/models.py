@@ -52,7 +52,7 @@ class Listing(models.Model):
     condition = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     swap = models.BooleanField(default=False)
-    images = models.JSONField()  # Using JSONField to store list of URLs
+    images = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=100)

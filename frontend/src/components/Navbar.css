@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 8vh; 
+    height: 5vh; 
 }
 
 ul{
@@ -33,6 +33,7 @@ ul{
     color: #000000; /* Text color */
     padding: 10px 20px; /* Adjust padding for better spacing */
     box-shadow: 0 4px 2px -2px gray;
+    border: 1px solid rgb(255, 204, 204);
     z-index: 1000;
     box-sizing: border-box; /* Include padding in total width/height */
     /* Set a fixed height to ensure consistent spacing */

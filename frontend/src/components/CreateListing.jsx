@@ -8,6 +8,9 @@ import ImageUpload from './ImageUpload';
 const CreateListing = () => {
     const navigate = useNavigate();
     const { username } = useParams();
+
+    const [images, setImages] = useState([]);
+    
     const categories = [
         { category: 'Guitar', imageSrc: 'path/to/guitarImage' },
         { category: 'Bass Guitar', imageSrc: 'path/to/bassImage' },
@@ -28,8 +31,6 @@ const CreateListing = () => {
         condition: '',
         price: 0.0,
         swap: false,
-        images: '', // This should be a JSON string
-        location: '',
         status: 'active'
     });
 
@@ -41,25 +42,37 @@ const CreateListing = () => {
         });
     };
 
-    const handleImageUpload = (image) => {
-        setFormData({
-            ...formData,
-            images: JSON.stringify([{ imageUrl: URL.createObjectURL(image) }])
-        });
+    const handleImageUpload = (uploadedImages) => {
+        setImages(uploadedImages);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const userId = await getUserIdByUsername(localStorage.getItem('username'));
+            
             const data = {
                 ...formData,
-                user: userId, // Set the user ID after fetching
-                price: parseFloat(formData.price), // Ensure price is a decimal
-                images: JSON.parse(formData.images) // Ensure images is a JSON object
+                user: userId,
+                price: parseFloat(formData.price),
             };
-            console.log('Submitting form data:', data);
-            await axios.post('http://localhost:8000/api/listings/create_listing/', data);
+
+            const formDataToSend = new FormData();
+
+            for (const key in data) {
+                formDataToSend.append(key, data[key]);
+            }
+
+            images.forEach((image, index) => {
+                formDataToSend.append('images', image);
+            });
+
+            console.log('Submitting form data:', formDataToSend);
+            await axios.post('http://localhost:8000/api/listings/create_listing/', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             alert('Listing created successfully!');
         } catch (error) {
             console.error('Error creating listing:', error);
@@ -68,11 +81,16 @@ const CreateListing = () => {
     };
 
     return (
-        <>
+        <div className='create-listing'>
             <h2 className='create-listing-header'>Create a New Listing</h2>
             <div className="create-listing-container">
+                <div className='create-listing-column2'>
+                    <div>
+                        <ImageUpload onUpload={handleImageUpload} />
+                    </div>
+                </div>
                 <div className="create-listing-column1">
-                    <form onSubmit={handleSubmit}>
+                    <form id="create-listing-form" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="title">Title</label>
                             <input
@@ -84,7 +102,6 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-
                         <div>
                             <label htmlFor="description">Description</label>
                             <textarea
@@ -95,7 +112,6 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-
                         <div>
                             <label htmlFor="category">Category</label>
                             <select
@@ -113,7 +129,6 @@ const CreateListing = () => {
                                 ))}
                             </select>
                         </div>
-
                         <div>
                             <label htmlFor="condition">Condition</label>
                             <input
@@ -125,20 +140,19 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-
                         <div>
                             <label htmlFor="price">Price</label>
                             <input
                                 type="number"
                                 step="0.01"
                                 id="price"
+                                default="0.00"
                                 name="price"
                                 value={formData.price}
                                 onChange={handleChange}
                                 required
                             />
                         </div>
-
                         <div>
                             <label htmlFor="swap">Swap</label>
                             <input
@@ -149,46 +163,12 @@ const CreateListing = () => {
                                 onChange={handleChange}
                             />
                         </div>
-
-                        <div>
-                            <label htmlFor="location">Location</label>
-                            <input
-                                type="text"
-                                id="location"
-                                name="location"
-                                value={formData.location}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="status">Status</label>
-                            <select
-                                id="status"
-                                name="status"
-                                value={formData.status}
-                                onChange={handleChange}
-                            >
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
+                        <button type="submit">Create Listing</button>
+                        <button type="button" onClick={() => navigate(`/profile/${username}`)}>Cancel</button>
                     </form>
                 </div>
-
-                <div className='create-listing-column2'>
-                    <div>
-                        <label htmlFor="images">Images</label>
-                        <ImageUpload onUpload={handleImageUpload} />
-                    </div>
-                </div>
             </div>
-            <div className="create-listing-footer">
-                <button type="submit" form="create-listing-form">Create Listing</button>
-                <button type="button" onClick={() => navigate(`/profile/${username}`)}>Cancel</button>
-            </div>
-        </>
+        </div>
     );
 };
 

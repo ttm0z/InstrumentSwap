@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import {getUserIdByUsername} from '../services/userService.js'
 import './ListingDetail.css'
+
 const ListingDetail = () => {
     
     const { listingid } = useParams();
@@ -11,16 +12,18 @@ const ListingDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
+    const [ownerData, setOwnerData] = useState({"firstName" : "", "lastName" : ""})
+    
 
     useEffect(() => {
         const fetchListing = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/listings/${listingid}/`);
-            
-                console.log(await userId == response.data.user)
+                let id = await userId;
+                console.log(response.data)
                 setListing(response.data);
-                
-                if(await userId == response.data.user){
+
+                if(id == response.data.user){
                     setIsOwner(true);
                 }
 
@@ -38,49 +41,76 @@ const ListingDetail = () => {
 
     return (
         <>
+            <div className='listing-header'>
+                <h1>{listing.title}</h1>
+
+            </div>
             <div className="listing-container">
-
-                <div className="listing-header-info">
                     
-                    <div className='listing-header'>
-                        <h1>{listing.title}</h1>
+                    <div className="listing-photo-column">
+                        {/* convert this into a carousel which displays each of the images */}
+                        <div className='image-box'>
+            
+                            <Slider images={listing.images}/>
+                            
+                            
+                            
+                            {/* <img src={`http://localhost:8000/api/instrument_swap_media/images/${listing.images[0]}`} alt={`Listing of ${listing.title}`} /> */}
+            
+                        </div>
                         
-                        {isOwner && (
-                            <button>+</button>
-                        )}
-
-                    </div>
-                    
-                    <div className="listing-photo">
-                        <img src={`http://localhost:8000/api/instrument_swap_media/images/${listing.images[0]}`} alt={`Listing of ${listing.title}`} />
                     </div>
                     
                     
-                    <div className="listing-info">
+                    <div className="listing-info-column">
                     
                         <h3>About</h3>
                         <p>{listing.description}</p>                    
+
+                        <p><p className='price'>${listing.price}</p></p>
+                        <p>Date Listed: {listing.created_at.split('T')[0]}</p>
                         <p>Category: {listing.category}</p>
                         <p>Condition: {listing.condition}</p>
-                        <p>Asking Price: ${listing.price}</p>
+                        
                         <p>Location: {listing.location}</p>
                     
                     </div>
-                
-
-                </div>
-                    
-                
-
-
-                <div className="listing-actions">
+            </div>
+            <div className="listing-actions">
                     <button className="contact-button">Contact Seller</button>
                     <button className="message-button">Message Seller</button>
                 </div>
-            </div>
 
         </>
     );
 };
+
+const Slider = ({images}) => {
+    
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    };
+    
+    return (
+        <div className='custom-slider'>
+            <button className='prev' onClick={prevSlide}>
+                &#10094;
+            </button>
+            <div className='slide'>
+                <img src={`http://localhost:8000/api/instrument_swap_media/images/${images[currentIndex]}`} alt={`Slide ${currentIndex}`} />
+            </div>
+            <button className='next' onClick={nextSlide}>
+                &#10095;
+            </button>
+        </div>
+    );
+    
+}
 
 export default ListingDetail;
