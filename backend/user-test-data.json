@@ -8,10 +8,11 @@
             "first_name": "Chris",
             "last_name": "Evans",
             "location": "Boston, MA, USA",
-            "profile_picture": "http://example.com/profile_pictures/chris.jpg",
+            "profile_picture": "chris_evans.jpg",
             "created_at": "2024-07-01T12:00:00Z",
+            "bio": "Chris is a music enthusiast and guitarist from Boston. He has a passion for vintage gear and enjoys sharing his knowledge with others in the community.",
             "updated_at": "2024-07-01T12:00:00Z",
-            "password": "chris_evans"  
+            "password": "chris_evans"
         }
     },
     {
@@ -23,10 +24,11 @@
             "first_name": "Scarlett",
             "last_name": "Johansson",
             "location": "Los Angeles, CA, USA",
-            "profile_picture": "http://example.com/profile_pictures/scarlett.jpg",
+            "profile_picture": "scarlett_johansson.jpg",
             "created_at": "2024-07-02T12:00:00Z",
+            "bio": "Scarlett is a Los Angeles-based music lover who specializes in electronic music. She enjoys exploring new sounds and sharing her favorite tracks with friends.",
             "updated_at": "2024-07-02T12:00:00Z",
-            "password": "scarlett_johansson"  
+            "password": "scarlett_johansson"
         }
     },
     {
@@ -38,10 +40,11 @@
             "first_name": "Alice",
             "last_name": "Wong",
             "location": "San Francisco, CA, USA",
-            "profile_picture": "http://example.com/profile_pictures/alice.jpg",
+            "profile_picture": "alice_wong.jpg",
             "created_at": "2024-07-03T12:00:00Z",
+            "bio": "Alice is a San Francisco-based musician and songwriter. She loves exploring different genres and is passionate about promoting local artists.",
             "updated_at": "2024-07-03T12:00:00Z",
-            "password": "alice_wong"  
+            "password": "alice_wong"
         }
     },
     {
@@ -53,10 +56,11 @@
             "first_name": "Mike",
             "last_name": "Jones",
             "location": "Chicago, IL, USA",
-            "profile_picture": "http://example.com/profile_pictures/mike.jpg",
+            "profile_picture": "mike_jones.jpg",
             "created_at": "2024-07-04T12:00:00Z",
+            "bio": "Mike is a Chicago-based drummer with a deep love for jazz and blues. He spends his free time attending live performances and working on new beats.",
             "updated_at": "2024-07-04T12:00:00Z",
-            "password": "mike_jones"  
+            "password": "mike_jones"
         }
     },
     {
@@ -68,10 +72,11 @@
             "first_name": "Emma",
             "last_name": "Brown",
             "location": "Houston, TX, USA",
-            "profile_picture": "http://example.com/profile_pictures/emma.jpg",
+            "profile_picture": "emma_brown.jpg",
             "created_at": "2024-07-05T12:00:00Z",
+            "bio": "Emma is a Houston-based singer-songwriter known for her soulful voice and heartfelt lyrics. She enjoys collaborating with other musicians and performing live.",
             "updated_at": "2024-07-05T12:00:00Z",
-            "password": "emma_brown"  
+            "password": "emma_brown"
         }
     },
     {
@@ -83,10 +88,11 @@
             "first_name": "David",
             "last_name": "Clark",
             "location": "Miami, FL, USA",
-            "profile_picture": "http://example.com/profile_pictures/david.jpg",
+            "profile_picture": "david_clark.jpg",
             "created_at": "2024-07-06T12:00:00Z",
+            "bio": "David is a Miami-based electronic music producer with a passion for creating innovative sounds. He enjoys experimenting with different production techniques and sharing his music with the world.",
             "updated_at": "2024-07-06T12:00:00Z",
-            "password": "david_clark"  
+            "password": "david_clark"
         }
     },
     {
@@ -98,10 +104,11 @@
             "first_name": "Susan",
             "last_name": "Lee",
             "location": "Seattle, WA, USA",
-            "profile_picture": "http://example.com/profile_pictures/susan.jpg",
+            "profile_picture": "susan_lee.jpg",
             "created_at": "2024-07-07T12:00:00Z",
+            "bio": "Susan is a Seattle-based music educator with a love for classical and jazz music. She dedicates her time to teaching music to students and organizing local music events.",
             "updated_at": "2024-07-07T12:00:00Z",
-            "password": "susan_lee"  
+            "password": "susan_lee"
         }
     }
 ]

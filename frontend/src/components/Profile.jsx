@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 
 import UpdateUserForm from './UpdateUserForm'; 
@@ -10,6 +10,9 @@ import ProfilePicture from "./ProfilePicture";
 import './Profile.css'; 
 
 const Profile = () => {
+
+    const navigate = useNavigate();
+
     const { username } = useParams();
     const [userData, setUserData] = useState(null);
     const [isOwner, setIsOwner] = useState(false)
@@ -63,8 +66,10 @@ const Profile = () => {
 
                         <div className="profile-header-info">
                             <h1>{userData.first_name} {userData.last_name}</h1>
-                            {isOwner && (
+                            {isOwner ? (
                                 <button className="info-button" onClick={() => setShowUpdateForm(true)}>Update Info</button>
+                            ) : (
+                                <button className="info-button" onClick={() => navigate(`/direct-message/${userData.user_id}`)}>Message {userData.first_name}</button>
                             )}
                         </div>  
                     </div>

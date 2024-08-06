@@ -1,26 +1,27 @@
-from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
-from rest_framework import viewsets, generics
-from rest_framework import status
-from django.views.decorators.http import require_GET
-from rest_framework.response import Response
-import uuid
-from django.core.files.storage import default_storage
-import os
-from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate, login, logout
-from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer, ImageUploadSerializer
-from .models import Listing, Transaction, Message, SearchHistory, Appraisal
-from .models import User
-from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+from django.contrib.auth import authenticate, login, logout
+
+from rest_framework import viewsets, generics, status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+
+from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer, ImageUploadSerializer
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal
+from .models import User
+
+import os
 import json
-from .serializers import UserSerializer
+import uuid
+
 
 
 class ImageUploadView(APIView):
@@ -56,76 +57,54 @@ class ImageUploadView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def get_image_url(request, filename):
-    url = settings.MEDIA_URL + filename
-    return JsonResponse({'url': url})
+class AuthViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
 
-@csrf_exempt
-def register_user(request):
-    if request.method == 'POST':
-        
-        data = json.loads(request.body)
-        
+    @action(detail=False, methods=['post'])
+    def register(self, request):
+        data = request.data
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
-        print("username: ", username)
-        print("password: ", password)
-        print("email: ", email)
+        
         if not username or not password or not email:
-            return JsonResponse({'error': 'Missing required fields'}, status=400)
+            return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            print("Creating auth user")
             User = get_user_model()
             user = User.objects.create_user(username=username, email=email)
             user.set_password(password)
             user.save()
-            print("Auth user created")
             
-            return JsonResponse({'message': 'User created successfully'}, status=201)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@csrf_exempt
-def logout_view(request):
-    if request.method == 'POST':
+    @action(detail=False, methods=['post'])
+    def logout(self, request):
         logout(request)
-        return JsonResponse({'message':'Logged out successfully'}, status=200)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 
-def check_auth_view(request):
-    if request.user.is_authenticated:
-        return JsonResponse({'isAuthenticated':True, 'username': request.username}, status=200)
-    else:
-        return JsonResponse({'isAuthenticated':False}, status=200)
-    
+    @action(detail=False, methods=['get'])
+    def check_auth(self, request):
+        if request.user.is_authenticated:
+            return Response({'isAuthenticated': True, 'username': request.user.username}, status=status.HTTP_200_OK)
+        else:
+            return Response({'isAuthenticated': False}, status=status.HTTP_200_OK)
 
-class LoginView(generics.GenericAPIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
+    @action(detail=False, methods=['post'])
+    def login(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-    
-        print("username:", username)
-        print("password: ", password)
         
         user = authenticate(username=username, password=password)
         
-        print("user", user)
-
         if user is not None:
             login(request, user)
-            print("login:", login)
             token, created = Token.objects.get_or_create(user=user)
             return Response({'status': 'success', 'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -186,7 +165,7 @@ class UserViewSet(viewsets.ModelViewSet):
         
         profile_picture = request.FILES['profile_picture']
         extension = profile_picture.name.split('.')[-1]
-        filename = f'{uuid.uuid4()}.{extension}'
+        filename = f'{username}.{extension}'
 
         path = default_storage.save(os.path.join('images', filename), profile_picture)
         user.profile_picture=filename

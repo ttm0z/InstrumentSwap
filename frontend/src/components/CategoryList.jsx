@@ -15,47 +15,47 @@ import otherImage from '../assets/category_samples/other_sample.png';
 const categories = [
     {
         category: 'Guitar',
-        subcategories: [],
+        link: 'guitar',
         imageSrc: guitarImage
     },
     {
         category: 'Bass Guitar',
-        subcategories: [],
+        link: 'bass',
         imageSrc: bassImage
     },
     {
         category: 'Keyboards and Synths',
-        subcategories: [],
+        link: 'keys',
         imageSrc: keyboardImage
     },
     {
-        category: 'Pianos',
-        subcategories: [],
+        category: 'Piano',
+        link: 'piano',
         imageSrc: pianoImage
     },
     {
         category: 'Percussion',
-        subcategories: [],
+        link: 'percusssion',
         imageSrc: percussionImage
     },
     {
         category: 'Woodwind',
-        subcategories: [],
+        link: 'woodwind',
         imageSrc: woodwindImage
     },
     {
         category: 'Brass',
-        subcategories: [],
+        link: 'brass',
         imageSrc: brassImage
     },
     {
         category: 'Orchestral',
-        subcategories: [],
+        link: 'orchestral',
         imageSrc: orchestralImage
     },
     {
         category: 'Other',
-        subcategories: [],
+        link: 'other',
         imageSrc: otherImage
     }
 ];
@@ -83,7 +83,7 @@ const CategoryList = () => {
                     <CategoryCard
                         key={index}
                         category={categoryData.category}
-                        subcategories={categoryData.subcategories}
+                        link={categoryData.link}
                         imageSrc={categoryData.imageSrc} // Pass imageSrc to CategoryCard
                     />
                 ))}

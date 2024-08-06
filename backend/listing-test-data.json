@@ -46,7 +46,7 @@
             "condition": "used",
             "price": 1800.00,
             "swap": false,
-            "images": ["les_paul_test_image.png"],
+            "images": ["les_paul_test_image.jpg"],
             "created_at": "2024-07-03T12:00:00Z",
             "updated_at": "2024-07-03T12:00:00Z",
             "location": "San Francisco, CA, USA",
@@ -60,7 +60,7 @@
             "user": 4,
             "title": "Behringer Xenyx Mixer",
             "description": "Behringer Xenyx mixer with 12 channels. In good condition.",
-            "category": "gear",
+            "category": "recording",
             "condition": "good",
             "price": 150.00,
             "swap": false,
@@ -132,7 +132,7 @@
             "user": 1,
             "title": "Marshall JCM800 Guitar Amp",
             "description": "Marshall JCM800 guitar amp head with footswitch.",
-            "category": "gear",
+            "category": "amps",
             "condition": "used",
             "price": 800.00,
             "swap": true,
@@ -168,7 +168,7 @@
             "user": 3,
             "title": "Zoom H6 Handy Recorder",
             "description": "Zoom H6 handy recorder with accessories. Perfect for field recording.",
-            "category": "gear",
+            "category": "recording",
             "condition": "new",
             "price": 300.00,
             "swap": false,
@@ -186,7 +186,7 @@
             "user": 4,
             "title": "Gator Cases Bass Guitar Case",
             "description": "Gator Cases bass guitar case. Heavy-duty and protective.",
-            "category": "gear",
+            "category": "accessories",
             "condition": "good",
             "price": 120.00,
             "swap": true,
@@ -204,7 +204,7 @@
             "user": 5,
             "title": "Akai MPK Mini Mk3 Controller",
             "description": "Akai MPK Mini Mk3 MIDI controller. Great for home studios.",
-            "category": "gear",
+            "category": "recording",
             "condition": "new",
             "price": 100.00,
             "swap": false,
@@ -466,5 +466,441 @@
             "location": "Orlando, FL, USA",
             "status": "active"
         }
+    },
+    {
+        "model": "api.listing",
+        "pk": 27,
+        "fields": {
+            "user": 1,
+            "title": "High-Quality Recording Microphone",
+            "description": "Professional recording microphone with excellent sound quality.",
+            "category": "recording",
+            "condition": "new",
+            "price": 250.00,
+            "swap": false,
+            "images": ["microphone_test_image.jpg"],
+            "created_at": "2024-08-01T12:00:00Z",
+            "updated_at": "2024-08-01T12:00:00Z",
+            "location": "New York, NY",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 28,
+        "fields": {
+            "user": 2,
+            "title": "Studio Monitors",
+            "description": "Pair of studio monitors with high fidelity sound.",
+            "category": "recording",
+            "condition": "good",
+            "price": 600.00,
+            "swap": true,
+            "images": ["microphone_test_image.jpg"],
+            "created_at": "2024-08-02T12:00:00Z",
+            "updated_at": "2024-08-02T12:00:00Z",
+            "location": "Los Angeles, CA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 29,
+        "fields": {
+            "user": 3,
+            "title": "Audio Interface",
+            "description": "USB audio interface with multiple input/output options.",
+            "category": "recording",
+            "condition": "new",
+            "price": 150.00,
+            "swap": false,
+            "images": ["interface_test_image.jpg"],
+            "created_at": "2024-08-03T12:00:00Z",
+            "updated_at": "2024-08-03T12:00:00Z",
+            "location": "Chicago, IL",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 30,
+        "fields": {
+            "user": 4,
+            "title": "Guitar Amplifier",
+            "description": "High-power guitar amplifier with excellent tone.",
+            "category": "amps",
+            "condition": "used",
+            "price": 300.00,
+            "swap": false,
+            "images": ["amplifier_test_image.jpg"],
+            "created_at": "2024-08-04T12:00:00Z",
+            "updated_at": "2024-08-04T12:00:00Z",
+            "location": "San Francisco, CA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 31,
+        "fields": {
+            "user": 5,
+            "title": "Bass Amplifier",
+            "description": "Compact bass amplifier with a punchy sound.",
+            "category": "amps",
+            "condition": "good",
+            "price": 150.00,
+            "swap": true,
+            "images": ["bass_amp_test_image.jpg"],
+            "created_at": "2024-08-05T12:00:00Z",
+            "updated_at": "2024-08-05T12:00:00Z",
+            "location": "Seattle, WA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 32,
+        "fields": {
+            "user": 1,
+            "title": "Combo Amp",
+            "description": "Versatile combo amp suitable for various instruments.",
+            "category": "amps",
+            "condition": "new",
+            "price": 200.00,
+            "swap": false,
+            "images": ["line6_combo_amp_test_image.jpg"],
+            "created_at": "2024-08-06T12:00:00Z",
+            "updated_at": "2024-08-06T12:00:00Z",
+            "location": "Austin, TX",
+            "status": "active"
+        }
+    },
+    
+    {
+        "model": "api.listing",
+        "pk": 33,
+        "fields": {
+            "user": 2,
+            "title": "Multi-Effects Pedal",
+            "description": "All-in-one effects pedal with multiple settings.",
+            "category": "effects",
+            "condition": "good",
+            "price": 120.00,
+            "swap": true,
+            "images": ["multi_effects_pedal_test_image.jpg"],
+            "created_at": "2024-08-07T12:00:00Z",
+            "updated_at": "2024-08-07T12:00:00Z",
+            "location": "Boston, MA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 34,
+        "fields": {
+            "user": 3,
+            "title": "Overdrive Pedal",
+            "description": "Classic overdrive pedal for a vintage sound.",
+            "category": "effects",
+            "condition": "used",
+            "price": 80.00,
+            "swap": false,
+            "images": ["overdrive_pedal_test_image.jpg"],
+            "created_at": "2024-08-08T12:00:00Z",
+            "updated_at": "2024-08-08T12:00:00Z",
+            "location": "Denver, CO",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 35,
+        "fields": {
+            "user": 4,
+            "title": "Delay Pedal",
+            "description": "Pedal with delay effects and various sound settings.",
+            "category": "effects",
+            "condition": "new",
+            "price": 100.00,
+            "swap": false,
+            "images": ["delay_pedal_test_image.jpg"],
+            "created_at": "2024-08-09T12:00:00Z",
+            "updated_at": "2024-08-09T12:00:00Z",
+            "location": "Portland, OR",
+            "status": "active"
+        }
+    },
+    
+    {
+        "model": "api.listing",
+        "pk": 36,
+        "fields": {
+            "user": 5,
+            "title": "Audio Preamplifier",
+            "description": "High-quality preamplifier for professional audio.",
+            "category": "components",
+            "condition": "new",
+            "price": 350.00,
+            "swap": false,
+            "images": ["audio_preamp_test_image.jpg"],
+            "created_at": "2024-08-10T12:00:00Z",
+            "updated_at": "2024-08-10T12:00:00Z",
+            "location": "San Diego, CA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 37,
+        "fields": {
+            "user": 1,
+            "title": "Equalizer Rack",
+            "description": "Professional rack-mounted equalizer with multiple bands.",
+            "category": "components",
+            "condition": "good",
+            "price": 500.00,
+            "swap": true,
+            "images": ["eq_rack_test_image.jpg"],
+            "created_at": "2024-08-11T12:00:00Z",
+            "updated_at": "2024-08-11T12:00:00Z",
+            "location": "Miami, FL",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 38,
+        "fields": {
+            "user": 2,
+            "title": "Audio Interface Components",
+            "description": "Various components for building audio interfaces.",
+            "category": "components",
+            "condition": "used",
+            "price": 250.00,
+            "swap": false,
+            "images": ["interface_components_test_image.jpg"],
+            "created_at": "2024-08-12T12:00:00Z",
+            "updated_at": "2024-08-12T12:00:00Z",
+            "location": "Atlanta, GA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 39,
+        "fields": {
+            "user": 3,
+            "title": "Guitar Strap",
+            "description": "Comfortable and durable guitar strap.",
+            "category": "accessories",
+            "condition": "new",
+            "price": 20.00,
+            "swap": false,
+            "images": ["guitar_strap_test_image.jpg"],
+            "created_at": "2024-08-13T12:00:00Z",
+            "updated_at": "2024-08-13T12:00:00Z",
+            "location": "Chicago, IL",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 40,
+        "fields": {
+            "user": 4,
+            "title": "Drumsticks Set",
+            "description": "High-quality drumsticks for various drumming styles.",
+            "category": "accessories",
+            "condition": "good",
+            "price": 15.00,
+            "swap": true,
+            "images": ["drumstick_test_image.jpg"],
+            "created_at": "2024-08-14T12:00:00Z",
+            "updated_at": "2024-08-14T12:00:00Z",
+            "location": "San Francisco, CA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 41,
+        "fields": {
+            "user": 5,
+            "title": "Guitar Pick Collection",
+            "description": "A collection of various guitar picks and accessories.",
+            "category": "accessories",
+            "condition": "used",
+            "price": 30.00,
+            "swap": false,
+            "images": ["guitar_picks_test_image.jpg"],
+            "created_at": "2024-08-15T12:00:00Z",
+            "updated_at": "2024-08-15T12:00:00Z",
+            "location": "Seattle, WA",
+            "status": "active"
+        }
+    },
+    
+    {
+        "model": "api.listing",
+        "pk": 42,
+        "fields": {
+            "user": 1,
+            "title": "Band Logo Hoodie",
+            "description": "Warm hoodie with a band's logo on it.",
+            "category": "clothing",
+            "condition": "new",
+            "price": 55.00,
+            "swap": false,
+            "images": ["bad_company_hoodie_test_image.jpg"],
+            "created_at": "2024-08-16T12:00:00Z",
+            "updated_at": "2024-08-16T12:00:00Z",
+            "location": "Austin, TX",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 43,
+        "fields": {
+            "user": 2,
+            "title": "Vintage Band T-Shirt",
+            "description": "Classic t-shirt from a legendary band.",
+            "category": "clothing",
+            "condition": "good",
+            "price": 30.00,
+            "swap": true,
+            "images": ["rolling_stones_shirt_test_image.jpg"],
+            "created_at": "2024-08-17T12:00:00Z",
+            "updated_at": "2024-08-17T12:00:00Z",
+            "location": "New York, NY",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 44,
+        "fields": {
+            "user": 3,
+            "title": "Festival T-Shirt",
+            "description": "T-shirt from a popular music festival.",
+            "category": "clothing",
+            "condition": "new",
+            "price": 25.00,
+            "swap": false,
+            "images": ["woodstock_shirt_test_image.jpg"],
+            "created_at": "2024-08-18T12:00:00Z",
+            "updated_at": "2024-08-18T12:00:00Z",
+            "location": "Los Angeles, CA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 45,
+        "fields": {
+            "user": 4,
+            "title": "Autographed Album",
+            "description": "Limited edition album signed by the band.",
+            "category": "memorabilia",
+            "condition": "new",
+            "price": 100.00,
+            "swap": false,
+            "images": ["signed_dylan_record_test_image.jpg"],
+            "created_at": "2024-08-19T12:00:00Z",
+            "updated_at": "2024-08-19T12:00:00Z",
+            "location": "Miami, FL",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 46,
+        "fields": {
+            "user": 5,
+            "title": "Concert Poster",
+            "description": "Poster from a historic concert.",
+            "category": "memorabilia",
+            "condition": "used",
+            "price": 35.00,
+            "swap": true,
+            "images": ["zeppelin_poster_test_image.jpg"],
+            "created_at": "2024-08-20T12:00:00Z",
+            "updated_at": "2024-08-20T12:00:00Z",
+            "location": "Seattle, WA",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 47,
+        "fields": {
+            "user": 1,
+            "title": "Music History Book",
+            "description": "A book detailing the history of music.",
+            "category": "memorabilia",
+            "condition": "good",
+            "price": 20.00,
+            "swap": false,
+            "images": ["history_book_test_image.jpg"],
+            "created_at": "2024-08-21T12:00:00Z",
+            "updated_at": "2024-08-21T12:00:00Z",
+            "location": "Chicago, IL",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 48,
+        "fields": {
+            "user": 2,
+            "title": "Music Festival Ticket",
+            "description": "Ticket to a major music festival.",
+            "category": "miscellaneous",
+            "condition": "new",
+            "price": 150.00,
+            "swap": false,
+            "images": ["dead_ticket_test_image.jpg"],
+            "created_at": "2024-08-22T12:00:00Z",
+            "updated_at": "2024-08-22T12:00:00Z",
+            "location": "Austin, TX",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 49,
+        "fields": {
+            "user": 3,
+            "title": "Music Gear Maintenance Kit",
+            "description": "Kit for maintaining and cleaning music gear.",
+            "category": "miscellaneous",
+            "condition": "good",
+            "price": 40.00,
+            "swap": true,
+            "images": ["guitar_cleaning_kit_test_image.jpg"],
+            "created_at": "2024-08-23T12:00:00Z",
+            "updated_at": "2024-08-23T12:00:00Z",
+            "location": "Denver, CO",
+            "status": "active"
+        }
+    },
+    {
+        "model": "api.listing",
+        "pk": 50,
+        "fields": {
+            "user": 4,
+            "title": "Music Theory Book",
+            "description": "A comprehensive book on music theory.",
+            "category": "miscellaneous",
+            "condition": "new",
+            "price": 15.00,
+            "swap": false,
+            "images": ["music_theory_book_test_image.jpg"],
+            "created_at": "2024-08-24T12:00:00Z",
+            "updated_at": "2024-08-24T12:00:00Z",
+            "location": "San Francisco, CA",
+            "status": "active"
+        }
     }
+    
 ]

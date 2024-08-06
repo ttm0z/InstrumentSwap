@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function ProfilePicture({ username, picture }) {
     const defaultProfilePicture = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;    
-    const profilePicture = `http://localhost:8000/api/instrument_swap_media/images/${picture}/`;
+    const profilePicture = `http://localhost:8000/api/instrument_swap_media/images/${username}.jpg/`;
     const [image, setImage] = useState(null);
     
     console.log(picture)

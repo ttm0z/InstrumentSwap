@@ -2,9 +2,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, ListingViewSet, TransactionViewSet, MessageViewSet, SearchHistoryViewSet, AppraisalViewSet, LoginView, ImageUploadView
-from .views import register_user, logout_view, check_auth_view
-from .views import get_image_url
+from .views import UserViewSet, ListingViewSet, TransactionViewSet, MessageViewSet, SearchHistoryViewSet, AppraisalViewSet, AuthViewSet
 from .views import ListingDetailView
 
 router = DefaultRouter()
@@ -14,15 +12,10 @@ router.register(r'transactions', TransactionViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'search-history', SearchHistoryViewSet)
 router.register(r'appraisals', AppraisalViewSet)
+router.register(r'auth', AuthViewSet, basename='auth')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('register/', register_user, name='register_user'),
-    path('logout/', logout_view, name='logout'),
-    path('check-auth/', check_auth_view, name='check_auth'),
-    path('login/', LoginView.as_view(), name='login'),
-    path('upload/', ImageUploadView.as_view(), name='upload_image'),
-    path('api/image/<str:filename>/', get_image_url, name='get_image_url'),
     path('listings/<int:pk>/', ListingDetailView.as_view(), name='listing-detail'),
 ]
 

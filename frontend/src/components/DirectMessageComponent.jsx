@@ -1,41 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useWebSocket } from '../hooks/useWebSocket';
+import useWebSocket from '../hooks/useWebSocket';
+import { getUserById } from '../services/userService'
+
+// Need to get pfp & name for both users
+// 
+    
+
 
 const DirectMessageComponent = () => {
-
-    const { recipientId } = useParams();
+    const user_param  = useParams();
+    
+    const user_id = getUserById(user_param.user_id);
+    console.log( user_id);
+    
+    const [userData, setUserData] = useState({});
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const { sendMessage, recieveMessage } = useWebSocket(recipientId)
+    const { sendMessage, recieveMessage } = useWebSocket(user_id);
 
     useEffect(() => {
-        fetchMessages(recipientId).then(initialMessages => setMessages(initialMessages));
 
         recieveMessage(message => setMessages(prev => [...prev, message]));
-    }, [recipientId]);
+    }, [user_id, recieveMessage]);  // Added recieveMessage to dependency array
 
+    const handleSendMessage = () => {
+        if (newMessage.trim()) {
+            sendMessage(newMessage);
+            setNewMessage(''); // Clear the input after sending
+        }
+    };
 
-    return(
+    return (
         <div className='chat-container'>
             <div className='contacts-bar'>
-
+                {/* Contacts bar content */}
             </div>
             <div className='message-box'>
+                <div>{userData.data}</div>
                 {messages.map((msg, index) => (
                     <p key={index}>{msg}</p>
                 ))}
                 <input 
                     type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
                 />
-                <button onClick={sendMessage}>Send</button>
+                <button onClick={handleSendMessage}>Send</button>
             </div>
-
-            <div className='details-bar'></div>
+            <div className='details-bar'>
+                {/* Details bar content */}
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default DirectMessageComponent;

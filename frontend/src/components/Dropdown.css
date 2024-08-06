@@ -1,15 +1,8 @@
 /* Dropdown.css */
 .dropdown {
-    position: relative;
     display: inline-block;
+    position: relative;
 }
-
-.dropdown-button:hover {
-    color: #860000; /* Slightly darker color on hover */
-    text-decoration: underline;
-}
-
-
 
 .dropdown-button {
     background-color: #faefef;
@@ -18,26 +11,43 @@
     cursor: pointer;
 }
 
+.dropdown-button:hover {
+    color: #860000; /* Slightly darker color on hover */
+    text-decoration: underline;
+}
+
 .dropdown-menu {
-    display: block;
+    display: none; /* Initially hidden */
     position: absolute;
+    flex-wrap: wrap; 
     background-color: white;
     border: 1px solid #000;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    
     box-sizing: border-box; 
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    max-width: 60vw; 
+    padding: 10px; 
+}
+
+.dropdown:hover .dropdown-menu {
+    display: flex; /* Show the dropdown menu on hover */
 }
 
 .dropdown-menu ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap; 
+    width: 100%; /* Take the full width of the dropdown menu */
 }
 
 .dropdown-menu li {
     padding: 10px;
+    flex: 0 1 auto; /* Allow the items to grow and shrink as needed */
+    min-width: 100px; /* Minimum width for each item */
+    max-width: calc(100% - 20px); /* Ensure each item does not exceed the menu width */
+    box-sizing: border-box;
 }
 
 .dropdown-menu li a {
@@ -48,6 +58,5 @@
 }
 
 .dropdown-menu li:hover {
-    
-
+    background-color: #f0f0f0; /* Background color on hover */
 }

@@ -85,13 +85,14 @@ class Transaction(models.Model):
         return f"Transaction {self.transaction_id}"
 
 
+
 class Conversation(models.Model):
     user1 = models.ForeignKey(User, related_name='conversations_as_user1', on_delete=models.CASCADE)
     user2 = models.ForeignKey(User, related_name='conversations_as_user2', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user1} <---> {self.user2}"
-    
+
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation, related_name="messages", on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)

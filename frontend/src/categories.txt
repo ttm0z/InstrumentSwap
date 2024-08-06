@@ -1,10 +1,24 @@
-guitar
-bass
-keys
-piano
-percussion
-woodwind
-brass
-orchestral
-gear
-other
+Instruments
+    guitar
+    bass
+    keys
+    piano
+    percussion
+    woodwind
+    brass
+    orchestral
+    other
+
+
+Gear
+    recording
+    amps
+    effects
+    components
+    accessories
+
+Merch
+    clothing
+    memorabilia
+    miscellaneous
+

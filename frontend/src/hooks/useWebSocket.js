@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback }  from 'react';
 
 const useWebSocket = (recipientId) => {
+    
+    console.log('recipientId:', recipientId)
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
 

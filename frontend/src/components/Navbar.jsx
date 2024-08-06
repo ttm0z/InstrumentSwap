@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
 import {AuthContext} from '../services/authContext'
+
 const NavBar = () => {
     const authToken = localStorage.getItem('authToken');
     const{ isAuthenticated, setIsAuthenticated, logout} = useContext(AuthContext);
@@ -14,32 +15,30 @@ const NavBar = () => {
   
       const dropdownItems = {
         instruments: [
-            { name: 'Guitars', link: '/categories/guitars' },
-            { name: 'Bass Guitars', link: '/categories/bass-guitar' },
-            { name: 'Keyboards', link: '/categories/keyboards' },
+            { name: 'Guitars', link: '/categories/guitar' },
+            { name: 'Bass Guitars', link: '/categories/bass' },
+            { name: 'Keyboards', link: '/categories/keys' },
             { name: 'Pianos', link: '/categories/piano' },
-            { name: 'Synthesizers', link: '/categories/guitars' },
-            { name: 'Drums', link: '/categories/percussion' },
-            { name: 'Woodwind', link: '/categories/guitars' },
-            { name: 'Brass', link: '/categories/keyboards' },
-            { name: 'Orchestral', link: '/categories/drums' }
+            { name: 'Percussion', link: '/categories/percussion' },
+            { name: 'Woodwind', link: '/categories/woodwind' },
+            { name: 'Brass', link: '/categories/brass' },
+            { name: 'Orchestral', link: '/categories/orchestral' },
+            { name: 'Other', link: '/categories/other' }
         ],
-        equipment: [
-            { name: 'Microphones', link: '/microphones' },
-            { name: 'Amps', link: '/amps' },
-            { name: 'Speakers', link: '/speakers' }
+        gear: [
+            { name: 'Recording Equipment', link: '/categories/recording' },
+            { name: 'Amplifiers & PAs', link: '/categories/amps' },
+            { name: 'Effects', link: '/categories/effects' },
+            { name: 'Components', link: '/categories/components' },
+            { name: 'Accessories', link: '/categories/accessories' }
         ],
         merch: [
-            { name: 'T-Shirts', link: '/tshirts' },
-            { name: 'Hats', link: '/hats' },
-            { name: 'Posters', link: '/posters' }
-        ],
-        hotDeals: [
-            { name: 'Discounted Instruments', link: '/discounted-instruments' },
-            { name: 'Clearance Equipment', link: '/clearance-equipment' },
-            { name: 'Special Offers', link: '/special-offers' }
+            { name: 'Clothing', link: '/categories/clothing' },
+            { name: 'Memorabilia', link: '/categories/memorabilia' },
+            { name: 'Miscellaneous', link: '/categories/miscellaneous' }
         ]
     };
+    
     
     return (
         <nav className="navbar">
@@ -86,14 +85,6 @@ const NavBar = () => {
                         <Link to="/signup">SignUp</Link>
                     )}
                 </li>
-                
-                <li>
-                    <button onClick={handleAuthStatus}>Auth</button>
-                </li>
-
-                
-                
-            
             
             </ul>
             </div>
@@ -103,13 +94,10 @@ const NavBar = () => {
                     <Dropdown title="Instruments" items={dropdownItems.instruments} />
                 </li>
                 <li>
-                    <Dropdown title="Equipment" items={dropdownItems.equipment} />
+                    <Dropdown title="Equipment" items={dropdownItems.gear} />
                 </li>
                 <li>
                     <Dropdown title="Merch" items={dropdownItems.merch} />
-                </li>
-                <li>
-                    <Dropdown title="Hot Deals" items={dropdownItems.hotDeals} />
                 </li>
             </ul>
 

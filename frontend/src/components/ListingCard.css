@@ -3,6 +3,7 @@
     width: 300px; /* Adjust as needed */
     height: 300px; /* Adjust as needed */
     overflow: hidden;
+    z-index: 1;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
