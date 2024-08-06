@@ -27,6 +27,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    bio = models.CharField(max_length=200, blank=True)
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

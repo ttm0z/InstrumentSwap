@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 
 import UpdateUserForm from './UpdateUserForm'; 
 import ManageListings from "./ManageListings";
-import ItemList from "./ItemList";
+import ItemGrid from "./ItemGrid";
+import ProfilePicture from "./ProfilePicture";
 
 import './Profile.css'; 
 
 const Profile = () => {
     const { username } = useParams();
     const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [isOwner, setIsOwner] = useState(false)
+
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showManageListings, setShowManageListings] = useState(false);
+    
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     useEffect(() => {
         const fetchUserData = async () => {
@@ -24,7 +27,11 @@ const Profile = () => {
                 setUserData(response.data);
                 setLoading(false);
                 console.log(response.data)
-            } catch (err) {
+                if(response.data.username == localStorage.getItem('username')){
+                    setIsOwner(true)
+                }
+            } 
+            catch (err) {
                 setError(err);
                 setLoading(false);
             }
@@ -36,7 +43,8 @@ const Profile = () => {
         try {
             const response = await axios.get(`http://localhost:8000/api/users/${username}/`);
             setUserData(response.data);
-        } catch (err) {
+        } 
+        catch (err) {
             setError(err);
         }
     };
@@ -44,55 +52,75 @@ const Profile = () => {
     if (loading) return <div>Loading ...</div>;
     if (error) return <div>Error fetching user data: {error.message}</div>;
 
-    const defaultProfilePicture = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;
-
     return (
         <>
+            <div className="profile-container">
+                <div className="column-1">
+                    <div className="profile-card-header">
+                        <div className="profile-photo">
+                            <ProfilePicture username={username} picture={userData.profile_picture}/>
+                        </div>
 
-        <div className="profile-container">
-            <div className="profile-card">
-                <div className="profile-card-header">
-                    <div className="profile-photo">
-                        <img src={defaultProfilePicture} alt={`Profile of ${username}`} />
+                        <div className="profile-header-info">
+                            <h1>{userData.first_name} {userData.last_name}</h1>
+                            {isOwner && (
+                                <button className="info-button" onClick={() => setShowUpdateForm(true)}>Update Info</button>
+                            )}
+                        </div>  
                     </div>
-                    <div className="profile-header-info">
-                        <h1>{userData.first_name} {userData.last_name}</h1>
-                        <button className="info-button" onClick={() => setShowUpdateForm(true)}>Update Info</button>
+                
+                    <div className="profile-card-subheader">
+                        <span className="location">{userData.location}</span>
+                        <span className="location">User Since: {userData.created_at.split('T')[0]}</span>
                     </div>
-                </div>
                 
-                <div className="profile-card-subheader">
-                    <span className="location">{userData.location}</span>
-                </div>
-                
-                
-                {(!showUpdateForm && !showManageListings) && (
-                    <>
                     <div className="profile-info">
                         <h3>{userData.first_name}'s Bio</h3>
-                        <p>Insert bio here. oh say can you dolom by the ipsem re doo when the </p>
+                        <p>{userData.bio} </p>
+
+                        <h3>Sell History</h3>
+                        <p>
+                            {userData.sell_history && userData.sell_history.length === 0 ? (
+                                `${userData.first_name} hasn't sold anything yet`
+                            ) : (
+                                userData.sell_history.map((item, index) => <span key={index}>{item}</span>)
+                            )}
+                        </p>
                     </div>
-                    <div className="profile-actions">
-                        <button className="contact-button">Contact</button>
-                        <button className="message-button">Message</button>
-                    </div>
-                    <div className="listings">
-                    <div className="listings-header">
                         
-                        <h3>{userData.first_name}'s Listings</h3>
+                    {!isOwner && (
+                        <div className="profile-actions">
+                            <button className="contact-button">Contact</button>
+                            <button className="message-button">Message</button>
+                        </div>
+                    )}
+                
+                </div>                    
+                
+                <div className="column-2">
+                    {(!showUpdateForm && !showManageListings) && (
+                        <>
+                        <div className="listings">
+                            <div className="listings-header">
                         
-                        <Link to={`/create-listing/${username}`}>
-                            <button className="create-listing">Create New</button>
-                        </Link> 
-                        
-                        
-                        {/* add utility to manage listings. same page */}
-                        <button className="manage-listing" onClick={() => setShowManageListings(true)}>Manage Listings</button>
+                                <h3>{userData.first_name}'s Listings</h3>
+                            {isOwner && (
+                                <>
+                                <Link to={`/create-listing/${username}`}>
+                                <button className="create-listing">Create New</button>
+                            </Link> 
+                    
+                            <button className="manage-listing" onClick={() => setShowManageListings(true)}>Manage Listings</button>
+                                </>
+
+                            )}        
+
 
                     </div>
+                    
                     <div className="item-list">
                         {/* Retrieve and display listings */}
-                        <ItemList user_id={userData.user_id} />
+                        <ItemGrid user_id={userData.user_id} />
                     </div>
                 </div>
 
@@ -101,26 +129,25 @@ const Profile = () => {
                     
                 )}
 
-            
-
-            </div>
-        </div>
-
-        {showUpdateForm && (
+                {showUpdateForm && (
             <UpdateUserForm
                 userData={userData}
                 onClose={() => setShowUpdateForm(false)}
                 onUpdate={handleUpdate}
             />
-        )}
+                )}
 
-        {showManageListings && (
+                {showManageListings && (
             <ManageListings 
                 user_id={userData.user_id}
                 onClose={() => setShowManageListings(false)}
                 onUpdate={handleUpdate}
             />
-        )}
+                )}
+            </div>
+        
+        </div>
+
         
         </>
     );

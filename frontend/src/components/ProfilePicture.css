@@ -1,0 +1,39 @@
+.profile-picture-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1200;
+}
+
+.profile-picture-upload-container {
+    position: relative;
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    
+}
+
+.profile-picture-upload-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.upload-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-picture-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}

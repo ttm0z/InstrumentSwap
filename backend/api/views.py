@@ -6,7 +6,6 @@ from django.views.decorators.http import require_GET
 from rest_framework.response import Response
 import uuid
 from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 import os
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
@@ -18,7 +17,6 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.views import View
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ValidationError
 import json
@@ -80,7 +78,7 @@ def register_user(request):
         try:
             print("Creating auth user")
             User = get_user_model()
-            user = User(username=username)
+            user = User.objects.create_user(username=username, email=email)
             user.set_password(password)
             user.save()
             print("Auth user created")
@@ -142,6 +140,15 @@ class UserViewSet(viewsets.ModelViewSet):
         except User.DoesNotExist:
             raise NotFound(detail="User not found")
     
+    @action(detail=False, methods=['get'], url_path='id/(?P<id>\d+)')
+    def get_by_id(self, request, id=None):
+        try:
+            user = User.objects.get(user_id=id)
+            serializer = self.get_serializer(user)
+            return Response(serializer.data)
+        except User.DoesNotExist:
+            raise NotFound(detail="User not found")
+
     @action(detail=False, methods=['post'], url_path='(?P<username>[^/.]+)/update')
     def update_user(self, request, username=None):
         
@@ -166,6 +173,27 @@ class UserViewSet(viewsets.ModelViewSet):
         except User.DoesNotExist:
             raise NotFound(detail="User not found")
 
+    @action(detail=False, methods=['post'], url_path='(?P<username>[^/.]+)/upload_profile_picture')
+    def upload_profile_picture(self, request, username=None):
+        print("upload profile picture")
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise NotFound(detail="User not found")
+        
+        if 'profile_picture' not in request.FILES:
+            raise ValidationError({'profile picture field required'})
+        
+        profile_picture = request.FILES['profile_picture']
+        extension = profile_picture.name.split('.')[-1]
+        filename = f'{uuid.uuid4()}.{extension}'
+
+        path = default_storage.save(os.path.join('images', filename), profile_picture)
+        user.profile_picture=filename
+        user.save()
+
+        return Response({'profle_picture': filename}, status=status.HTTP_200_OK)
+    
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer

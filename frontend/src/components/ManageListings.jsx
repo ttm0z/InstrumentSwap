@@ -28,13 +28,25 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
             catch(error){
                 console.error("Error fetching the listings: ", error);
                 setError(true);
+                setLoading(false)
             }
         };
         fetchListings();
     }, []);
 
-    if (loading) return <p>loading...</p>;
-    if (error) return <p>error</p>;
+    if (loading) return (
+        <>
+            <p>loading...</p>;
+            <button type="button" onClick={onClose}>Cancel</button>
+        </>
+    ) 
+    if (error) return (
+        <>
+            <p>error</p>
+            <button type="button" onClick={onClose}>Cancel</button>
+        </>
+        
+    );
     return (
         <>
             <h3>Your Listings</h3>
@@ -55,6 +67,7 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
             </div>
 
             <button type="button" onClick={onClose}>Cancel</button>
+            
             </>
     );
 }

@@ -1,11 +1,7 @@
 .listing-container {
     display: flex;
     flex-direction: row;
-    width:90vw;
-}
-.image-box img{
-    width:100%;
-    height:100%;
+    width: 90vw;
 }
 
 .price {
@@ -32,13 +28,18 @@ p {
     padding: 10px;
     margin: 10px auto;
 }
-.listing-photo-column{
+
+.listing-photo-column {
     border: 1px solid black;
-    width:50vw;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.listing-info-column{
+
+.listing-info-column {
     border: 1px solid black;
-    width:50vw;
+    width: 50vw;
 }
 
 .listing-header {
@@ -51,36 +52,32 @@ p {
     margin-left: auto; 
 }
 
-.image-box{
+.image-box {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
-.image-box img{
-    width:100%;
-    height:100%;
+
+.image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image is contained within the box */
 }
-/* CustomSlider.css */
+
 .custom-slider {
     position: relative;
-    width: 80%;
-    margin: auto;
+    width: 40vw;
+    max-width: 100%;
     overflow: hidden;
-}
-
-.slide {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 400px; /* Adjust as needed */
+    justify-content: center;
 }
 
-.slide img {
-    width: 100%;
-    height: auto;
-}
-
-button.prev, button.next {
+.custom-slider .prev,
+.custom-slider .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -89,12 +86,29 @@ button.prev, button.next {
     border: none;
     padding: 10px;
     cursor: pointer;
+    z-index: 1;
 }
 
-button.prev {
+.custom-slider .prev {
     left: 10px;
 }
 
-button.next {
+.custom-slider .next {
     right: 10px;
+}
+
+.custom-slider .slide {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.custom-slider .slider-image {
+    max-width: 100%;
+    width: 40vw;
+    height: auto;
+    object-fit: contain; /* Ensure the image is contained within the box */
+    display: block;
 }

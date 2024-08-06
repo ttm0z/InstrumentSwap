@@ -6,6 +6,7 @@ const UpdateUserForm = ({ userData, onClose, onUpdate }) => {
     const [formData, setFormData] = useState({
         username: userData.username,
         first_name: userData.firstName,
+        bio: userData.bio,
         last_name: userData.lastName,
         location: userData.location,
         profile_picture: userData.profilePhotoUrl
@@ -42,6 +43,11 @@ const UpdateUserForm = ({ userData, onClose, onUpdate }) => {
                     Last Name:
                     <input type="text" name="last_name" value={formData.lastName} onChange={handleChange} />
                 </label>
+                <label>
+                    Bio:
+                    <input type="text" name="bio" value={formData.bio} onChange={handleChange} />
+                </label>
+
                 <label>
                     Location:
                     <input type="text" name="location" value={formData.location} onChange={handleChange} />
