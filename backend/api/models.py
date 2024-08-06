@@ -84,16 +84,22 @@ class Transaction(models.Model):
     def __str__(self):
         return f"Transaction {self.transaction_id}"
 
-class Message(models.Model):
-    message_id = models.AutoField(primary_key=True)
-    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-    listing = models.ForeignKey(Listing, null=True, blank=True, on_delete=models.SET_NULL)
+
+class Conversation(models.Model):
+    user1 = models.ForeignKey(User, related_name='conversations_as_user1', on_delete=models.CASCADE)
+    user2 = models.ForeignKey(User, related_name='conversations_as_user2', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Message from {self.sender} to {self.receiver}"
+        return f"{self.user1} <---> {self.user2}"
+    
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, related_name="messages", on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender} sends {self.content}"
 
 class SearchHistory(models.Model):
     search_id = models.AutoField(primary_key=True)

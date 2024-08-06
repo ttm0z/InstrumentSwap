@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'api',
     'corsheaders',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,8 @@ AUTHENTICATION_BACKENDS = [
 
 
 
+ASGI_APPLICATION = 'api.asgi.application'
+
 AUTH_USER_MODEL = 'api.User'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
@@ -74,6 +77,15 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]
 ROOT_URLCONF = 'backend.urls'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 TEMPLATES = [
     {
