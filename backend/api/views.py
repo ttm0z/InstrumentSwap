@@ -109,8 +109,8 @@ class AuthViewSet(viewsets.ViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    @action(detail=False, methods=['get'], url_path='(?P<username>[^/.]+)')
+    
+    @action(detail=False, methods=['get'], url_path='username/(?P<username>[^/.]+)')
     def get_by_username(self, request, username=None):
         try:
             user = User.objects.get(username=username)
@@ -144,13 +144,7 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             raise ValidationError(serializer.errors)
         
-    @action(detail=False, methods=['get'], url_path='username/(?P<username>[^/.]+)')
-    def get_user_id_by_username(self, request, username=None):
-        try:
-            user = User.objects.get(username=username)
-            return Response({'user_id' : user.user_id})
-        except User.DoesNotExist:
-            raise NotFound(detail="User not found")
+    
 
     @action(detail=False, methods=['post'], url_path='(?P<username>[^/.]+)/upload_profile_picture')
     def upload_profile_picture(self, request, username=None):
@@ -183,9 +177,17 @@ class ListingViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
     
-    
-    @action(detail=False, methods=['get'], url_path='getById/(?P<id>[^/.]+)')
-    def get_by_id(self, request, id=None, *args, **kwargs):
+    @action(detail=True, methods=['get'], url_path='getByListingId/(?P<id>[^/.]+)')
+    def get_by_listing_id(self, request, pk=None, *args, **kwargs):
+        try:
+            listing = self.get_queryset().get(pk=pk)
+            serializer = self.get_serializer(listing)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Listing.DoesNotExist:
+            return Response({'error': 'Listing not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+    @action(detail=False, methods=['get'], url_path='getByUserId/(?P<id>[^/.]+)')
+    def get_by_user_id(self, request, id=None, *args, **kwargs):
         try:
             listings = self.get_queryset().filter(user_id=id)
             if not listings.exists():
@@ -195,8 +197,6 @@ class ListingViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
-
-
 
     @action(detail=False, methods=['post'], url_path='create_listing')
     def create_listing(self, request, *args, **kwargs):

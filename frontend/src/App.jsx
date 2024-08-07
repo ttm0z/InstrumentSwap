@@ -1,23 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Homepage from './components/Homepage';
-import Frontpage from './components/Frontpage';
-import Navbar from './components/Navbar';
+import Homepage from './components/pages/Homepage';
+import Frontpage from './components/pages/Frontpage';
+import ListingsPage from './components/pages/ListingsPage';
+import ListingDetail from './components/pages/ListingDetail';
+import CreateListing from './components/pages/CreateListing';
+import DirectMessageComponent from './components/pages/DirectMessageComponent';
+import CategoryProfile from './components/pages/CategoryProfile';
+import Profile from './components/pages/Profile';
 
-import ListingsPage from './components/ListingsPage';
-import ListingDetail from './components/ListingDetail';
-import CreateListing from './components/CreateListing';
+import Navbar from './components/layout/Navbar';
 
-import DirectMessageComponent from './components/DirectMessageComponent';
-
-import CategoryProfile from './components/CategoryProfile';
-
-import Profile from './components/Profile';
-
-import Login from './components/Login';
-import Signup from './components/Signup';
-import AuthProvider from './services/authContext';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import AuthProvider from './components/services/authContext';
 import './App.css';
 
 function App() {
