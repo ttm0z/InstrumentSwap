@@ -46,7 +46,7 @@ function App() {
                         <Route path="/categories/:category" element={<CategoryProfile />} />
                         
                         {/* DM --- FIX BEFORE UNCOMMENTING !!!!!! */}
-                        {/* <Route path="/direct-message/:userid" element={<DirectMessageComponent />} /> */}
+                        <Route path="/direct-message/:userid" element={<DirectMessageComponent />} />
                     </Routes>
                 </div>
             </div>

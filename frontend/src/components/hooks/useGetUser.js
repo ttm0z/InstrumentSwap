@@ -12,13 +12,9 @@ const useGetUser = (username=null, user_id=null) => {
                 let response;
                 if (username) {
                     response = await getUserByUsername(username);
-                    console.log("response username: " , response)
-
                 }
                 else if (user_id){
-                    response = await getUserById(user_id)
-                    console.log("response id: " , response)
-
+                    response = await getUserById(user_id);
                 }
                 
                 setUser(response);

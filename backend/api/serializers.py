@@ -1,6 +1,6 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Listing, Transaction, Message, SearchHistory, Appraisal, User, ImageUpload, User
+from .models import Listing, Transaction, Message, SearchHistory, Appraisal, User, ImageUpload, Conversation
 from django.contrib.auth import get_user_model
 
 class ImageUploadSerializer(serializers.ModelSerializer):
@@ -36,6 +36,11 @@ class SearchHistorySerializer(serializers.ModelSerializer):
 class AppraisalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appraisal
+        fields = '__all__'
+
+class ConversationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Conversation
         fields = '__all__'
 
 class RegisterSerializer(serializers.ModelSerializer):

@@ -3,7 +3,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, ListingViewSet, TransactionViewSet, MessageViewSet, SearchHistoryViewSet, AppraisalViewSet, AuthViewSet
-from .views import ListingDetailView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
@@ -13,10 +12,10 @@ router.register(r'messages', MessageViewSet)
 router.register(r'search-history', SearchHistoryViewSet)
 router.register(r'appraisals', AppraisalViewSet)
 router.register(r'auth', AuthViewSet, basename='auth')
+router.register(r'conversations', UserViewSet, basename='conversations')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('listings/<int:pk>/', ListingDetailView.as_view(), name='listing-detail'),
 ]
 
 if settings.DEBUG:

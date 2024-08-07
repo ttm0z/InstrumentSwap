@@ -43,7 +43,7 @@ class DirectMessageConsumer(AsyncWebsocketConsumer):
             'sender': sender
         }))
 
-    def save_messsage(self, sender_id, message_content):
+    def save_message(self, sender_id, message_content):
         sender = User.objects.get(id=sender_id)
         conversation = Conversation.objects.get(id=self.conversation_id)
         Message.objects.create(conversation=conversation, sender=sender, content=message_content)

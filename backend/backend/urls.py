@@ -16,6 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from api import consumers
+websocket_urlpatterns = [
+    path('ws/direct/<int:conversation_id>/', consumers.DirectMessageConsumer.as_asgi()),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),

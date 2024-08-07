@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'api',
     'corsheaders',
-    'channels'
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +66,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-ASGI_APPLICATION = 'api.asgi.application'
+ASGI_APPLICATION = 'backend.asgi.application'
 
 AUTH_USER_MODEL = 'api.User'
 CORS_ALLOW_ALL_ORIGINS = True

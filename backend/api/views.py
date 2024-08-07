@@ -14,16 +14,16 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 
-from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer, ImageUploadSerializer
+from .serializers import UserSerializer, ListingSerializer, TransactionSerializer, MessageSerializer, SearchHistorySerializer, AppraisalSerializer, RegisterSerializer, ImageUploadSerializer, ConversationSerializer
 from .models import Listing, Transaction, Message, SearchHistory, Appraisal
-from .models import User
+from .models import User, Conversation
 
 import os
 import json
 import uuid
 
 
-
+# remove imageupload view. Add utilities to listing and user
 class ImageUploadView(APIView):
     
     
@@ -258,24 +258,44 @@ class ListingViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(listings, many=True)
         return Response(serializer.data)
     
-class ListingDetailView(generics.RetrieveAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingSerializer
-
-    def get(self, request, *args, **kwargs):
-        listing_id = kwargs.get('pk')
-        try:
-            listing = Listing.objects.get(pk=listing_id)
-            serializer = self.get_serializer(listing)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except Listing.DoesNotExist:
-            return Response({'error': 'Listing not found'}, status=status.HTTP_404_NOT_FOUND)
-
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
+class ConversationViewSet(viewsets.ViewSet):
+    
+    @action(detail=False, methods=['get'], url_path='conversation/(?P<user1_id>\d+)/(?P<user2_id>\d+)')
+    def get_or_create_conversation(self, request, user1_id=None, user2_id=None):
+        try:
+            user1 = User.objects.get(id=user1_id)
+            user2 = User.objects.get(id=user2_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Ensure user1 is always less than user2 to maintain a consistent ordering
+        if user1.id > user2.id:
+            user1, user2 = user2, user1
+        
+        conversation = Conversation.objects.filter(user1=user1, user2=user2).first()
+        if not conversation:
+            conversation = Conversation.objects.create(user1=user1, user2=user2)
+        
+        serializer = ConversationSerializer(conversation)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class MessageViewSet(viewsets.ModelViewSet):
+    
+    @action(detail=True, methods=['post'], url_path='sendMessage')
+    def send_message(self, request, pk=None):
+        conversation = self.get_object()
+        serializer = MessageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(conversation = conversation, sender = request.user)
+            # Broadcast the message to the WebSocket (implement as needed)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 

@@ -16,7 +16,8 @@ const Profile = () => {
     const { username } = useParams();
     const {user, loading, error} = useGetUser(username, null);
 
-    const isOwner = user && user.username === username;
+    const isOwner = user && user.username === localStorage.getItem['username'];
+    console.log("i",isOwner)
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showManageListings, setShowManageListings] = useState(false);
     if (loading) return <div>Loading ...</div>;

@@ -5,11 +5,13 @@ import axios from 'axios';
 
 
 function ProfilePicture({ username, picture }) {
+    
     const defaultProfilePicture = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;    
     const profilePicture = `http://localhost:8000/api/instrument_swap_media/images/${username}.jpg/`;
     const [image, setImage] = useState(null);
     
-    console.log(picture)
+    console.log("Profile Picture Rendered");
+    
     const handleImageChange = async (e) => {
         const newImage = e.target.files[0];
         setImage(newImage);
@@ -37,7 +39,7 @@ function ProfilePicture({ username, picture }) {
                     <label htmlFor="profile-picture-upload-input" className="profile-picture-upload-label">
                         <div className="upload-placeholder">
                             <img
-                                src={picture ? profilePicture : defaultProfilePicture}
+                                src={username ? profilePicture : defaultProfilePicture}
                                 alt="Profile"
                                 className="profile-picture-preview"
                             />
