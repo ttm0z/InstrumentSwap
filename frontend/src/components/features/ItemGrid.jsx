@@ -12,6 +12,7 @@ const ItemGrid = ({ category = null, user_id = null }) => {
     
     
     useEffect(() => {
+        console.log("rerender")
         refetch();
     }, [sortOption])
 
@@ -31,7 +32,7 @@ const ItemGrid = ({ category = null, user_id = null }) => {
                 listings.map((listing) => (
                     <ListingCard
                         key={listing.listing_id}
-                        listingData={listing} // Ensure this matches with ListingCard's expected prop
+                        listingData={listing} 
                     />
                 ))
             ) : (

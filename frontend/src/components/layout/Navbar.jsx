@@ -7,17 +7,11 @@ import SearchBar from './SearchBar';
 
 const NavBar = () => {
     
-    const authToken = localStorage.getItem('authToken');
-    
     const{ isAuthenticated, setIsAuthenticated, logout} = useContext(AuthContext);
     
     const username = localStorage.getItem('username')
-    
-    const handleAuthStatus = () => {
-        const authToken = localStorage.getItem('authToken');
-        console.log(authToken ? `Authenticated: ${authToken}` : 'Not authenticated');
-      };
   
+      //replace with categories
       const dropdownItems = {
         instruments: [
             { name: 'Guitars', link: '/categories/guitar' },
@@ -43,8 +37,7 @@ const NavBar = () => {
             { name: 'Miscellaneous', link: '/categories/miscellaneous' }
         ]
     };
-    
-    
+    /////////
     return (
         <nav className="navbar">
             <div className='top_bar'>

@@ -1,40 +1,41 @@
-import {useState, useEffect, useCallback} from 'react';
+import { useState, useEffect } from 'react';
 import { fetchAllListings, fetchListingsByCategory, fetchListingsByUserId } from '../services/listingService';
 
-const useListings = (category=null, user_id=null, sortOption=null) => {
-    console.log("UL sort option: ", sortOption)
+const useListings = (category, user_id, sortOption) => {
     const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    
-    const fetchListings = useCallback(async() => {
-        try{
-            let response;
-            if (category) {
-                response = await fetchListingsByCategory(category, sortOption);
-                console.log(response.data)
-            }
-            else if (user_id){
-                response = await fetchListingsByUserId(user_id, sortOption)
-            }
-            else{
-                response = await fetchAllListings(sortOption)
-            }
-            setListings(response.data);
-        }
-        catch(error){
-            setError(error);
-        } 
-        finally{
-            setLoading(false);
-        }
-    }, [category, user_id]);
 
+    const refetch = () => {
+        setLoading(true);
+        setError(null);
+
+        let fetchFunction;
+        if (category) {
+            fetchFunction = () => fetchListingsByCategory(category, sortOption);
+        } else if (user_id) {
+            fetchFunction = () => fetchListingsByUserId(user_id, sortOption);
+        } else {
+            fetchFunction = () => fetchAllListings(sortOption);
+        }
+
+        fetchFunction()
+            .then(response => {
+                setListings(response.data);
+            })
+            .catch(err => {
+                setError(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
 
     useEffect(() => {
-        fetchListings();
-    }, [fetchListings])
-        
-    return {listings, loading, error, refetch: fetchListings};
+        refetch();
+    }, [category, user_id, sortOption]); // Depend on category, user_id, and sortOption
+
+    return { listings, loading, error, refetch };
 };
+
 export default useListings;

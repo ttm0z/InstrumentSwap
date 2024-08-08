@@ -6,12 +6,12 @@
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-    background-color: #f8f8f8; /* Optional: add a background color */
+    background-color: #ffffd9; 
 }
 
 .sort-bar p {
     margin: 0;
-    margin-right: 10px; /* Space between "Sort By:" and the buttons */
+    margin-right: 10px; 
     font-weight: bold;
 }
 

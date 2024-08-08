@@ -8,13 +8,13 @@ const api = axios.create({
  * 
  * @returns json listings object
  */
-export const fetchAllListings = (sortOption=null) => {
+export const fetchAllListings = (sortOption) => {
     console.log("Fetching all listings");
     console.log("SortOption:",sortOption)
     if (sortOption) return api.get(`/api/listings/getAll?sort=${sortOption}`)
     return api.get('/api/listings/getAll/');
 };
-
+ 
 /**Fetch listings by category
  * 
  * @param {*} category 
@@ -34,7 +34,7 @@ export const fetchListingsByCategory = (category, sortOption=null) => {
  */
 export const fetchListingsByUserId = (user_id, sortOption=null) => {
     console.log("Fetching listings of userid", user_id);
-    if (sortOption) return api.get(`/api/listings/getByUserId//${user_id}?sort=${sortOption}`)
+    if (sortOption) return api.get(`/api/listings/getByUserId/${user_id}?sort=${sortOption}`)
     return api.get(`/api/listings/getByUserId/${user_id}/`);
 }
 

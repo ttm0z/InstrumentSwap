@@ -1,7 +1,7 @@
 .category-card {
     position: relative;
     width: 100%;
-    max-width: 300px; /* Adjust this value as needed */
+    
     overflow: hidden;
     border: 1px solid #ddd;
     border-radius: 8px;

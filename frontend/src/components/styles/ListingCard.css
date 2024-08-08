@@ -1,9 +1,16 @@
+
+
 .listing-card {
     position: relative;
     z-index: 1;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+    flex: 1 1 200px; /* Grow and shrink as needed, with a base width of 200px */
+    max-width: 300px; /* Ensure cards don't get too wide */
+    height: auto; /* Adjust height automatically based on content */
+    
 }
 
 .listing-card-image {

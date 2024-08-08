@@ -4,14 +4,14 @@ import axios from 'axios';
 
 
 
-function ProfilePicture({ username, picture }) {
+function ProfilePicture({ username }) {
     
     const defaultProfilePicture = `http://localhost:8000/api/instrument_swap_media/images/user_test_image.jpg/`;    
     const profilePicture = `http://localhost:8000/api/instrument_swap_media/images/${username}.jpg/`;
+    
+    
+    // figure out what to do with upload profile picture utility
     const [image, setImage] = useState(null);
-    
-    console.log("Profile Picture Rendered");
-    
     const handleImageChange = async (e) => {
         const newImage = e.target.files[0];
         setImage(newImage);
