@@ -14,9 +14,7 @@ const CategoryProfile = () => {
     return (
         <>
         <div className="category-header">
-            <h3>{categoryString} Listings</h3>
-            <p>Here you will find all of our {category} listings. Click on a listing for more information</p>
-            <p>//Add a filter/sortby feature</p>
+            <h3>{categoryString}</h3>
         </div>
         
 

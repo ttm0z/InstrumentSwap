@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 import Dropdown from './Dropdown';
 import {AuthContext} from '../services/authContext'
+import SearchBar from './SearchBar';
 
 const NavBar = () => {
+    
     const authToken = localStorage.getItem('authToken');
+    
     const{ isAuthenticated, setIsAuthenticated, logout} = useContext(AuthContext);
+    
     const username = localStorage.getItem('username')
+    
     const handleAuthStatus = () => {
         const authToken = localStorage.getItem('authToken');
         console.log(authToken ? `Authenticated: ${authToken}` : 'Not authenticated');
@@ -49,19 +54,7 @@ const NavBar = () => {
                         <h1>IS</h1>
                     </Link>    
                 </li>
-                <div className='search'>
-                    <input
-                        type="search"
-                        name="form1"
-                        className="search_input"
-                        placeholder='Search'
-                        onChange={(e) => {
-                            //search;
-                            ;
-                        }}
-                        ></input>
-                </div>
-      
+                <SearchBar />
                 <li>
                     <Link to="/frontpage_prototype">Frontpage</Link>        
                 </li>

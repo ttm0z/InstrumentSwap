@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 from django.core.files.storage import default_storage
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 
 from rest_framework import viewsets, generics, status
@@ -167,10 +166,28 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response({'profle_picture': filename}, status=status.HTTP_200_OK)
     
+# Example API Requests
+
+#     Sort by Price (Ascending): GET /api/listings/getAll?sort=price
+#     Sort by Date (Descending): GET /api/listings/getByCategory/guitar?sort=-created_at
+#     Sort by Name (Ascending): GET /api/listings/getByUserId/1?sort=title
+
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort_field = self.request.query_params.get('sort', None)
+        print(f"Sorting by field: {sort_field}")  # Debugging line
+    
+        if sort_field in ['price', '-price', 'created_at', '-created_at', 'title', '-title']:
+            queryset = queryset.order_by(sort_field)
+        else:
+            print("Invalid sort field")  # Debugging line
+        
+        return queryset
+
     @action(detail=False, methods=['get'], url_path='getAll')
     def get_all(self, request, *args, **kwargs):
         listings = self.get_queryset()
@@ -306,3 +323,15 @@ class SearchHistoryViewSet(viewsets.ModelViewSet):
 class AppraisalViewSet(viewsets.ModelViewSet):
     queryset = Appraisal.objects.all()
     serializer_class = AppraisalSerializer
+
+@api_view(['GET'])
+def search_view(request):
+    query = request.GET.get('query', '')
+    users = User.objects.filter(username__icontains=query)[:5]
+    listings = Listing.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))[:5]
+    print(query)
+    results = {
+        'users': [{'username': user.username, 'id': user.user_id} for user in users],
+        'listings': [{'title': listing.title, 'id': listing.listing_id} for listing in listings]
+    }
+    return Response(results)
