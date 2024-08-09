@@ -19,6 +19,7 @@ from django.urls import path, include
 from api import consumers
 websocket_urlpatterns = [
     path('ws/direct/<int:conversation_id>/', consumers.DirectMessageConsumer.as_asgi()),
+    path('ws/test/', consumers.TestConsumer.as_asgi()),
 ]
 
 urlpatterns = [

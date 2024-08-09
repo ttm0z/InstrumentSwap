@@ -7,13 +7,16 @@ const useWebSocket = (senderId, recipientId) => {
 
     useEffect(() => {
         
-        const ws = new WebSocket(`ws://localhost:8000/ws/direct/${recipientId}/${senderId}`);
-    
+
+        console.log("initializing websocket connection\n")
+        const ws = new WebSocket(`ws://localhost:8000/ws/direct/1/`);
+        console.log("\n")
+        
         const getOrCreateConversation = async () => {
             
             try{
                 const response = await axios.get(`http://localhost:8000/api/conversations/conversation/${recipientId}/${senderId}`);
-                console.log(response.data);
+                console.log("Response: ", response.data);
             }   
             catch(error){
                 console.log(error);
@@ -39,11 +42,6 @@ const useWebSocket = (senderId, recipientId) => {
         ws.onclose = (event) => {
             console.log('WebSocket connection closed:', event.reason);
             setIsConnected(false);
-    
-            // Implement reconnection logic
-            setTimeout(() => {
-                setSocket(new WebSocket(`ws://localhost:8000/ws/direct/${recipientId}/`));
-            }, 5000); // Reconnect after 5 seconds
         };
     
         setSocket(ws);
@@ -58,6 +56,7 @@ const useWebSocket = (senderId, recipientId) => {
         if (socket && isConnected) {
             socket.send(JSON.stringify({ text }));
         }
+        else console.log("message not sent")
     }, [socket, isConnected]);
 
     const receiveMessage = useCallback((callback) => {

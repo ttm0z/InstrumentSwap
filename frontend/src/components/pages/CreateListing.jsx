@@ -77,14 +77,12 @@ const CreateListing = () => {
         <div className='create-listing'>
             <h2 className='create-listing-header'>Create a New Listing</h2>
             <div className="create-listing-container">
-                <div className='create-listing-column2'>
-                    <div>
-                        <ImageUpload onUpload={handleImageUpload} />
-                    </div>
+                <div className='create-listing-column1'>
+                    <ImageUpload onUpload={handleImageUpload} />
                 </div>
-                <div className="create-listing-column1">
+                <div className="create-listing-column2">
                     <form id="create-listing-form" onSubmit={handleFormSubmit}>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="title">Title</label>
                             <input
                                 type="text"
@@ -95,7 +93,7 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="description">Description</label>
                             <textarea
                                 id="description"
@@ -105,7 +103,7 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="category">Category</label>
                             <select
                                 id="category"
@@ -122,7 +120,7 @@ const CreateListing = () => {
                                 ))}
                             </select>
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="condition">Condition</label>
                             <input
                                 type="text"
@@ -133,7 +131,7 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="price">Price</label>
                             <input
                                 type="number"
@@ -145,7 +143,7 @@ const CreateListing = () => {
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="swap">Swap</label>
                             <input
                                 type="checkbox"

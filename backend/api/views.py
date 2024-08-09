@@ -166,12 +166,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response({'profle_picture': filename}, status=status.HTTP_200_OK)
     
-# Example API Requests
-
-#     Sort by Price (Ascending): GET /api/listings/getAll?sort=price
-#     Sort by Date (Descending): GET /api/listings/getByCategory/guitar?sort=-created_at
-#     Sort by Name (Ascending): GET /api/listings/getByUserId/1?sort=title
-
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
@@ -280,25 +274,53 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
 
 class ConversationViewSet(viewsets.ViewSet):
-    
-    @action(detail=False, methods=['get'], url_path='conversation/(?P<user1_id>\d+)/(?P<user2_id>\d+)')
-    def get_or_create_conversation(self, request, user1_id=None, user2_id=None):
-        try:
-            user1 = User.objects.get(id=user1_id)
-            user2 = User.objects.get(id=user2_id)
-        except User.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        # Ensure user1 is always less than user2 to maintain a consistent ordering
-        if user1.id > user2.id:
-            user1, user2 = user2, user1
+    @action(detail=False, methods=['get', 'post'], url_path='conversation/(?P<user1_id>\d+)?/(?P<user2_id>\d+)?')
+    def handle_conversation(self, request, user1_id=None, user2_id=None):
         
-        conversation = Conversation.objects.filter(user1=user1, user2=user2).first()
-        if not conversation:
-            conversation = Conversation.objects.create(user1=user1, user2=user2)
-        
-        serializer = ConversationSerializer(conversation)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if request.method == 'GET':
+            # Fetch conversation logic
+            print(">>> Conversation Get Request")
+            try:
+                user1 = User.objects.get(user_id=user1_id)
+                user2 = User.objects.get(user_id=user2_id)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            if user1.user_id > user2.user_id:
+                user1, user2 = user2, user1
+
+            conversation = Conversation.objects.filter(user1=user1, user2=user2).first()
+            if conversation:
+                serializer = ConversationSerializer(conversation)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Conversation not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        elif request.method == 'POST':
+            # Create conversation logic
+            print(">>> Conversation Post Request")
+            user1_id = request.data.get('user1')
+            user2_id = request.data.get('user2')
+
+            try:
+                user1 = User.objects.get(user_id=user1_id)
+                user2 = User.objects.get(user_id=user2_id)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            if user1.user_id > user2.user_id:
+                user1, user2 = user2, user1
+
+            conversation, created = Conversation.objects.get_or_create(user1=user1, user2=user2)
+
+            serializer = ConversationSerializer(conversation)
+            if created:
+                print(">>> Conversation Created")
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                print(">>> Conversation Found")
+                return Response(serializer.data, status=status.HTTP_200_OK)
 
 class MessageViewSet(viewsets.ModelViewSet):
     
@@ -332,6 +354,6 @@ def search_view(request):
     print(query)
     results = {
         'users': [{'username': user.username, 'id': user.user_id} for user in users],
-        'listings': [{'title': listing.title, 'id': listing.listing_id} for listing in listings]
+        'listings': [{'title': listing.title, 'id': listing.listing_id, 'image': listing.images[0]} for listing in listings]
     }
     return Response(results)

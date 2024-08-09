@@ -14,7 +14,7 @@ function ImageUpload({ onUpload }) {
     return (
         <div className="image-upload">
             <form>
-                Upload Photos
+                
                 <div className="image-upload-container">
                     <label htmlFor="image-upload-input" className="image-upload-label">
                         <div className="upload-placeholder">

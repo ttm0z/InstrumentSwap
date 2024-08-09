@@ -11,6 +11,7 @@ const SearchBar = () => {
         const fetchResults = async () => {
             if (query.length > 0) {
                 const response = await axios.get(`http://localhost:8000/api/search?query=${query}`)
+                console.log(response.data)                
                 setResults(response.data);
             }
             else{
@@ -36,13 +37,17 @@ const SearchBar = () => {
                 <div className="search-results">
                     <ul>
                         {results.users.map(user => {
-                            <li key={user.id}>
-                                <Link to={`/profile/${user.id}`}>{user.username}</Link>
+                            
+                            <li key={user.user_id}>
+                                <Link to={`/profile/${user.user_id}`}>{user.username}</Link>
                             </li>
                         })}
                         {results.listings.map(listing => (
+                            
                             <li key={listing.id}>
-                                <Link to={`/listings/${listing.id}`}>{listing.title}</Link>
+                                
+                                
+                                <Link to={`/listings/${listing.id}`}><img src={`http://localhost:8000/api/instrument_swap_media/images/${listing.image}/`} />{listing.title}</Link>
                             </li>
                         ))}
                     </ul>

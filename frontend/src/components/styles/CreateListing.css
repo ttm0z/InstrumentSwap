@@ -1,16 +1,58 @@
+.create-listing {
+    background-color: #faeffa;
+    width: 80vw;
+    margin: 0 auto; /* Center the container horizontally */
+}
 
+.create-listing-column1,
+.create-listing-column2 {
+    width: 50%;
+}
 
 .create-listing-header {
     margin: 0 auto;
-    background-color: #fff;
     text-align: center;
 }
 
 .create-listing-container {
-    background: #fff;
-    box-sizing: border-box;
-    display:flex;
+    display: flex;
     padding: 20px;
+    box-sizing: border-box;
+}
+
+.create-listing-column1 {
+    padding-right: 20px; /* Add spacing between columns */
+}
+
+.create-listing-column2 {
+    padding-left: 20px; /* Add spacing between columns */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add spacing between form fields */
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spacing between label and input */
+}
+
+.form-group label {
+    flex: 1; /* Make labels take up the space needed */
+    text-align: left; /* Align text to the left */
+    margin-right: 10px; /* Space between label and input */
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    flex: 2; /* Make inputs take up the remaining space */
+    padding: 10px; /* Add padding inside input fields */
+    border: 1px solid #ccc; /* Border for input fields */
+    border-radius: 4px; /* Rounded corners */
 }
 
 .create-listing-footer {
@@ -33,4 +75,9 @@
 
 .create-listing-footer button:hover {
     background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }

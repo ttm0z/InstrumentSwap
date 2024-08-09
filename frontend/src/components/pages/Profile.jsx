@@ -16,8 +16,7 @@ const Profile = () => {
     const { username } = useParams();
     const {user, loading, error} = useGetUser(username, null);
 
-    const isOwner = user && user.username === localStorage.getItem['username'];
-    console.log("i",isOwner)
+    const isOwner = user && (user.username === localStorage.getItem('username'))
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showManageListings, setShowManageListings] = useState(false);
     if (loading) return <div>Loading ...</div>;
@@ -78,13 +77,13 @@ const Profile = () => {
                         
                                 <h3>{user.first_name}'s Listings</h3>
                             {isOwner && (
-                                <>
+                                <div className="edit-actions">
                                 <Link to={`/create-listing/${username}`}>
                                 <button className="create-listing">Create New</button>
                             </Link> 
                     
                             <button className="manage-listing" onClick={() => setShowManageListings(true)}>Manage Listings</button>
-                                </>
+                                </div>
 
                             )}        
 
