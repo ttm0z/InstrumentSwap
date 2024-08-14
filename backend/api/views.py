@@ -275,9 +275,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
 class ConversationViewSet(viewsets.ViewSet):
 
-    @action(detail=False, methods=['get', 'post'], url_path='conversation/(?P<user1_id>\d+)?/(?P<user2_id>\d+)?')
+
+    @action(detail=False, methods=['get', 'post'], url_path='conversation/(?P<user1_id>[^/.]+)/(?P<user2_id>[^/.]+)')
     def handle_conversation(self, request, user1_id=None, user2_id=None):
-        
         if request.method == 'GET':
             # Fetch conversation logic
             print(">>> Conversation Get Request")
@@ -300,8 +300,14 @@ class ConversationViewSet(viewsets.ViewSet):
         elif request.method == 'POST':
             # Create conversation logic
             print(">>> Conversation Post Request")
-            user1_id = request.data.get('user1')
-            user2_id = request.data.get('user2')
+            user1_id = request.data.get('user1_id')
+            user2_id = request.data.get('user2_id')
+            
+            print("User 1:", user1_id)
+            print("User 2:", user2_id)
+
+            print("User 1:", {user1_id})
+            print("User 2:", {user2_id})
 
             try:
                 user1 = User.objects.get(user_id=user1_id)

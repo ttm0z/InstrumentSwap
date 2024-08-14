@@ -15,7 +15,7 @@ from channels.security.websocket import AllowedHostsOriginValidator
 from api import routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
-print("patterns:",routing.websocket_urlpatterns)
+
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AllowedHostsOriginValidator(

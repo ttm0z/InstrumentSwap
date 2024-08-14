@@ -1,29 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
-
+import {initConversation} from '../services/conversationService';
 const useWebSocket = (senderId, recipientId) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
-
+    const [conversation, setConversation] = useState(null);
+    
     useEffect(() => {
         
-
+        // fetch conversation id
+        setConversation(initConversation(senderId, recipientId));
         console.log("initializing websocket connection\n")
-        const ws = new WebSocket(`ws://localhost:8000/ws/direct/1/`);
+        const ws = new WebSocket(`ws://localhost:8000/ws/direct/${senderId}/${recipientId}`);
         console.log("\n")
         
-        const getOrCreateConversation = async () => {
-            
-            try{
-                const response = await axios.get(`http://localhost:8000/api/conversations/conversation/${recipientId}/${senderId}`);
-                console.log("Response: ", response.data);
-            }   
-            catch(error){
-                console.log(error);
-            }
-                
-            getOrCreateConversation()
-        }
 
         ws.onopen = () => {
             console.log('WebSocket connection opened.');
@@ -45,6 +35,7 @@ const useWebSocket = (senderId, recipientId) => {
         };
     
         setSocket(ws);
+        
     
         return () => {
             ws.close();
@@ -54,7 +45,8 @@ const useWebSocket = (senderId, recipientId) => {
 
     const sendMessage = useCallback((text) => {
         if (socket && isConnected) {
-            socket.send(JSON.stringify({ text }));
+            socket.send(JSON.stringify({ text, senderId, recipientId }));
+            console.log("sending: ", text)
         }
         else console.log("message not sent")
     }, [socket, isConnected]);

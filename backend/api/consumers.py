@@ -1,8 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from django.contrib.auth.models import User
-from .models import Conversation, Message
+from .models import Conversation, Message, User
 from channels.auth import AuthMiddlewareStack
 
 
@@ -24,6 +23,7 @@ class TestConsumer(AsyncWebsocketConsumer):
 
 class DirectMessageConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print("Connecting to direct message consumer")
         self.user = self.scope['user']
         self.conversation_id = self.scope['url_route']['kwargs']['conversation_id']
         self.conversation_group_name = f'conversation_{self.conversation_id}'
@@ -42,10 +42,12 @@ class DirectMessageConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-    async def recieve(self, text_data):
+    async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message_content = text_data_json['message']
-        sender_id = text_data_json['sender']
+        print("Recieved: ", text_data_json)
+        message_content = text_data_json['text']
+        
+        sender_id = text_data_json['senderId']
 
         await database_sync_to_async(self.save_message)(sender_id, message_content)
         
@@ -60,7 +62,7 @@ class DirectMessageConsumer(AsyncWebsocketConsumer):
         }))
 
     def save_message(self, sender_id, message_content):
-        sender = User.objects.get(id=sender_id)
+        sender = User.objects.get(user_id=sender_id)
         conversation = Conversation.objects.get(id=self.conversation_id)
         Message.objects.create(conversation=conversation, sender=sender, content=message_content)
 
