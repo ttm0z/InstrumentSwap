@@ -52,10 +52,7 @@ const UpdateUserForm = ({ userData, onClose, onUpdate }) => {
                     Location:
                     <input type="text" name="location" value={formData.location} onChange={handleChange} />
                 </label>
-                <label>
-                    Profile Photo URL:
-                    <input type="text" name="profile_picture" value={formData.profilePhotoUrl} onChange={handleChange} />
-                </label>
+        
                 <button type="submit">Update</button>
                 <button type="button" onClick={onClose}>Cancel</button>
             </form>

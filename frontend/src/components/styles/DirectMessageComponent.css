@@ -1,21 +1,27 @@
 .chat-container {
     display: flex;
+    width: 80vw; /* Adjust based on your layout */
     height: 80vh; /* Adjust based on your layout */
 }
 
-.contacts-bar {
-    width: 20%;
-    border-right: 1px solid #ddd;
-    padding: 10px;
+.message-header {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+    color: #fff;
+    background-color: rgb(50, 117, 49);
     overflow-y: auto;
 }
-
+.message-header p{
+    font-size: 1.5em;
+    font-weight: 700;
+}
 .message-box {
     flex: 1;
+    background-color: rgb(204, 255, 203);;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border-right: 1px solid #ddd;
 }
 
 .message-box .message {
@@ -36,23 +42,19 @@
 .message-box input {
     border: 1px solid #ddd;
     padding: 8px;
-    width: 80%;
+    width: 60%;
     border-radius: 4px;
     margin-top: 10px;
 }
 
 .message-box button {
     border: none;
-    background-color: #007bff;
+    background-color: #57c011;
     color: white;
     padding: 10px;
-    border-radius: 4px;
+    font-size: larger;
+    font-weight: 500;
+    border-radius: 10px;
     cursor: pointer;
-    margin-left: 10px;
-}
-
-.details-bar {
-    width: 20%;
-    padding: 10px;
-    border-left: 1px solid #ddd;
+    margin-left: 5vw;
 }

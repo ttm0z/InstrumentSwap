@@ -108,7 +108,7 @@ const Profile = () => {
 
                 {showUpdateForm && (
             <UpdateUserForm
-                user={user}
+                userData={user}
                 onClose={() => setShowUpdateForm(false)}
                 onUpdate={handleUpdate}
             />

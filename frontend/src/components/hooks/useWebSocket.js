@@ -9,6 +9,7 @@ const useWebSocket = (senderId, recipientId) => {
     useEffect(() => {
         
         // fetch conversation id
+        console.log(senderId, recipientId)
         setConversation(initConversation(senderId, recipientId));
         console.log("initializing websocket connection\n")
         const ws = new WebSocket(`ws://localhost:8000/ws/direct/${senderId}/${recipientId}`);

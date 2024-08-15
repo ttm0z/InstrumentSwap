@@ -2,62 +2,60 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfilePicture from '../features/ProfilePicture';
 import useWebSocket from '../hooks/useWebSocket';
-import useConversation from '../hooks/useConversation';
 import useGetUser from '../hooks/useGetUser';
-import axios from 'axios';
 import '../styles/DirectMessageComponent.css';
 
 const DirectMessageComponent = () => {
-    
     // Get sender
     const { user: sender, error: senderError, loading: senderLoading } = useGetUser(localStorage.getItem('username'));
     
     // Get recipient
-    const { userid: user_id } = useParams();
-    const { user, error: userError, loading: userLoading } = useGetUser(null, user_id);
+    const { userid: recipientId } = useParams();
+    const { user, error: userError, loading: userLoading } = useGetUser(null, recipientId);
 
-    const [conversation, setConversation] = useState([]);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    
-    // Messages and states
+    const [webSocketReady, setWebSocketReady] = useState(false);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     
-    
-    //const { conversation, error, loading } = useConversation(user_id,user_id,);
-    const { sendMessage, receiveMessage } = useWebSocket(user_id, user_id);
-    useEffect(() => {
-        if(!userLoading){
+    // Initialize WebSocket conditionally
+    const { sendMessage, receiveMessage } = useWebSocket(sender?.user_id, recipientId, webSocketReady);
 
+    useEffect(() => {
+        if (!userLoading && !senderLoading && user && sender) {
+            // Ensure WebSocket is only initialized after both users are loaded
+            setWebSocketReady(true);
         }
-    }, user)
+    }, [userLoading, senderLoading, user, sender]);
 
     useEffect(() => {
-        
-    },);
+        if (webSocketReady) {
+            // Handle incoming messages
+            receiveMessage((message) => {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+        }
+    }, [webSocketReady, receiveMessage]);
 
     const handleSendMessage = async () => {
-        console.log("sending message: ", newMessage);
-        sendMessage(newMessage);
+        if (newMessage.trim()) {
+            console.log("Sending message: ", newMessage);
+            sendMessage(newMessage);
+            setNewMessage(''); // Clear input after sending
+        }
     };
 
-    if (userLoading) return <p>Loading...</p>;
-    if (userError) return <p>Error loading data</p>;
+    if (userLoading || senderLoading) return <p>Loading...</p>;
+    if (userError || senderError) return <p>Error loading data</p>;
 
     return (
         <div className='chat-container'>
-            <div className='contacts-bar'>
-                {/* Contacts bar content */}
-            </div>
             <div className='message-box'>
                 <div className='message-header'>
                     <ProfilePicture username={user.username}/> 
-                    {user.first_name} 
+                    <p>{user.first_name} {user.last_name}</p>
                 </div>
                 <div className='messages'>
-                    {messages && messages.length > 0 ? ( 
+                    {messages.length > 0 ? ( 
                         messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.sentByMe ? 'sent' : 'received'}`}>
                                 {msg.text}

@@ -278,6 +278,10 @@ class ConversationViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['get', 'post'], url_path='conversation/(?P<user1_id>[^/.]+)/(?P<user2_id>[^/.]+)')
     def handle_conversation(self, request, user1_id=None, user2_id=None):
+        # Print extracted IDs from URL
+        print(">>> Extracted User 1 ID from URL:", user1_id)
+        print(">>> Extracted User 2 ID from URL:", user2_id)
+
         if request.method == 'GET':
             # Fetch conversation logic
             print(">>> Conversation Get Request")
@@ -300,14 +304,9 @@ class ConversationViewSet(viewsets.ViewSet):
         elif request.method == 'POST':
             # Create conversation logic
             print(">>> Conversation Post Request")
-            user1_id = request.data.get('user1_id')
-            user2_id = request.data.get('user2_id')
-            
+            # Use URL parameters for user IDs
             print("User 1:", user1_id)
             print("User 2:", user2_id)
-
-            print("User 1:", {user1_id})
-            print("User 2:", {user2_id})
 
             try:
                 user1 = User.objects.get(user_id=user1_id)
@@ -327,6 +326,7 @@ class ConversationViewSet(viewsets.ViewSet):
             else:
                 print(">>> Conversation Found")
                 return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class MessageViewSet(viewsets.ModelViewSet):
     
