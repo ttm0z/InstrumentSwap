@@ -51,20 +51,24 @@ const ListingDetail = () => {
                     )}
                     
                     <p>Location: {listing.location}</p>
+                    <p>Views: {0}</p>
                   </div>
-                    
-                    
+                  {!isOwner && (
+                    <div className="listing-actions">
+                        <Link to={`/profile/${user ? user.username : ''}`}>
+                            <button>View Seller</button>
+                        </Link>
+                        
+                        <Link to={`/direct-message/${user ? user.user_id : ''}`}>
+                            <button>Message Seller</button>
+                        </Link>
+                        
+                    </div>
+            )}
+          
                 </div>
             </div>
                 
-            {!isOwner && (
-                <div className="listing-actions">
-                    <Link to={`/profile/${user ? user.username : ''}`}>
-                        <button className="contact-button">View Seller</button>
-                    </Link>
-                    <button className="message-button">Message Seller</button>
-                </div>
-            )}
         </>
     );
 };

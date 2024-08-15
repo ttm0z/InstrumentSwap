@@ -1,4 +1,15 @@
-/* Navigation Bar Container */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap'); /* Import a custom font */
+
+.logo {
+    font-family: 'Poppins', sans-serif; /* Apply custom font */
+    font-size: 1.5em; /* Adjust the size */
+    font-weight: 500; /* Ensure it's bold */
+    background: linear-gradient(135deg, #050505 0%, #6ba052 100%); /* Gradient background */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text itself transparent */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Add a subtle shadow for depth */
+}
+
 .navbar {
     display: flex;
     align-items: center;
@@ -6,72 +17,55 @@
     flex-direction: column;
     position: fixed;
     z-index: 1000;
+    background-color: #e4fce1;
     width: 100%;
     top: 0;
     left: 0;
 }
 
-.top_bar {
-    width: 100%;
-    background-color: #faefef; /* Background color of the navbar */
-    color: #000000; /* Text color */
-    padding: 10px 10px 10px 20px; /* Adjust padding for better spacing */
-    box-shadow: 0 4px 2px -2px gray;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 5vh; 
-}
-
-ul{
-    border-color: aliceblue;
-}
-
-.bottom_bar {
-    width: 100%;
-    background-color: #faefef; /* Background color of the navbar */
-    color: #000000; /* Text color */
-    padding: 10px 20px; /* Adjust padding for better spacing */
-    box-shadow: 0 4px 2px -2px gray;
-    border: 1px solid rgb(255, 204, 204);
-    z-index: 1000;
-    box-sizing: border-box; /* Include padding in total width/height */
-    /* Set a fixed height to ensure consistent spacing */
-    height: 5vh; 
-    display: flex;
-    align-items: center;
-}
-
-
-/* Navigation Links */
-.navbar ul {
-    list-style-type: none;
+.navbar ul {    
     margin: 0;
     padding: 0;
     align-items: baseline;
     display: flex;
-}
-
-.navbar li {
-    margin: 0 15px;
-    
+    list-style-type: none;
 }
 
 .navbar a {
     color: #000000; /* Change link color to match text color */
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.2em;
+    font-weight: 600;
     transition: color 0.3s ease, text-decoration 0.3s ease; /* Add transition for hover effects */
 }
 
 .navbar a:hover {
-    color: #860000; /* Slightly darker color on hover */
     text-decoration: underline;
 }
 
+.top_bar {
+    width: 100%;
+}
+
+.top_bar li {
+    margin: 0 20px;    
+}
+
+.bottom_bar {
+    display: flex;    
+    align-items: center;
+    border: 1px solid #0d0f0d;
+    width: 100%;
+    z-index: 1000; 
+
+}
+.bottom_bar li{
+    border: 1px solid #0d0f0d;
+    margin-right: 1px;
+    width:10%
+}
+
 .search {
-    box-shadow: #ac5656;
-    padding: 0px 5px 5px 5px;
     width: 50%;
 }
 
@@ -79,8 +73,6 @@ ul{
     width: 100%
 }
 
-
-/* Adjust content margin to prevent overlap */
 .app-container {
-    margin-top: 60px; /* Adjust to the height of the navbar */
+    margin-top: 20vh; 
 }

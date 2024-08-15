@@ -1,20 +1,19 @@
 .search {
     position: relative;
-    width: 300px;
+    width:33%;
     z-index: 1200;
 }
 
 .search_input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
 }
 
 .search-results {
     position: absolute;
-    max-width: 50vw;
+    width: 100%;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,27 +37,22 @@
 }
 
 .search-results li img {
-    height: 50px;
+    height:50px;
     width: 50px;
 }
 
 .search-results li {
-    
-    width: 100%; /* Ensure full width of the container */
-
+    height:20%;
+    width: 100%; 
+    border-top: 1px solid #ccc; /* Border between items */
     border-bottom: 1px solid #ccc; /* Border between items */
-    padding: 8px; /* Padding inside each list item */
     margin: 0px auto;
     box-sizing: border-box; /* Include padding and border in width */
 }
 
 .search-results li a {
     display: block;
-    font-size: small;
-    width: 100%; /* Full width of the list item */
-    color: #333;
     text-decoration: none;
-    padding: 8px; /* Padding inside the link */
 }
 
 .search-results li:hover {

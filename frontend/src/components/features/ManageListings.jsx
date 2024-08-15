@@ -51,11 +51,11 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
         <>
             <h3>Your Listings</h3>
             
-            <div className="listings">
+            <div className="manage-listings">
                 {listings.length > 0 ? (
                     listings.map((listing) => (
                         
-                        <div className='listing'>
+                        <div className='manage-listing'>
                             <h4>{listing.title}</h4>
                             <button onClick={() => {deleteListing(listing.listing_id)}}>Delete Listing</button>
                             <button>Update listing details</button>

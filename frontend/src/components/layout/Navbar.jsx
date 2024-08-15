@@ -44,7 +44,7 @@ const NavBar = () => {
             <ul>
                 <li>
                     <Link to="/">
-                        <h1>IS</h1>
+                        <h1 className='logo'>InstrumentSwap</h1>
                     </Link>    
                 </li>
                 <SearchBar />

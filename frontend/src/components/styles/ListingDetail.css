@@ -1,45 +1,57 @@
+
 .listing-container {
     display: flex;
     flex-direction: row;
     width: 90vw;
+    border: 0.5vh solid black;
+    border-radius: 1%;
 }
 
 .price {
-    background-color: rgb(102, 184, 100);
+    background-color: rgb(50, 117, 49);
     color: #fff;
-    width: 50%;
-    justify-self: center;
-    text-align: center;
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 1.5em;
+    box-shadow: 0 4px 8px rgba(190, 26, 26, 0.2);
+    font-size: 2em;
     font-weight: bold;
-    margin: 10px auto;
-}
-
-.listing-info-column p {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 1.0em;
-    font-weight: bold;
-    justify-self: center;
-    text-align: center;
-    padding: 10px;
-    margin: 10px auto;
-}
-
-.listing-photo-column {
-    border: 1px solid black;
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0; /* Reset any default margin */
 }
 
 .listing-info-column {
-    border: 1px solid black;
     width: 50vw;
+    display: flex;
+    flex-direction: column;   
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    background-color: #e4fce1;
+}
+
+.listing-info-column-footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 columns */
+    grid-template-rows: repeat(3, 1fr); /* Create 3 rows */
+    gap: 5px; 
+    width: 100%; 
+    margin-top: auto; 
+    padding: 10px; 
+    box-sizing: border-box;
+}
+
+.listing-info-column-footer p {
+    background-color: rgb(50, 117, 49); 
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.listing-photo-column {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #e4fce1;
+    align-items: center;
 }
 
 .listing-header {
@@ -52,6 +64,21 @@
     margin-left: auto; 
 }
 
+.listing-actions{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.listing-actions button{
+    background-color: rgb(50, 117, 49); 
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
 .image-box {
     display: flex;
     justify-content: center;
@@ -61,9 +88,9 @@
 }
 
 .image-box img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Ensure the image is contained within the box */
+    max-width: 50vw;
+    max-height: 50vh;
+    object-fit: contain;
 }
 
 .custom-slider {
@@ -109,6 +136,6 @@
     max-width: 100%;
     width: 40vw;
     height: auto;
-    object-fit: contain; /* Ensure the image is contained within the box */
+    object-fit: contain;
     display: block;
 }
