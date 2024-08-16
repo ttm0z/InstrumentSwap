@@ -18,10 +18,12 @@ const UpdateUserForm = ({ userData, onClose, onUpdate }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+
     const handleSubmit = async (e) => {
+        console.log(userData)
         e.preventDefault();
         try {
-            console.log(formData.username)
+            
             await axios.post(`http://localhost:8000/api/users/${formData.username}/update/`, formData);                            
             onUpdate(); // Refresh profile data
             onClose(); // Close the form

@@ -62,11 +62,13 @@
 .bottom_bar li{
     border: 1px solid #0d0f0d;
     margin-right: 1px;
-    width:10%
+    min-width:10%;
+    max-width:30%;
 }
 
 .search {
-    width: 50%;
+    min-width: 20%;
+    max-width: 50%;
 }
 
 .search_input{

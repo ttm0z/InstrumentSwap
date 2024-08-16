@@ -10,7 +10,6 @@ function ProfilePicture({ username }) {
     const profilePicture = `http://localhost:8000/api/instrument_swap_media/images/${username}.jpg/`;
     
     
-    // figure out what to do with upload profile picture utility
     const [image, setImage] = useState(null);
     const handleImageChange = async (e) => {
         const newImage = e.target.files[0];

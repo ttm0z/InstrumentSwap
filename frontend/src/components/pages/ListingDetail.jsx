@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useGetUser from '../hooks/useGetUser';
 import useListing from '../hooks/useListing';
+import Slider from '../features/Slider';
 import '../styles/ListingDetail.css';
 
 const ListingDetail = () => {
@@ -73,34 +74,6 @@ const ListingDetail = () => {
     );
 };
 
-const Slider = ({ images }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-  
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    };
-  
-    return (
-        <div className="custom-slider">
-            <button className="prev" onClick={prevSlide}>
-                &#10094;
-            </button>
-            <div className="slide">
-                <img
-                    src={`http://localhost:8000/api/instrument_swap_media/images/${images[currentIndex]}`}
-                    alt={`Slide ${currentIndex}`}
-                    className="slider-image"
-                />
-            </div>
-            <button className="next" onClick={nextSlide}>
-                &#10095;
-            </button>
-        </div>
-    );
-};
+
   
 export default ListingDetail;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import { fetchListingsByUserId } from "../services/listingService";
 import '../styles/ManageListings.css'
 import { deleteListing } from "../services/listingService";
@@ -15,7 +16,7 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchListings = async () => {
@@ -49,16 +50,18 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
     );
     return (
         <>
+            <div>
             <h3>Your Listings</h3>
             
             <div className="manage-listings">
                 {listings.length > 0 ? (
                     listings.map((listing) => (
                         
-                        <div className='manage-listing'>
+                        <div className='manage-listing-container'>
                             <h4>{listing.title}</h4>
                             <button onClick={() => {deleteListing(listing.listing_id)}}>Delete Listing</button>
-                            <button>Update listing details</button>
+                            <button onClick={() => {onUpdate();}}>Update listing details</button>
+                            <button onClick={() => {navigate(`/listings/${listing.listing_id}`)}}>View Listing</button>
                         </div>
                     ))
                 ) : (
@@ -66,7 +69,9 @@ const ManageListings = ({user_id, onClose, onUpdate}) => {
                 )}
             </div>
 
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button className="close" type="button" onClick={onClose}>Cancel</button>
+            </div>
+            
             
             </>
     );

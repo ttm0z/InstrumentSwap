@@ -4,6 +4,7 @@ import ImageUpload from '../features/ImageUpload';
 import useCreateListing from '../hooks/useCreateListing';
 import '../styles/CreateListing.css'; // Import the CSS file
 import useGetUser from '../hooks/useGetUser';
+import categories from "../../categories.js"
 
 const CreateListing = () => {
     const navigate = useNavigate();
@@ -26,18 +27,6 @@ const CreateListing = () => {
         swap: false,
         status: 'active'
     });
-
-    const categories = [
-        { category: 'Guitar', imageSrc: 'path/to/guitarImage' },
-        { category: 'Bass Guitar', imageSrc: 'path/to/bassImage' },
-        { category: 'Keyboards and Synths', imageSrc: 'path/to/keyboardImage' },
-        { category: 'Pianos', imageSrc: 'path/to/pianoImage' },
-        { category: 'Percussion', imageSrc: 'path/to/percussionImage' },
-        { category: 'Woodwind', imageSrc: 'path/to/woodwindImage' },
-        { category: 'Brass', imageSrc: 'path/to/brassImage' },
-        { category: 'Orchestral', imageSrc: 'path/to/orchestralImage' },
-        { category: 'Other', imageSrc: 'path/to/otherImage' }
-    ];
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -153,10 +142,13 @@ const CreateListing = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button type="submit" disabled={loading}>
+                        <div className='create-listing-footer'>
+                            <button type="submit" disabled={loading}>
                             {loading ? 'Creating Listing...' : 'Create Listing'}
-                        </button>
-                        <button type="button" onClick={() => navigate(`/profile/${username}`)}>Cancel</button>
+                            </button>
+                            <button type="button" onClick={() => navigate(`/profile/${username}`)}>Cancel</button>
+                        </div>
+                        
                     </form>
                     {error && <div className="error-message">{error}</div>}
                 </div>

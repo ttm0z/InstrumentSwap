@@ -1,6 +1,6 @@
 .search {
     position: relative;
-    width:33%;
+    width: 33%;
     z-index: 1200;
 }
 
@@ -21,38 +21,51 @@
     margin-top: 2px; /* Space between input and results */
     z-index: 1000;
     box-sizing: border-box; /* Include padding and border in width and height */
-    
+    overflow-y: auto; /* Enable scrolling for overflow */
 }
 
-.search-results ul {
+.results-list {
     padding: 0;
     margin: 0;
     width: 100%;
-    margin-top:5px;
-    margin-bottom:5px;
     box-sizing: border-box; /* Include padding and border in width */
     display: flex;
     flex-direction: column;
-    
 }
 
-.search-results li img {
-    height:50px;
-    width: 50px;
-}
-
-.search-results li {
-    height:20%;
-    width: 100%; 
+.result {
+    display: flex;
+    width: 100%;
     border-top: 1px solid #ccc; /* Border between items */
     border-bottom: 1px solid #ccc; /* Border between items */
-    margin: 0px auto;
-    box-sizing: border-box; /* Include padding and border in width */
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.search-results li a {
-    display: block;
+.result-link {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Make the link fill the width of the result */
+    padding: 8px;
     text-decoration: none;
+    color: inherit;
+    height: 60px; /* Set a fixed height for the link */
+    box-sizing: border-box; /* Include padding and border in the height */
+}
+
+.result img {
+    height: 100%; /* Make the image take up the full height of the link */
+    width: auto;
+    margin-right: 10px; /* Space between image and text */
+    object-fit: cover;
+}
+
+.result p {
+    margin: 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Handle text overflow with ellipsis */
+    flex-grow: 1; /* Ensure the text takes up the remaining space */
 }
 
 .search-results li:hover {

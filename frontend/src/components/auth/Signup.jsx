@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { register } from '../services/authService';
 import '../styles/Auth.css'; // Import the CSS file
 import { useNavigate } from 'react-router-dom';
+import UpdateUserForm from "../features/UpdateUserForm"
+import { getUserByUsername } from '../services/userService';
 const Signup = () => {
 
     const navigate = useNavigate();
@@ -10,57 +12,36 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [signedUp, setSignedUp] = useState(false)
+    const [user, setUser] = useState(null)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        register(username, email, password)
-            .then(response => {
-                console.log('Signup successful', response.data);
-                alert("Signup Successful");
-                setSignedUp(true)
-            })
-            .catch(error => {
-                console.error('Signup error', error);
-                alert("Signup Error");
-            });
+        try {
+            const response = await register(username, email, password);
+            console.log('Signup successful', response.data);
+            alert("Signup Successful");
+    
+            const userData = await getUserByUsername(username); 
+            setUser(userData); 
+            console.log(userData);
+    
+            setSignedUp(true);
+        } catch (error) {
+            console.error('Signup error', error);
+            alert("Signup Error");
+        }
     };
-
-    // once signed up, set initial data
-    if(signedUp) return (
-        <>
-        <h3>Profile Setup</h3>
-        <div className="update-profile-form">
-            <h2>Update Profile</h2>
-            {error && <div className="error-message">{error}</div>}
-            <form onSubmit={handleSubmit}>
-                <label>
-                    First Name:
-                    <input type="text" name="first_name" value={formData.firstName} onChange={handleChange} />
-                </label>
-                <label>
-                    Last Name:
-                    <input type="text" name="last_name" value={formData.lastName} onChange={handleChange} />
-                </label>
-                <label>
-                    Bio:
-                    <input type="text" name="location" value={formData.bio} onChange={handleChange} />
-                </label>
-                <label>
-                    Location:
-                    <input type="text" name="location" value={formData.location} onChange={handleChange} />
-                </label>
-                <button type="submit">Update</button>
-                <button type="button" onClick={onClose}>Cancel</button>
-            </form>
-        </div>
-        <button></button>
-        </>
-    );
+    
+    const handleUpdate = () =>{
+        console.log("update")
+    }
+    
 
 
     return (
-        <form className="auth-form" onSubmit={handleSubmit}>
-            
+        <>
+        {!signedUp ? (
+            <form className="auth-form" onSubmit={handleSubmit}> 
             <h3 className="auth-header">Sign Up</h3>
             <input 
                 type="text" 
@@ -82,6 +63,14 @@ const Signup = () => {
             />
             <button type="submit" className="auth-button">Sign Up</button>
         </form>
+        ) : (            
+        <UpdateUserForm
+            userData={user}
+            onClose={() => navigate("/login")}
+            onUpdate={handleUpdate}
+        />)}
+        
+        </>
     );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/ImageUpload.css';
-
+import Slider from './Slider';
 function ImageUpload({ onUpload }) {
     const [images, setImages] = useState([]);
 
@@ -10,12 +10,15 @@ function ImageUpload({ onUpload }) {
         setImages(updatedImages);
         onUpload(updatedImages);
     };
-
+    
     return (
         <div className="image-upload">
+        
+            <div className='image-preview-container'>
+                <Slider images={images} upload={true}/>
+            </div>
             <form>
-                
-                <div className="image-upload-container">
+            <div className="image-upload-container">
                     <label htmlFor="image-upload-input" className="image-upload-label">
                         <div className="upload-placeholder">
                             <span className="plus-sign">+</span>
@@ -28,13 +31,9 @@ function ImageUpload({ onUpload }) {
                         onChange={handleImageChange}
                         style={{ display: 'none' }}
                     />
-                </div>
-            </form>
-            <div className='image-preview-container'>
-                {images.map((image, index) => (
-                    <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index}`} className="image-preview" />
-                ))}
             </div>
+            </form>
+        
         </div>
     );
 }

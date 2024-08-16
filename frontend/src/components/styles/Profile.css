@@ -12,6 +12,7 @@ body {
     border: 1px solid black;
     background-color: #e4fce1;
     max-width: 1200px; /* Max width for the container */
+    min-width: 80vw;
     width: 100%; /* Full width of the parent container */
     margin: 0 auto; /* Center horizontally */
     display: flex;

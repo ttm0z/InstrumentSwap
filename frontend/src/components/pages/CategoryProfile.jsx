@@ -14,7 +14,7 @@ const CategoryProfile = () => {
     return (
         <>
         <div className="category-header">
-            <h3>{categoryString}</h3>
+            <h2>{categoryString}</h2>
         </div>
         
 
