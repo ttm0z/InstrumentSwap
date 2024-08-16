@@ -275,57 +275,36 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
 class ConversationViewSet(viewsets.ViewSet):
 
-
-    @action(detail=False, methods=['get', 'post'], url_path='conversation/(?P<user1_id>[^/.]+)/(?P<user2_id>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='conversation/(?P<user1_id>[^/.]+)/(?P<user2_id>[^/.]+)')
     def handle_conversation(self, request, user1_id=None, user2_id=None):
         # Print extracted IDs from URL
         print(">>> Extracted User 1 ID from URL:", user1_id)
         print(">>> Extracted User 2 ID from URL:", user2_id)
 
-        if request.method == 'GET':
-            # Fetch conversation logic
-            print(">>> Conversation Get Request")
-            try:
-                user1 = User.objects.get(user_id=user1_id)
-                user2 = User.objects.get(user_id=user2_id)
-            except User.DoesNotExist:
-                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        # Fetch users
+        try:
+            user1 = User.objects.get(user_id=user1_id)
+            user2 = User.objects.get(user_id=user2_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-            if user1.user_id > user2.user_id:
-                user1, user2 = user2, user1
+        # Ensure user1 is always less than user2 for consistent conversation matching
+        if user1.user_id > user2.user_id:
+            user1, user2 = user2, user1
 
-            conversation = Conversation.objects.filter(user1=user1, user2=user2).first()
-            if conversation:
-                serializer = ConversationSerializer(conversation)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Conversation not found'}, status=status.HTTP_404_NOT_FOUND)
+        # Try to fetch existing conversation
+        conversation = Conversation.objects.filter(user1=user1, user2=user2).first()
 
-        elif request.method == 'POST':
-            # Create conversation logic
-            print(">>> Conversation Post Request")
-            # Use URL parameters for user IDs
-            print("User 1:", user1_id)
-            print("User 2:", user2_id)
-
-            try:
-                user1 = User.objects.get(user_id=user1_id)
-                user2 = User.objects.get(user_id=user2_id)
-            except User.DoesNotExist:
-                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-
-            if user1.user_id > user2.user_id:
-                user1, user2 = user2, user1
-
-            conversation, created = Conversation.objects.get_or_create(user1=user1, user2=user2)
-
+        if conversation:
+            # Conversation found, return it
             serializer = ConversationSerializer(conversation)
-            if created:
-                print(">>> Conversation Created")
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            else:
-                print(">>> Conversation Found")
-                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            # Conversation not found, create a new one
+            new_conversation = Conversation.objects.create(user1=user1, user2=user2)
+            serializer = ConversationSerializer(new_conversation)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -340,6 +319,19 @@ class MessageViewSet(viewsets.ModelViewSet):
             # Broadcast the message to the WebSocket (implement as needed)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    @action(detail=False, methods=['get'], url_path='conversation/(?P<conversation_id>\d+)/')
+    def retrieve_messages_by_conversation(self, request, conversation_id=None):
+        try:
+            print("Message fetch request")
+            conversation = Conversation.objects.get(id=conversation_id)
+        except Conversation.DoesNotExist:
+            return Response({'error': 'Conversation not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        messages = Message.objects.filter(conversation=conversation).order_by('sent_at')
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     queryset = Message.objects.all()
     serializer_class = MessageSerializer

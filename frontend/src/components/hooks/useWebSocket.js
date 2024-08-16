@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {initConversation} from '../services/conversationService';
-const useWebSocket = (senderId, recipientId) => {
+const useWebSocket = (conversationId, senderId, recipientId, isReady) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
@@ -9,10 +9,8 @@ const useWebSocket = (senderId, recipientId) => {
     useEffect(() => {
         
         // fetch conversation id
-        console.log(senderId, recipientId)
-        setConversation(initConversation(senderId, recipientId));
         console.log("initializing websocket connection\n")
-        const ws = new WebSocket(`ws://localhost:8000/ws/direct/${senderId}/${recipientId}`);
+        const ws = new WebSocket(`ws://localhost:8000/ws/direct/${conversationId}/`);
         console.log("\n")
         
 
@@ -41,12 +39,12 @@ const useWebSocket = (senderId, recipientId) => {
         return () => {
             ws.close();
         };
-    }, [senderId, recipientId]);
+    }, [conversationId]);
     
 
     const sendMessage = useCallback((text) => {
         if (socket && isConnected) {
-            socket.send(JSON.stringify({ text, senderId, recipientId }));
+            socket.send(JSON.stringify({ text,senderId, recipientId, conversationId }));
             console.log("sending: ", text)
         }
         else console.log("message not sent")
