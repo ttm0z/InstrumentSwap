@@ -1,10 +1,10 @@
 .sort-bar {
     border: 1px solid black;
-    width: 100%;
+
     display: flex;
-    justify-content: center; /* Center the entire component */
+    justify-content: center; 
     align-items: center;
-    padding: 10px;
+    padding: 4px;
     box-sizing: border-box;
     background-color: #f7f7e3; 
 }
@@ -24,25 +24,25 @@
 }
 
 .sort-bar li {
-    margin-right: 15px; /* Space between each button */
+    margin-right: 15px; 
 }
 
 .sort-bar li:last-child {
-    margin-right: 0; /* Remove margin for the last item */
+    margin-right: 0; 
 }
 
 .sort-bar button {
     background: none;
     border: none;
-    color: #007BFF;
-    text-decoration: underline;
+    color: #215f14;
+    text-decoration:wavy;
     cursor: pointer;
-    font-size: 14px;
+    font-size: smaller;
     padding: 0;
 }
 
 .sort-bar button:hover {
-    color: #0056b3; /* Darken color on hover */
+    color: #0056b3; 
 }
 
 .sort-bar button:focus {
@@ -50,6 +50,6 @@
 }
 .sort-bar button.selected {
     font-weight: bold;
-    color: #0056b3; /* Highlight color for selected button */
+    color: #0056b3; 
 }
 

@@ -62,7 +62,6 @@ class Listing(models.Model):
     def __str__(self):
         return self.title
 
-
 class ImageUpload(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
@@ -83,8 +82,6 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"Transaction {self.transaction_id}"
-
-
 
 class Conversation(models.Model):
     user1 = models.ForeignKey(User, related_name='conversations_as_user1', on_delete=models.CASCADE)

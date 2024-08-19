@@ -13,7 +13,8 @@ body {
     background-color: #e4fce1;
     max-width: 1200px; /* Max width for the container */
     min-width: 80vw;
-    width: 100%; /* Full width of the parent container */
+    width: 50%; /* Full width of the parent container */
+    height: 100%;
     margin: 0 auto; /* Center horizontally */
     display: flex;
     justify-content: space-evenly;
