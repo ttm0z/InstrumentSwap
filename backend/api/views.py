@@ -321,15 +321,16 @@ class MessageViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
-    @action(detail=False, methods=['get'], url_path='conversation/(?P<conversation_id>\d+)/')
+    @action(detail=False, methods=['get'], url_path='conversation/(?P<conversation_id>\d+)')
     def retrieve_messages_by_conversation(self, request, conversation_id=None):
         try:
-            print("Message fetch request")
+            print("Message fetch request", conversation_id)
             conversation = Conversation.objects.get(id=conversation_id)
+            print(conversation)
         except Conversation.DoesNotExist:
             return Response({'error': 'Conversation not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        messages = Message.objects.filter(conversation=conversation).order_by('sent_at')
+        messages = Message.objects.filter(conversation=conversation).order_by('timestamp')
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

@@ -10,7 +10,7 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
 router.register(r'listings', ListingViewSet, basename='listings')
 router.register(r'transactions', TransactionViewSet)
-router.register(r'messages', MessageViewSet, basename='messages')
+router.register(r'messages', MessageViewSet)
 router.register(r'search-history', SearchHistoryViewSet)
 router.register(r'appraisals', AppraisalViewSet)
 router.register(r'auth', AuthViewSet, basename='auth')
@@ -18,7 +18,7 @@ router.register(r'conversations', ConversationViewSet, basename='conversation')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('search/', search_view, name='search'),  # Add this line
+    path('search/', search_view, name='search'),
 ]
 
 if settings.DEBUG:

@@ -9,12 +9,10 @@ import '../styles/DirectMessageComponent.css';
 const DirectMessageComponent = () => {
     // Get sender
     const { user: sender, error: senderError, loading: senderLoading } = useGetUser(localStorage.getItem('username'));
-    console.log("Sender: ", sender);
 
     // Get recipient
     const { userid: recipientId } = useParams();
     const { user: recipient, error: userError, loading: userLoading } = useGetUser(null, recipientId);
-    console.log("Recipient: ", recipient);
     
     const [conversationId, setConversationId] = useState(null);
     const [senderId, setSenderId] = useState(null);
@@ -25,11 +23,18 @@ const DirectMessageComponent = () => {
     // Initialize WebSocket
     const { sendMessage, receiveMessage } = useWebSocket(conversationId, senderId, recipientId, webSocketReady);
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (newMessage.trim()) {
-            console.log("Sending message: ", newMessage);
-            sendMessage({ text: newMessage, sentByMe: true });
-            setNewMessage(''); // Clear input after sending
+            sendMessage(newMessage);
+            setNewMessage('');
+
+            // Refetch the conversation to reset it
+            try {
+                const messageFetch = await axios.get(`http://localhost:8000/api/messages/conversation/${conversationId}`);
+                setMessages(messageFetch.data);
+            } catch (error) {
+                console.error('Error refetching messages after sending:', error);
+            }
         }
     };
 
@@ -42,9 +47,7 @@ const DirectMessageComponent = () => {
                 setSenderId(sender.user_id);
 
                 if (data.id) {
-                    // Fetch messages once the conversationId is set
-                    const messageFetch = await axios.get(`http://localhost:8000/api/messages/conversation/${data.id}/`);
-
+                    const messageFetch = await axios.get(`http://localhost:8000/api/messages/conversation/${data.id}`);
                     setMessages(messageFetch.data);
                 }
 
@@ -62,7 +65,9 @@ const DirectMessageComponent = () => {
     useEffect(() => {
         if (webSocketReady && conversationId) {
             receiveMessage((message) => {
+                // Append the received message to the existing messages state
                 setMessages((prevMessages) => [...prevMessages, message]);
+                console.log("messageRecieved: ", message)
             });
         }
     }, [webSocketReady, conversationId, receiveMessage]);
@@ -80,8 +85,8 @@ const DirectMessageComponent = () => {
                 <div className='messages'>
                     {messages.length > 0 ? (
                         messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.sentByMe ? 'sent' : 'received'}`}>
-                                {msg.text}
+                            <div key={index} className={`message ${msg.sender === senderId ? 'sent' : 'received'}`}>
+                                {msg.content}
                             </div>
                         ))
                     ) : (

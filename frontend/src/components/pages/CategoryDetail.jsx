@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import ItemGrid from "../features/ItemGrid";
 
-const CategoryProfile = () => {
+const CategoryDetail = () => {
 
     const category = useParams().category;
         
@@ -24,4 +24,4 @@ const CategoryProfile = () => {
         </>
     )
 }
-export default CategoryProfile;
+export default CategoryDetail;

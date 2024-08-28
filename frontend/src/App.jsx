@@ -7,7 +7,7 @@ import ListingsPage from './components/pages/ListingsPage';
 import ListingDetail from './components/pages/ListingDetail';
 import CreateListing from './components/pages/CreateListing';
 import DirectMessageComponent from './components/pages/DirectMessageComponent';
-import CategoryProfile from './components/pages/CategoryProfile';
+import CategoryDetail from './components/pages/CategoryDetail';
 import Profile from './components/pages/Profile';
 
 import Navbar from './components/layout/Navbar';
@@ -43,9 +43,9 @@ function App() {
                         <Route path="/profile/:username" element={<Profile/>}/>
                     
                         {/* Categories */}
-                        <Route path="/categories/:category" element={<CategoryProfile />} />
+                        <Route path="/categories/:category" element={<CategoryDetail />} />
                         
-                        {/* DM --- FIX BEFORE UNCOMMENTING !!!!!! */}
+                        {/* DM --- !!!!!! */}
                         <Route path="/direct-message/:userid" element={<DirectMessageComponent />} />
                     </Routes>
                 </div>

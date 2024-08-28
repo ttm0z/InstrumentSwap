@@ -1,12 +1,11 @@
 .category-card {
     position: relative;
     width: 100%;
-    
     overflow: hidden;
     border: 1px solid #ddd;
-    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    text-align: center;
 }
 
 .category-card-image {
@@ -31,12 +30,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    background: rgba(0, 0, 0, 0.5); 
     color: #fff;
     opacity: 0;
     transition: opacity 0.3s;
-    text-align: center;
-    padding: 10px;
+    
 }
 
 .category-card:hover .category-card-overlay {
@@ -45,7 +43,7 @@
 
 .category-card h2 {
     font-size: 1.5rem;
-    margin: 0;
+    align-self: auto;
     color: #fff;
 }
 

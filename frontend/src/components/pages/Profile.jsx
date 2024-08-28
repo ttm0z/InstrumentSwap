@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-
 import useGetUser from "../hooks/useGetUser";
 import UpdateUserForm from '../features/UpdateUserForm'; 
 import ManageListings from "../features/ManageListings";
 import ItemGrid from "../features/ItemGrid";
 import ProfilePicture from "../features/ProfilePicture";
-
 import '../styles/Profile.css'; 
+import { AuthContext } from "../services/authContext";
+import { Edit, Message, PersonAdd, ManageAccounts, ContactMail, Add, Settings } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 
 const Profile = () => {
 
-    const navigate = useNavigate();
-    const { username } = useParams();
-    const {user, loading, error} = useGetUser(username, null);
-
-    const isOwner = user && (user.username === localStorage.getItem('username'))
+    const { isAuthenticated, username, logout } = useContext(AuthContext);
+    const { username: ownerUsername } = useParams();
+    const { user, loading, error } = useGetUser(ownerUsername);
+    const isOwner = user && (user.username === localStorage.getItem('username'));
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showManageListings, setShowManageListings] = useState(false);
+    const navigate = useNavigate();
     
     const handleUpdate = () => {
-        
         setShowUpdateForm(false);
         setShowManageListings(false);
-        
     };
     
     if (loading) return <div>Loading ...</div>;
@@ -36,15 +35,23 @@ const Profile = () => {
                 <div className="column-1">
                     <div className="profile-card-header">
                         <div className="profile-photo">
-                            <ProfilePicture username={username} picture={user.profile_picture}/>
+                            <ProfilePicture username={ownerUsername} picture={user.profile_picture}/>
                         </div>
 
                         <div className="profile-header-info">
                             <h1>{user.first_name} {user.last_name}</h1>
                             {isOwner ? (
-                                <button className="info-button" onClick={() => setShowUpdateForm(true)}>Update Info</button>
+                                <Tooltip title="Update your profile information">
+                                    <button className="info-button" onClick={() => setShowUpdateForm(true)}>
+                                        <Edit />
+                                    </button>
+                                </Tooltip>
                             ) : (
-                                <button className="info-button" onClick={() => navigate(`/direct-message/${user.user_id}`)}>Message {user.first_name}</button>
+                                <Tooltip title={`Message ${user.first_name}`}>
+                                    <button className="info-button" onClick={() => navigate(`/direct-message/${user.user_id}`)}>
+                                        <Message />
+                                    </button>
+                                </Tooltip>
                             )}
                         </div>  
                     </div>
@@ -67,14 +74,6 @@ const Profile = () => {
                             )}
                         </p>
                     </div>
-                        
-                    {!isOwner && (
-                        <div className="profile-actions">
-                            <button className="contact-button">Contact</button>
-                            <button className="message-button">Message</button>
-                        </div>
-                    )}
-                
                 </div>                    
                 
                 <div className="column-2">
@@ -82,50 +81,50 @@ const Profile = () => {
                         <>
                         <div className="listings">
                             <div className="listings-header">
-                        
                                 <h3>{user.first_name}'s Listings</h3>
-                                    {isOwner && (
-                                        <div className="edit-actions">
+                                {isOwner && (
+                                    <div className="edit-actions">
+                                        <Tooltip title="Create a new listing">
                                             <Link to={`/create-listing/${username}`}>
-                                                <button className="create-listing">Create New</button>
+                                                <button className="create-listing">
+                                                    <Add />
+                                                </button>
                                             </Link> 
+                                        </Tooltip>
 
-                                            <button className="manage-listing" onClick={() => setShowManageListings(true)}>Manage Listings</button>
-                                        </div>
-                                    )}        
+                                        <Tooltip title="Manage your listings">
+                                            <button className="manage-listing" onClick={() => setShowManageListings(true)}>
+                                                <Settings />
+                                            </button>
+                                        </Tooltip>
+                                    </div>
+                                )}        
                             </div>
                     
-                    <div className="item-list">
-                        {/* Retrieve and display listings */}
-                        <ItemGrid user_id={user.user_id} />
-                    </div>
+                            <div className="item-list">
+                                <ItemGrid user_id={user.user_id} />
+                            </div>
+                        </div>
+                        </>
+                    )}
+
+                    {showUpdateForm && (
+                        <UpdateUserForm
+                            userData={user}
+                            onClose={() => setShowUpdateForm(false)}
+                            onUpdate={handleUpdate}
+                        />
+                    )}
+
+                    {showManageListings && (
+                        <ManageListings 
+                            user_id={user.user_id}
+                            onClose={() => setShowManageListings(false)}
+                            onUpdate={handleUpdate}
+                        />
+                    )}
                 </div>
-
-
-                </>
-                    
-                )}
-
-                {showUpdateForm && (
-            <UpdateUserForm
-                userData={user}
-                onClose={() => setShowUpdateForm(false)}
-                onUpdate={handleUpdate}
-            />
-                )}
-
-                {showManageListings && (
-            <ManageListings 
-                user_id={user.user_id}
-                onClose={() => setShowManageListings(false)}
-                onUpdate={handleUpdate}
-            />
-                )}
             </div>
-        
-        </div>
-
-        
         </>
     );
 };
