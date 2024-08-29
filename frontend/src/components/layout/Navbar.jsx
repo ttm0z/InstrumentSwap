@@ -4,71 +4,98 @@ import '../styles/Navbar.css';
 import Dropdown from './Dropdown';
 import {AuthContext} from '../services/authContext'
 import SearchBar from './SearchBar';
+import categories from '../../categories'
+import { AccountCircleOutlined, ShoppingCartOutlined, SearchOutlined, AppsOutlined, LogoutOutlined, SignLanguage, LoginOutlined } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 
 const NavBar = () => {
     
-    const{ isAuthenticated, setIsAuthenticated, logout} = useContext(AuthContext);
+    const{ isAuthenticated, setIsAuthenticated, logout, username} = useContext(AuthContext);
     
-    const username = localStorage.getItem('username')
-  
-      //replace with categories
-      const dropdownItems = {
-        instruments: [
-            { name: 'Guitars', link: '/categories/guitar' },
-            { name: 'Bass Guitars', link: '/categories/bass' },
-            { name: 'Keyboards', link: '/categories/keys' },
-            { name: 'Pianos', link: '/categories/piano' },
-            { name: 'Percussion', link: '/categories/percussion' },
-            { name: 'Woodwind', link: '/categories/woodwind' },
-            { name: 'Brass', link: '/categories/brass' },
-            { name: 'Orchestral', link: '/categories/orchestral' },
-            { name: 'Other', link: '/categories/other' }
-        ],
-        gear: [
-            { name: 'Recording Equipment', link: '/categories/recording' },
-            { name: 'Amplifiers & PAs', link: '/categories/amps' },
-            { name: 'Effects', link: '/categories/effects' },
-            { name: 'Components', link: '/categories/components' },
-            { name: 'Accessories', link: '/categories/accessories' }
-        ],
-        merch: [
-            { name: 'Clothing', link: '/categories/clothing' },
-            { name: 'Memorabilia', link: '/categories/memorabilia' },
-            { name: 'Miscellaneous', link: '/categories/miscellaneous' }
-        ]
-    };
-    /////////
+    
+    const instruments = categories.slice(0, 9)
+    const gear = categories.slice(9, 14)
+    const merch = categories.slice(14, 17)
+
+
     return (
         <nav className="navbar">
             <div className='top_bar'>
             <ul>
                 <li>
-                    <Link to="/">
+                    <Link to="/frontpage">
                         <h1 className='logo'>InstrumentSwap</h1>
                     </Link>    
                 </li>
                 <SearchBar />
                 <li>
-                    <Link to="/frontpage_prototype">Frontpage</Link>        
+                    
+                    <Link to={`/cart/${username}`}>
+                        <div>
+                        <ShoppingCartOutlined />
+                        Cart
+                        </div>
+                    </Link>    
+                    
+                    
+                    
                 </li>
-                
+
                 <li>
-                    <Link to="/listings">Listings</Link>        
+                    
+                    <Link to="/listings">
+                        <div>
+                        <AppsOutlined />
+                        Listings
+                        </div>
+                    </Link>        
+                    
+                    
+                    
+                    
                 </li>
                 
                 <li>
                 {isAuthenticated ? (
-                        <Link to={`/profile/${username}`}>{username}</Link>
-                    ) : (
-                        <Link to="/login">Login</Link>
+        
+                
+                    <Link to={`/profile/${username}`}>
+                        <div>
+                        <AccountCircleOutlined />
+                        {username}
+                        </div>
+                            
+                    </Link>
+        
+                    
+                    ) : (    
+                            <Link to="/login">
+                                <div>
+                                <LoginOutlined/>
+                                Log In
+                                </div>
+                            </Link>
+                        
+                        
                     )}
                 </li>
                 
                 <li>
                 {isAuthenticated ? (
-                    <button onClick={logout}>Logout</button>
+                    <div>
+                        <LogoutOutlined/>
+                        <button onClick={logout}>Log Out</button>
+                    </div>
+                    
                 ) : (
-                        <Link to="/signup">SignUp</Link>
+                    <Link to="/signup">
+                        <div>
+                        <AccountCircleOutlined />
+                        Sign Up
+                        </div>
+                        </Link>
+                    
+                        
                     )}
                 </li>
             
@@ -77,13 +104,13 @@ const NavBar = () => {
 
             <ul className='bottom_bar'>
                 <li>
-                    <Dropdown title="Instruments" items={dropdownItems.instruments} />
+                    <Dropdown title="Instruments" items={instruments} />
                 </li>
                 <li>
-                    <Dropdown title="Equipment" items={dropdownItems.gear} />
+                    <Dropdown title="Equipment" items={gear} />
                 </li>
                 <li>
-                    <Dropdown title="Merch" items={dropdownItems.merch} />
+                    <Dropdown title="Merch" items={merch} />
                 </li>
             </ul>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SearchBar.css';
+import { SearchOutlined } from '@mui/icons-material';
 
 const SearchBar = () => {
     const [query, setQuery] = useState('');
@@ -59,6 +60,8 @@ const SearchBar = () => {
 
     return (
         <div className='search'>
+            <div className='search-bar'>
+            <SearchOutlined />
             <input 
                 type="search"
                 name="form"
@@ -67,6 +70,8 @@ const SearchBar = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
+            </div>
+            
             {query && (
                 <div className="search-results">
                     <ul className='results-list'>

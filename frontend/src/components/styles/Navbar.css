@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap'); /* Import a custom font */
 
 .logo {
-    font-family: 'Poppins', sans-serif; /* Apply custom font */
-    font-size: 1.5em; /* Adjust the size */
-    font-weight: 500; /* Ensure it's bold */
-    background: linear-gradient(135deg, #050505 0%, #6ba052 100%); /* Gradient background */
-    -webkit-background-clip: text; /* Clip the background to the text */
-    -webkit-text-fill-color: transparent; /* Make the text itself transparent */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Add a subtle shadow for depth */
+    font-family: 'Poppins', sans-serif; 
+    font-size: 1.5em; 
+    font-weight: 500; 
+    background: linear-gradient(135deg, #050505 0%, #6ba052 100%); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); 
+    transition: all 0.3s ease-in-out;
+}
+.logo:hover{
+    transform: scale(1.05);
+    text-shadow: 4px 4px 10px rgba(68, 38, 38, 0.6); 
 }
 
 .navbar {
@@ -17,7 +22,7 @@
     flex-direction: column;
     position: fixed;
     z-index: 1000;
-    background-color: #e4fce1;
+    background: linear-gradient(to bottom, #ffffff, #e0fad9);
     width: 100%;
     top: 0;
     left: 0;
@@ -32,36 +37,65 @@
 }
 
 .navbar a {
-    color: #000000; /* Change link color to match text color */
+    color: #000000;
     text-decoration: none;
     font-size: 1.2em;
     font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Add transition for hover effects */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.navbar a:hover {
-    text-decoration: underline;
-}
+
 
 .top_bar {
     width: 100%;
+    border-bottom: 1px solid rgb(190, 182, 182);
+}
+
+.top_bar button {
+    border: none;
+    background: none;
+    font-size:16px;
+    font-weight: 600;
+    
 }
 
 .top_bar li {
-    margin: 0 20px;    
+    margin: 0 2%;    
 }
+
+.top_bar li div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+    color: #141313;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.top_bar li div:hover {
+    color: rgb(0, 0, 0);
+    border: 2px solid #b1cf98;
+    background: linear-gradient(to bottom, #fffdfd, #c0dfb4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 17px;
+    transform: scale(1.05);
+}
+
 
 .bottom_bar {
     display: flex;    
     align-items: center;
-    border: 1px solid #0d0f0d;
+    
     width: 100%;
     z-index: 1000; 
 
 }
 .bottom_bar li{
-    border: 1px solid #0d0f0d;
-    margin-right: 1px;
+    margin: 0 0.5%;    
+
     min-width:10%;
     max-width:30%;
 }

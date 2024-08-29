@@ -4,6 +4,8 @@ import useGetUser from '../hooks/useGetUser';
 import useListing from '../hooks/useListing';
 import Slider from '../features/Slider';
 import '../styles/ListingDetail.css';
+import ProfilePicture from '../features/ProfilePicture';
+import { AccountCircleOutlined, Message, MessageOutlined, PortableWifiOffSharp } from '@mui/icons-material';
 
 const ListingDetail = () => {
     const { listingid } = useParams();
@@ -25,50 +27,61 @@ const ListingDetail = () => {
 
     return (
         <>
-            <div className='listing-header'>
-                <h1>{listing.title}</h1>
-            </div>
-
-            <div className="listing-container">
-                <div className="listing-photo-column">
-                    <div className='image-box'>
-                        <Slider images={listing.images} />
-                    </div>
+        <div className="listing-container">
+            <div className="listing-photo-column">
+                <div className='image-box'>
+                    <Slider images={listing.images} />
                 </div>
+            </div>
                     
-                <div className="listing-info-column">
-                    <div>
-                      <h3>About</h3>
-                      <p>{listing.description}</p>
-                      <p><span className='price'>${listing.price}</span></p>
-                    </div>
+            <div className="listing-info-column">
+                
+                <div className='listing-info-header'>
+                    <h2>{listing.title}</h2>
+                    <p>{listing.description}</p>
+                    <div className='header-bottom'>
+                        <div>
+                            <p className='price'>CAD ${listing.price}</p>
+                            <p>Listed {listing.created_at.split('T')[0]}</p>
+                        </div>
 
-                  <div className='listing-info-column-footer'>
-                    <p>Date Listed: {listing.created_at.split('T')[0]}</p>
-                    <p>Category: {listing.category}</p>
-                    <p>Condition: {listing.condition}</p>
+                        <div className='buy-panel'>
+                            <Link to={`/purchase/${listing.listing_id}`}><p>Buy Now</p></Link>
+                            <Link><p>Add to Cart</p></Link>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div className='listing-info-column-footer'>
                     {user && (
-                        <p>Seller: {user.first_name} {user.last_name}</p>
+                        <div className='seller-panel'>
+                        <div className='seller-details'>
+                            <ProfilePicture username={user.username}/>
+                            <div>
+                                <p>{user.first_name} {user.last_name}</p>
+                                <p>{listing.location}</p>
+                            </div>
+                        </div>
+                        <div className='seller-links'>
+                            <Link to={`/profile/${user.username}`}>
+                            <p className='link'>
+                                <AccountCircleOutlined/>
+                                View Profile
+                            </p>
+                            </Link>
+                            <Link to={`/direct-message/${user.user_id}`}>
+                            <p className='link'> 
+                                <MessageOutlined />
+                                Message {user.first_name}
+                            </p>
+                            </Link>
+                        </div>
+                        </div>  
                     )}
-                    
-                    <p>Location: {listing.location}</p>
-                    <p>Views: {0}</p>
-                  </div>
-                  {!isOwner && (
-                    <div className="listing-actions">
-                        <Link to={`/profile/${user ? user.username : ''}`}>
-                            <button>View Seller</button>
-                        </Link>
-                        
-                        <Link to={`/direct-message/${user ? user.user_id : ''}`}>
-                            <button>Message Seller</button>
-                        </Link>
-                        
-                    </div>
-            )}
-          
-                </div>
+                </div>          
             </div>
+        </div>
                 
         </>
     );

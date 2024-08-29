@@ -75,3 +75,8 @@
 .search-results li a:hover {
     color: #007BFF;
 }
+.search-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

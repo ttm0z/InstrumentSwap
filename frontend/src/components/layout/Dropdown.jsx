@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Dropdown.css'; 
 
 const Dropdown = ({ title, items }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    const [isOpen, setIsOpen] = useState(true);
+    console.log(items)
+    
 
     return (
         <div className="dropdown">
-            <button className="dropdown-button" onClick={toggleDropdown}>
+            <button className="dropdown-button">
                 {title}
             </button>
             {isOpen && (
@@ -18,7 +17,7 @@ const Dropdown = ({ title, items }) => {
                     <ul>
                         {items.map((item, index) => (
                             <li key={index}>
-                                <a href={item.link}>{item.name}</a>
+                                <Link to={`/categories/${item.link}`}><p>{item.category}</p></Link>
                             </li>
                         ))}
                     </ul>

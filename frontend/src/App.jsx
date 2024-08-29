@@ -16,6 +16,7 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import AuthProvider from './components/services/authContext';
 import './App.css';
+import UserCart from './components/pages/UserCart';
 
 function App() {
     return (
@@ -28,7 +29,7 @@ function App() {
                         
                         {/* Frontpage, dashboard */}
                         <Route path="/" element={<Homepage />} />
-                        <Route path="/frontpage_prototype" element={<Frontpage />} />
+                        <Route path="/frontpage" element={<Frontpage />} />
 
                         {/* Auth */}
                         <Route path="/login" element={<Login />} />
@@ -47,6 +48,9 @@ function App() {
                         
                         {/* DM --- !!!!!! */}
                         <Route path="/direct-message/:userid" element={<DirectMessageComponent />} />
+
+                        {/*Cart and Payment Gateway*/}
+                        <Route path="/cart/:userid" element={<UserCart />} />
                     </Routes>
                 </div>
             </div>
